@@ -342,6 +342,7 @@ class ComboboxFramework extends HTMLElement {
                 } else {
                     this.focusItem(this._list.children[0] as HTMLElement);
                 }
+                event.preventDefault(); // prevent scrolling
                 break;
             case "UpArrow":
                 // (Optional): If the popup is available, places focus on the last focusable element in the popup.
@@ -349,6 +350,7 @@ class ComboboxFramework extends HTMLElement {
                     this.toggleList(true);
                     this.focusItem(this._list.children[this._list.children.length - 1] as HTMLElement);
                 }
+                event.preventDefault(); // prevent scrolling
                 break;
             case "Escape":
                 // Dismisses the popup if it is visible. Optionally, if the popup is hidden before Escape is pressed, clears the combobox.
@@ -401,12 +403,14 @@ class ComboboxFramework extends HTMLElement {
                 const nextLi = li.nextElementSibling as HTMLElement;
                 if (nextLi) this.focusItem(nextLi);
                 else this.focusItem(this._list.children[0] as HTMLElement);
+                event.preventDefault(); // prevent scrolling
                 break;
             case "ArrowUp":
                 // If alt is pressed, close the list and focus the input
                 if (this._isAltModifierPressed) {
                     this._input.focus();
                     this.toggleList(false);
+                    event.preventDefault(); // prevent scrolling
                     break;
                 }
 
@@ -414,6 +418,7 @@ class ComboboxFramework extends HTMLElement {
                 const previousLi = li.previousElementSibling as HTMLElement;
                 if (previousLi) this.focusItem(previousLi);
                 else this.focusItem(this._list.children[this._list.children.length - 1] as HTMLElement);
+                event.preventDefault(); // prevent scrolling
                 break;
             case "ArrowRight":
                 // returns focus to the combobox without closing the popup
