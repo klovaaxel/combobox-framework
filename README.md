@@ -4,6 +4,8 @@ An adaptable framework to build accessible comboboxes.
 
 Built as a web component, it can be used in any framework or vanilla HTML/CSS/JS.
 
+[Installation](https://klovaaxel.github.io/combobox-framework/#installation) [Examples](https://klovaaxel.github.io/combobox-framework/#examples) [Styling](https://klovaaxel.github.io/combobox-framework/#styling) [GitHub](https://klovaaxel.github.io/combobox-framework/) [NPM]() [WebComponents]()
+
 ## Features
 
 -   🌟 Accessible! Built to follow the [WAI-ARIA combobox design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/). Built for keyboard navigation, screen readers, and other assistive technologies.
