@@ -1,10 +1,27 @@
 {
+    "version": "0.1.0",
     "name": "combobox-framework",
     "description": "A framework for building comboboxes",
-    "version": "0.1.0",
-    "main": "dist/index.js",
+    "keywords": [
+        "combobox",
+        "Web Component",
+        "ARIA",
+        "accessibility",
+        "autocomplete",
+        "Al11y",
+        "WCAG"
+    ],
+    "homepage": "https://github.com/klovaaxel/combobox-framework",
+    "bugs": {
+        "url": "https://github.com/klovaaxel/combobox-framework/issues",
+        "email": "klovakarlsson@gmail.com"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "author": "klovaaxel",
+    "browser": "dist/index.js",
     "types": "dist/index.d.ts",
     "type": "module",
+    "repository": "github:klovaaxel/combobox-framework",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build; bun run build.mjs",
