@@ -115,7 +115,6 @@ class ComboboxFramework extends HTMLElement {
         this._input!.setAttribute("aria-controls", this._list!.id);
         this._input!.setAttribute("aria-expanded", "false");
         this._input!.setAttribute("aria-autocomplete", "list"); // Maybe change this to both?
-        this._input!.setAttribute("type", "text");
         this._input!.setAttribute("autocomplete", "off");
         // #endregion
 
