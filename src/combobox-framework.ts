@@ -261,7 +261,20 @@ class ComboboxFramework extends HTMLElement {
 
         // #region Clear the list and add the new items
         this._list.innerHTML = "";
-        this._list.append(...newList);
+        this._list.append(...newList.map((item) => item.cloneNode(true) as HTMLElement));
+        // #endregion
+
+        // #region Highlight the search string in the list items text content
+        for (const item of this._list.children) {
+            item.childNodes.forEach((node) => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const text = node.textContent ?? "";
+                    const newNode = document.createElement("template");
+                    newNode.innerHTML = this.highlightText(text, this._input!.value);
+                    node.replaceWith(newNode.content);
+                }
+            });
+        }
         // #endregion
 
         // #region Add event listeners to the list item elements
@@ -271,6 +284,19 @@ class ComboboxFramework extends HTMLElement {
         // #region Show the list after the search is complete
         this.toggleList(true);
         // #endregion
+    }
+
+    /**
+     * Highlights the search string in the text
+     * @private
+     * @param {string} text The text to highlight
+     * @param {string} searchString The search string
+     * @memberof ComboboxFramework
+     * @returns {string}
+     */
+    private highlightText(text: string, searchString: string): string {
+        const regex = new RegExp(`[${searchString}]+`, "gmi");
+        return text.replace(regex, "<strong>$&</strong>");
     }
 
     /**
