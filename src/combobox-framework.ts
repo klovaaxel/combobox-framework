@@ -58,8 +58,6 @@ class ComboboxFramework extends HTMLElement {
      * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
      */
     public connectedCallback(): void {
-        const startDate = new Date().getTime(); // TODO: Remove this before launch
-
         // #region Create the shadow DOM
         const shadow = this.attachShadow({ mode: "open" });
         shadow.innerHTML = `
@@ -95,11 +93,6 @@ class ComboboxFramework extends HTMLElement {
 
         // #region Add event listeners
         this.addEventListeners();
-        // #endregion
-
-        // #region Log the time it took to load the component
-        // TODO: Remove this console.debug before launch
-        console.debug("Loaded ComboboxFramework in", new Date().getTime() - startDate, "ms");
         // #endregion
     }
 
@@ -278,7 +271,6 @@ class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     private selectItem(item: HTMLElement): void {
-        console.log(item.dataset.display, item.innerText, item.dataset.value);
         this._input!.value = item.dataset.display ?? item.innerText ?? item.dataset.value ?? "";
         if (item.dataset.value) this.dataset.value = item.dataset.value;
         this._input!.focus();
