@@ -1,0 +1,23 @@
+{
+    "name": "combobox-framework",
+    "description": "A framework for building comboboxes",
+    "version": "0.1.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build; bun run build.mjs",
+        "build-demo": "tsc && vite build",
+        "build-module": "bun run build.mjs",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "bun-plugin-dts": "^0.2.1",
+        "typescript": "^5.2.2",
+        "vite": "^5.0.8"
+    },
+    "dependencies": {
+        "fuse.js": "^7.0.0"
+    }
+}

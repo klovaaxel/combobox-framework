@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/src/style.css" />
+        <title>Vite + TS</title>
+    </head>
+    <body>
+        <script type="module" src="/src/combobox-framework.ts"></script>
+        <combobox-framework>
+            <input slot="input" />
+            <ul slot="list">
+                <!-- Items with a data-display will display data-display when selected-->
+                <li data-value="1" data-display="Item 1">Item 1</li>
+
+                <!-- Items with no data value will display inner text when selected-->
+                <li data-value="2">Item 2</li>
+
+                <!-- Items with a data value and no direct inner text will display data-value when selected-->
+                <li data-value="3">
+                    <div>Item 3</div>
+                </li>
+
+                <!-- Items with a data value and a data display will display data-display when selected-->
+                <li data-value="4" data-display="Item 4">
+                    <div>Item 4</div>
+                </li>
+            </ul>
+        </combobox-framework>
+    </body>
+</html>
