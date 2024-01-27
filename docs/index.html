@@ -4,8 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Combobox Framework</title>
-      <script type="module" crossorigin src="./assets/index-sg_qR66w.js"></script>
-      <link rel="stylesheet" crossorigin href="./assets/index-q_VS9sE4.css">
+      <script type="module" crossorigin src="./assets/index-3BM_P0hu.js"></script>
+      <link rel="stylesheet" crossorigin href="./assets/index-8N5mZr77.css">
     </head>
     <body>
 
@@ -242,6 +242,71 @@
             &lt;/tr&gt;
         &lt;/tbody&gt;
     &lt;/table&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>Preselected option</h3>
+
+                    <combobox-framework data-value="1">
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1">Item 1</li>
+                            <li data-value="2">Item 2</li>
+                            <li data-value="3">Item 3</li>
+                            <li data-value="4">Item 4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To preselect a option, you need to add the <code>data-value</code> attribute to the
+                        <code>combobox-framework</code> element. This will tell the combobox-framework to select the
+                        option with the matching <code>data-value</code> attribute.
+                    </p>
+                    <pre><code>&lt;combobox-framework data-value="1"&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
+        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
+        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
+        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>Custom Fuse/Fuzzy search options</h3>
+
+                    <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1">Item 1</li>
+                            <li data-value="2">Item 2</li>
+                            <li data-value="3">Item 3</li>
+                            <li data-value="4">Item 4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To use custom fuse/fuzzy search options, you need to add the
+                        <code>data-fuse-options</code> attribute to the <code>combobox-framework</code> element, and
+                        pass in a JSON string of the settings object. This will tell the combobox-framework to use the
+                        custom options when searching for a option.
+                    </p>
+
+                    <p>
+                        For what options are available, see the
+                        <a href="https://www.fusejs.io/api/options.html">Fuse.js documentation</a>
+                    </p>
+
+                    <pre><code>&lt;combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
+        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
+        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
+        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
+    &lt;/ul&gt;
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
             </section>
