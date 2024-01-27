@@ -271,7 +271,8 @@ class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     private selectItem(item: HTMLElement): void {
-        this._input!.value = item.dataset.display ?? item.innerText ?? item.dataset.value ?? "";
+        this._input!.value =
+            item.dataset.display ?? (!item.children.length ? item.innerText : item.dataset.value) ?? "";
         if (item.dataset.value) this.dataset.value = item.dataset.value;
         this._input!.focus();
         this.toggleList(false);
