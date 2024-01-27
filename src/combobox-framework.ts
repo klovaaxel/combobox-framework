@@ -98,6 +98,52 @@ class ComboboxFramework extends HTMLElement {
     }
 
     /**
+     * Called when the element is removed from a document. Removes event listeners.
+     * @returns {void}
+     * @memberof ComboboxFramework
+     * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
+     */
+    public disconnectedCallback(): void {
+        // #region Remove event listeners
+        this.removeEventListener("focusout", this.handleBlur.bind(this));
+        // #endregion
+
+        // #region Remove event listeners from the input element
+        if (!this._input) throw new Error("Input element not found");
+        this._input.removeEventListener("input", this.searchList.bind(this));
+        this._input.removeEventListener("focus", this.toggleList.bind(this, true));
+        // #endregion
+
+        // #region Remove event listeners from framework element
+        this._input.removeEventListener("keydown", this.handleComboBoxKeyPress.bind(this));
+        this._input.removeEventListener("keyup", this.handleKeyUp.bind(this));
+        // #endregion
+
+        // #region Remove event listeners from the list element
+        this.removeEventListenersFromListItems();
+        // #endregion
+    }
+
+    /**
+     * Removes event listeners from the list item elements
+     * @private
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private removeEventListenersFromListItems(): void {
+        // #region Remove event listeners from the list item elements
+        if (!this._list) throw new Error("List element not found");
+        const children = this._list.children;
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i] as HTMLElement;
+            child.removeEventListener("keydown", this.handleListKeyPress.bind(this));
+            child.removeEventListener("keyup", this.handleKeyUp.bind(this));
+            child.removeEventListener("click", this.selectItem.bind(this, child));
+        }
+        // #endregion
+    }
+
+    /**
      * Set basic attributes for the input and list elements.
      * Mutates the input and list elements that are stored in `_input` and `_list`
      * @private
