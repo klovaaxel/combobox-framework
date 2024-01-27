@@ -10,7 +10,7 @@ class ComboboxFramework extends HTMLElement {
     private _fuse: Fuse<Element> | null = null;
     private _fuseOptions = {
         includeScore: true,
-        keys: ["dataset.display", "dataset.value"],
+        keys: ["dataset.display", "dataset.value", "innerText"],
     };
     // #endregion
 
