@@ -68,7 +68,8 @@ class ComboboxFramework extends HTMLElement {
 
         // #region Fetch the input and list elements
         this._input = this.querySelector('[slot="input"]') as HTMLInputElement;
-        this._list = this.querySelector('[slot="list"]') as HTMLElement;
+        this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
+        if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
         // #endregion
 
         // #region If the input element is not found, throw an error
