@@ -301,16 +301,22 @@ class ComboboxFramework extends HTMLElement {
         this._list!.append(...newList.map((item) => item.cloneNode(true) as HTMLElement));
         // #endregion
 
-        // #region Highlight the search string in the list items text content
-        for (const item of this._list!.children) {
-            item.childNodes.forEach((node) => {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    const text = node.textContent ?? "";
-                    const newNode = document.createElement("template");
-                    newNode.innerHTML = this.highlightText(text, this._input!.value);
-                    node.replaceWith(newNode.content);
+        // #region Highlight the search string in the list items (or nested childrens) text content
+        const highlightTextContent = (node: Element) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent ?? "";
+                const newNode = document.createElement("template");
+                newNode.innerHTML = this.highlightText(text, this._input!.value);
+                node.replaceWith(newNode.content);
+            } else {
+                for (const childNode of node.childNodes) {
+                    highlightTextContent(childNode as Element);
                 }
-            });
+            }
+        };
+
+        for (const item of this._list!.children) {
+            highlightTextContent(item);
         }
         // #endregion
 
