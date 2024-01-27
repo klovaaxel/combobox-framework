@@ -1,0 +1,1 @@
+ul{position:absolute;top:anchor(bottom);left:anchor(left);right:anchor(right);list-style:none;margin:0;padding:0;background-color:#fff;border:1px solid black;border-radius:0 0 .2rem .2rem}li{padding:.2rem;cursor:pointer}li:hover{background-color:#eee}input[aria-expanded=false]+ul{display:none}

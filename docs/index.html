@@ -2,32 +2,283 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Vite + TS</title>
-      <script type="module" crossorigin src="./assets/index-dc7DK1n4.js"></script>
-      <link rel="stylesheet" crossorigin href="./assets/index-oWMj14FY.css">
+        <title>Combobox Framework</title>
+      <script type="module" crossorigin src="./assets/index-sg_qR66w.js"></script>
+      <link rel="stylesheet" crossorigin href="./assets/index-q_VS9sE4.css">
     </head>
     <body>
-        <combobox-framework>
-            <input slot="input" />
-            <ul slot="list">
-                <!-- Items with a data-display will display data-display when selected-->
-                <li data-value="1" data-display="Item 1">Item 1</li>
 
-                <!-- Items with no data value will display inner text when selected-->
-                <li data-value="2">Item 2</li>
+        <article>
+            <header>
+                <h1>Combobox framework documentation</h1>
 
-                <!-- Items with a data value and no direct inner text will display data-value when selected-->
-                <li data-value="3">
-                    <div>Item 3</div>
-                </li>
+                <nav>
+                    <a href="#installation">Installation</a>
+                    <a href="#examples">Examples</a>
+                    <a href="#styling">Styling</a>
 
-                <!-- Items with a data value and a data display will display data-display when selected-->
-                <li data-value="4" data-display="Item 4">
-                    <div>Item 4</div>
-                </li>
-            </ul>
-        </combobox-framework>
+                    <a href="https://github.com/klovaaxel/combobox-framework">GitHub</a>
+                    <a href="#">NPM</a>
+                    <a href="#">WebComponents</a>
+                </nav>
+
+                <p>
+                    An adaptable framework for building accessible comboboxes. Built as a web component, it can be used
+                    in any framework or vanilla HTML/CSS/JS.
+                </p>
+
+                <section class="features">
+                    <h2>Key features</h2>
+
+                    <ul>
+                        <li class="accessible">
+                            Accessible! Built to follow the WAI-ARIA combobox design pattern. Built for keyboard
+                            navigation, screen readers, and other assistive technologies.
+                        </li>
+                        <li class="styling">
+                            Easy to style! Bind your own elements to the framework slots, and style them however you
+                            want. Easy to integrate into any design system.
+                        </li>
+                    </ul>
+                </section>
+
+                <p>What follows are examples of how to use/implement the combobox-framework component</p>
+            </header>
+
+            <section>
+                <h2 id="installation">Installation</h2>
+
+                <section>
+                    <h3>Link in from CDN</h3>
+                    <pre><code>&lt;script type="module" src=""&gt;&lt;/script&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>Install from npm</h3>
+                    <p>Install the combobox-framework from npm</p>
+                    <pre><code>npm install combobox-framework</code></pre>
+
+                    <p>Import the combobox-framework into your project</p>
+                    <pre><code>import 'combobox-framework';</code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2 id="examples">Examples</h2>
+
+                <section>
+                    <h3>Simple list</h3>
+
+                    <combobox-framework>
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1">Item 1</li>
+                            <li data-value="2">Item 2</li>
+                            <li data-value="3">Item 3</li>
+                            <li data-value="4">Item 4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To use the combobox-framework, you need to add a <code>input</code> element and a list of items.
+                        The <code>input</code> element needs to be placed in a <code>slot="input"</code> attribute and
+                        the list of items needs to be placed in a <code>slot="list"</code> attribute.
+                    </p>
+
+                    <p>
+                        The <code>li</code> elements needs to have a <code>data-value</code> attribute. This is the
+                        value that will be set on the <code>combobox-framework</code> element as the
+                        <code>data-value</code> when a option is selected.
+                    </p>
+
+                    <pre><code>&lt;combobox-framework&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
+        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
+        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
+        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>Simple list with custom display data</h3>
+
+                    <combobox-framework>
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1" data-display="Item 1">1</li>
+                            <li data-value="2" data-display="Item 2">2</li>
+                            <li data-value="3" data-display="Item 3">3</li>
+                            <li data-value="4" data-display="Item 4">4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To show diffrent data in the input than in the list, you need to add the
+                        <code>data-display</code> attribute to the <code>li</code> element. This is the value that will
+                        be shown in the input when a option is selected.
+                    </p>
+
+                    <pre><code>&lt;combobox-framework&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1" data-display="Item 1"&gt;1&lt;/li&gt;
+        &lt;li data-value="2" data-display="Item 2"&gt;2&lt;/li&gt;
+        &lt;li data-value="3" data-display="Item 3"&gt;3&lt;/li&gt;
+        &lt;li data-value="4" data-display="Item 4"&gt;4&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>List with nested elements</h3>
+
+                    <combobox-framework>
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1" data-display="Item 1">
+                                <div>Item 1</div>
+                            </li>
+                            <li data-value="2" data-display="Item 2">
+                                <div>Item 2</div>
+                            </li>
+                            <li data-value="3" data-display="Item 3">
+                                <div>Item 3</div>
+                            </li>
+                            <li data-value="4" data-display="Item 4">
+                                <div>Item 4</div>
+                            </li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To use nested elements, you need to add the <code>data-display</code> attribute to the
+                        <code>li</code> element. This is the value that will be shown in the input when a option is
+                        selected.
+                    </p>
+
+                    <pre><code>&lt;combobox-framework&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1" data-display="Item 1"&gt;
+            &lt;div&gt;Item 1&lt;/div&gt;
+        &lt;/li&gt; 
+        &lt;li data-value="2" data-display="Item 2"&gt; 
+            &lt;div&gt;Item 2&lt;/div&gt;
+        &lt;/li&gt; 
+        &lt;li data-value="3" data-display="Item 3"&gt; 
+            &lt;div&gt;Item 3&lt;/div&gt;
+        &lt;/li&gt; 
+        &lt;li data-value="4" data-display="Item 4"&gt; 
+            &lt;div&gt;Item 4&lt;/div&gt;
+        &lt;/li&gt; 
+    &lt;/ul&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+
+                <section>
+                    <h3>Tabular data</h3>
+
+                    <combobox-framework>
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <table slot="list">
+                            <thead>
+                                <th>Name</th>
+                                <th>Number</th>
+                            </thead>
+                            <tbody data-list>
+                                <tr data-value="1" data-display="Item 1">
+                                    <td>Item</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr data-value="2" data-display="Item 2">
+                                    <td>Item</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr data-value="3" data-display="Item 3">
+                                    <td>Item</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr data-value="4" data-display="Item 4">
+                                    <td>Item</td>
+                                    <td>4</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </combobox-framework>
+
+                    <p>
+                        To use tabular data, you need to add the <code>data-list</code> attribute to the
+                        <code>tbody</code> element. This will tell the combobox-framework to use the
+                        <code>tbody</code> element as the list of items and not the table itself.
+                    </p>
+
+                    <pre><code>&lt;combobox-framework&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;table slot="list"&gt;
+        &lt;thead&gt;   
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Number&lt;/th&gt; 
+        &lt;/thead&gt;
+        &lt;tbody data-list&gt;
+            &lt;tr data-value="1" data-display="Item 1"&gt;
+                &lt;td&gt;Item&lt;/td&gt;
+                &lt;td&gt;1&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr data-value="2" data-display="Item 2"&gt;
+                &lt;td&gt;Item&lt;/td&gt;
+                &lt;td&gt;2&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr data-value="3" data-display="Item 3"&gt;
+                &lt;td&gt;Item&lt;/td&gt;
+                &lt;td&gt;3&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr data-value="4" data-display="Item 4"&gt;
+                &lt;td&gt;Item&lt;/td&gt;
+                &lt;td&gt;4&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/combobox-framework&gt;</code></pre>
+                </section>
+            </section>
+
+            <section>
+                <h2 id="styling">Styling</h2>
+
+                <p>This is the styling thats being used on this demo page. Hopefully it gives a good starting point</p>
+
+                <pre><code>combobox-framework [slot="list"] {
+    color: var(--background-color);
+    background-color: var(--text-color);
+    position: absolute;
+    top: anchor(bottom);
+    left: anchor(left);
+    right: anchor(right);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid black;
+    border-radius: 0 0 0.2rem 0.2rem;
+}
+
+combobox-framework [slot="list"] > * {
+    padding: 0.2rem;
+    cursor: pointer;
+}
+
+combobox-framework [slot="list"] li:hover,
+combobox-framework [slot="list"] tr:hover td {
+    background-color: var(--primary-color);
+}
+
+combobox-framework input[aria-expanded="false"] + [slot="list"] {
+    display: none;
+}</code></pre>
+            </section>
+        </article>
     </body>
 </html>
