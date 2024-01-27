@@ -358,8 +358,10 @@ class ComboboxFramework extends HTMLElement {
                 this._input.focus();
                 break;
             case "Enter":
-                // TODO: Implement this
                 // Autocompletes the combobox with the first suggestion
+                if (this._input.getAttribute("aria-expanded") === "true") {
+                    this.selectItem(this._list.children[0] as HTMLElement);
+                }
                 break;
             case "Alt":
                 this._isAltModifierPressed = true;
