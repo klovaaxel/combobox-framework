@@ -563,6 +563,10 @@ class ComboboxFramework extends HTMLElement {
             case "Alt":
                 this._isAltModifierPressed = true;
                 break;
+            default:
+                // If the key is not handled, return focus to the input
+                this._input!.focus();
+                break;
         }
         // #endregion
     }
