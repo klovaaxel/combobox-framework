@@ -84,12 +84,12 @@ code {
     font-family: "Source Code Pro", monospace;
 }
 
-ul {
+:not(combobox-framework) > ul {
     list-style: none;
     padding-inline-start: 1.5rem;
 }
 
-ul li {
+:not(combobox-framework) > ul li {
     margin-block: 1rem;
 }
 
