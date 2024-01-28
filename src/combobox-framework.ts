@@ -387,8 +387,19 @@ class ComboboxFramework extends HTMLElement {
      */
     private selectItem(item: HTMLElement, grabFocus = true): void {
         if (!this._input) this.fetchInput();
-        this._input!.value =
-            item.dataset.display ?? (!item.children.length ? item.innerText : item.dataset.value) ?? "";
+
+        // #region Set the value of the input element
+        // If the item has a data-display attribute, use that as the value
+        if (item.dataset.display) this._input!.value = item.dataset.display;
+        // Else If the element does not have any children or only has strong children, use the innerText as the value
+        else if (item.children.length || Array.from(item.children).every((c) => c.nodeName == "STRONG"))
+            this._input!.value = item.innerText;
+        // Else If the element has a data-value attribute, use that as the value
+        else if (item.dataset.value) this._input!.value = item.dataset.value;
+        // Else fallback to a empty string
+        else this._input!.value = "";
+        // #endregion
+
         if (item.dataset.value) this.dataset.value = item.dataset.value;
         if (grabFocus) this._input!.focus();
         this.toggleList(false);
