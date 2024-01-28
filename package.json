@@ -18,8 +18,8 @@
     },
     "license": "SEE LICENSE IN LICENSE",
     "author": "klovaaxel",
-    "browser": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "browser": "dist/combobox-framework.js",
+    "types": "dist/combobox-framework.d.ts",
     "type": "module",
     "repository": {
         "type": "git",
