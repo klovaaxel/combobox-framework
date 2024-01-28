@@ -355,9 +355,9 @@ class ComboboxFramework extends HTMLElement {
     }
 
     /**
-     * Selects an item in the list
+     * Focuses an item in the list
      * @private
-     * @param {HTMLElement} item The item to select
+     * @param {HTMLElement} item The list item to focus
      * @memberof ComboboxFramework
      * @returns {void}
      */
