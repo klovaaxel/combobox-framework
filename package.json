@@ -21,7 +21,10 @@
     "browser": "dist/index.js",
     "types": "dist/index.d.ts",
     "type": "module",
-    "repository": "github:klovaaxel/combobox-framework",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/klovaaxel/combobox-framework.git"
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build; bun run build.mjs",
