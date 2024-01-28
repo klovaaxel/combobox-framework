@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
 
-class ComboboxFramework extends HTMLElement {
+export default class ComboboxFramework extends HTMLElement {
     private _input: HTMLInputElement | null = null;
     private _list: HTMLElement | null = null;
     private _originalList: HTMLElement | null = null;
