@@ -318,6 +318,36 @@
     &lt;/ul&gt;
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
+
+                <section>
+                    <h3>Force value/Listbox</h3>
+
+                    <combobox-framework data-listbox="true">
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1">Item 1</li>
+                            <li data-value="2">Item 2</li>
+                            <li data-value="3">Item 3</li>
+                            <li data-value="4">Item 4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To force the combobox-framework to act as a searchable listbox, you need to add the
+                        <code>data-listbox</code> attribute to the <code>combobox-framework</code> element. This will
+                        tell the combobox-framework to act as a searchable listbox instead of a combobox. And only allow
+                        the <code>value</code> to be one of the options in the list or <code>null</code>.
+                    </p>
+                    <pre><code>&lt;combobox-framework data-listbox="true"&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
+        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
+        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
+        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/combobox-framework></code></pre>
+                </section>
             </section>
 
             <section>

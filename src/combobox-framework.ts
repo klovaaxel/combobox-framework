@@ -5,6 +5,7 @@ export default class ComboboxFramework extends HTMLElement {
     private _list: HTMLElement | null = null;
     private _originalList: HTMLElement | null = null;
     private _isAltModifierPressed = false;
+    private _forceValue = false;
 
     // #region Fuzzy search Fuse.js
     private _fuse: Fuse<Element> | null = null;
@@ -26,7 +27,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
      */
     static get observedAttributes(): string[] {
-        return ["data-value", "data-fuse-options"];
+        return ["data-value", "data-fuse-options", "data-listbox"];
     }
 
     /**
@@ -56,6 +57,8 @@ export default class ComboboxFramework extends HTMLElement {
                 );
                 this.searchList();
                 break;
+            case "data-listbox":
+                this._forceValue = !!newValue;
         }
         // #endregion
     }
@@ -97,6 +100,10 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Add event listeners
         this.addEventListeners();
+        // #endregion
+
+        // #region If forceValue is true, select the first item in the list
+        this.forceValue();
         // #endregion
     }
 
@@ -442,8 +449,23 @@ export default class ComboboxFramework extends HTMLElement {
         // Set a timeout to force the focus event on the list item to fire before the foucsout event on the input element
         setTimeout(() => {
             if (this.querySelector(":focus")) return;
+
+            // #region If forceValue is true, select the first item in the list
+            this.forceValue();
+            // #endregion
+
             this.toggleList(false);
         }, 0);
+    }
+
+    /**
+     * Forces the value of the input element to the first item in the list if the input element is not empty
+     * @private
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private forceValue(): void {
+        if (this._forceValue && !!this._input?.value) this.selectItem(this._list!.children[0] as HTMLElement, false);
     }
 
     /**
