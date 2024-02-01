@@ -82,7 +82,8 @@ combobox-framework [slot="list"] tr:hover td {
     background-color: azure;
 }
 
-combobox-framework input[aria-expanded="false"] + [slot="list"] {
+combobox-framework input[aria-expanded="false"] + [slot="list"],
+combobox-framework input:not([aria-expanded]) + [slot="list"] {
     display: none;
 }
 ```
