@@ -120,7 +120,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Remove event listeners from the input element
         if (!this._input) this.fetchList();
-        this._input!.removeEventListener("input", this.searchList.bind(this));
+        this._input!.removeEventListener("input", this.searchList.bind(this, true));
         this._input!.removeEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
@@ -239,7 +239,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Add event listeners to the input element
         if (!this._input) this.fetchInput();
-        this._input!.addEventListener("input", this.searchList.bind(this));
+        this._input!.addEventListener("input", this.searchList.bind(this, true));
         this._input!.addEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
@@ -278,7 +278,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private searchList(): void {
+    private searchList(openList: boolean = true): void {
         // #region Check if required variables are set
         if (!this._fuse) throw new Error("Fuse object not found");
         if (!this._list) this.fetchList();
@@ -332,7 +332,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Show the list after the search is complete
-        this.toggleList(true);
+        this.toggleList(openList);
         // #endregion
     }
 
@@ -445,10 +445,16 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private clearInput(): void {
+    private clearInput(grabFocus: boolean = true): void {
+        // #region Check if required variables are set
+        if (!this._input) this.fetchInput();
+        // #endregion
+
+        // #region Clear the input element
         this._input!.value = "";
-        this._input!.focus();
+        if (grabFocus) this._input!.focus();
         this.toggleList(false);
+        // #endregion
     }
 
     /**
@@ -477,7 +483,22 @@ export default class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     private forceValue(): void {
-        if (this._forceValue && !!this._input?.value) this.selectItem(this._list!.children[0] as HTMLElement, false);
+        // #region Check if required variables are set
+        if (!this._input) this.fetchInput();
+        if (!this._list) this.fetchList();
+        // #endregion
+
+        // #region If forceValue is true, select the first item (best match) in the list or empty the input and value
+        if (this._forceValue && !!this._input?.value) {
+            const bestMatch = this._list!.children[0] as HTMLElement;
+            if (bestMatch) this.selectItem(bestMatch, false);
+            else {
+                this.clearInput(false); // Clear the input
+                this.dataset.value = ""; // Clear the value
+                this.sendChangeEvent(); // Send a change event
+            }
+        }
+        // #endregion
     }
 
     /**
