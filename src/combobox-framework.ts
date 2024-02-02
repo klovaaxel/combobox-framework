@@ -6,6 +6,7 @@ export default class ComboboxFramework extends HTMLElement {
     private _originalList: HTMLElement | null = null;
     private _isAltModifierPressed = false;
     private _forceValue = false;
+    private _lastValue: string | undefined = undefined;
 
     // #region Fuzzy search Fuse.js
     private _fuse: Fuse<Element> | null = null;
@@ -120,7 +121,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Remove event listeners from the input element
         if (!this._input) this.fetchList();
-        this._input!.removeEventListener("input", this.searchList.bind(this, true));
+        this._input!.removeEventListener("input", this.searchList.bind(this, true, true));
         this._input!.removeEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
@@ -239,7 +240,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Add event listeners to the input element
         if (!this._input) this.fetchInput();
-        this._input!.addEventListener("input", this.searchList.bind(this, true));
+        this._input!.addEventListener("input", this.searchList.bind(this, true, true));
         this._input!.addEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
@@ -278,7 +279,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private searchList(openList: boolean = true): void {
+    private searchList(openList: boolean = true, clearValue: boolean = true): void {
         // #region Check if required variables are set
         if (!this._fuse) throw new Error("Fuse object not found");
         if (!this._list) this.fetchList();
@@ -286,8 +287,10 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Clear the selected item
-        this.dataset.value = "";
-        this.sendChangeEvent();
+        if (clearValue) {
+            this.dataset.value = "";
+            this.sendChangeEvent();
+        }
         // #endregion
 
         // #region If the input is empty, show the original list and return
@@ -412,10 +415,10 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         if (item.dataset.value) this.dataset.value = item.dataset.value;
-        this.sendChangeEvent();
         if (grabFocus) this._input!.focus();
         this.toggleList(false);
-        this.searchList(false);
+        this.searchList(false, false);
+        this.sendChangeEvent();
     }
 
     /**
@@ -425,8 +428,10 @@ export default class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     private sendChangeEvent(): void {
+        if (this.dataset.value === this._lastValue) return;
         const event = new Event("change");
         this.dispatchEvent(event);
+        this._lastValue = this.dataset.value;
     }
 
     /**
