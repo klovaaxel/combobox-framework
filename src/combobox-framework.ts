@@ -411,6 +411,7 @@ export default class ComboboxFramework extends HTMLElement {
         this.sendChangeEvent();
         if (grabFocus) this._input!.focus();
         this.toggleList(false);
+        this.searchList(false);
     }
 
     /**
