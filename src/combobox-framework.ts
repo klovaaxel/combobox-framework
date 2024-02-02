@@ -287,7 +287,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Clear the selected item
         this.dataset.value = "";
-        this.removeAttribute("data-value");
+        this.sendChangeEvent();
         // #endregion
 
         // #region If the input is empty, show the original list and return
@@ -408,8 +408,20 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         if (item.dataset.value) this.dataset.value = item.dataset.value;
+        this.sendChangeEvent();
         if (grabFocus) this._input!.focus();
         this.toggleList(false);
+    }
+
+    /**
+     * Sends a change event
+     * @private
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private sendChangeEvent(): void {
+        const event = new Event("change");
+        this.dispatchEvent(event);
     }
 
     /**
