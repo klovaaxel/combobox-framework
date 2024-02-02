@@ -315,7 +315,6 @@ export default class ComboboxFramework extends HTMLElement {
                 node.textContent?.trim() != "" &&
                 node.textContent?.trim() != "\n"
             ) {
-                console.log(node);
                 const text = node.textContent ?? "";
                 const newNode = document.createElement("template");
                 newNode.innerHTML = this.highlightText(text, this._input!.value);
