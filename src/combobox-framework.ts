@@ -498,8 +498,8 @@ export default class ComboboxFramework extends HTMLElement {
         if (!this._list) this.fetchList();
         // #endregion
 
-        // #region If forceValue is true, select the first item (best match) in the list or empty the input and value
-        if (this._forceValue && !!this._input?.value) {
+        // #region If forceValue is true and we don't have a value selected, select the first item (best match) in the list or empty the input and value
+        if (this._forceValue && !!this._input?.value && !this.dataset.value) {
             const bestMatch = this._list!.children[0] as HTMLElement;
             if (bestMatch) this.selectItem(bestMatch, false);
             else {
