@@ -310,7 +310,12 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Highlight the search string in the list items (or nested childrens) text content
         const highlightTextContent = (node: Element) => {
-            if (node.nodeType === Node.TEXT_NODE) {
+            if (
+                node.nodeType === Node.TEXT_NODE &&
+                node.textContent?.trim() != "" &&
+                node.textContent?.trim() != "\n"
+            ) {
+                console.log(node);
                 const text = node.textContent ?? "";
                 const newNode = document.createElement("template");
                 newNode.innerHTML = this.highlightText(text, this._input!.value);
