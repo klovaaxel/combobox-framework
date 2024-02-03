@@ -27,12 +27,14 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build; bun run build.mjs",
+        "build": "bun lint; tsc && vite build; bun run build.mjs; echo \"Done! Don't forget to update the version number in package.json\"",
         "build-demo": "tsc && vite build",
         "build-module": "bun run build.mjs",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "lint": "bunx @biomejs/biome check --apply *.json; bunx @biomejs/biome check --apply src/"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.5.3",
         "bun-plugin-dts": "^0.2.1",
         "typescript": "^5.2.2",
         "vite": "^5.0.8"
