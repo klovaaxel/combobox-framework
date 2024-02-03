@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Combobox Framework</title>
-      <script type="module" crossorigin src="./assets/index-DHccSwkQ.js"></script>
+      <script type="module" crossorigin src="./assets/index-O9JlIYqK.js"></script>
       <link rel="stylesheet" crossorigin href="./assets/index-ZOCpBSN9.css">
     </head>
     <body>
@@ -74,9 +74,11 @@
                     <a href="#tabular-data">Tabular data</a>
                     <a href="#preselected-option">Preselected option</a>
                     <a href="#custom-fusefuzzy-search-options">Custom Fuse/Fuzzy search options</a>
+                    <a href="#force-valuelistbox">Force value/Listbox</a>
+                    <a href="#limit-suggested-options">Limit suggested options</a>
                 </nav>
 
-                <section>
+                <section id="simple-list">
                     <h3>Simple list</h3>
 
                     <combobox-framework>
@@ -112,7 +114,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="simple-list-with-custom-display-data">
                     <h3>Simple list with custom display data</h3>
 
                     <combobox-framework>
@@ -142,7 +144,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="list-with-nested-elements">
                     <h3>List with nested elements</h3>
 
                     <combobox-framework>
@@ -188,7 +190,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="tabular-data">
                     <h3>Tabular data</h3>
 
                     <combobox-framework>
@@ -254,7 +256,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="preselected-option">
                     <h3>Preselected option</h3>
 
                     <combobox-framework data-value="1">
@@ -283,7 +285,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="custom-fusefuzzy-search-options">
                     <h3>Custom Fuse/Fuzzy search options</h3>
 
                     <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
@@ -319,7 +321,7 @@
 &lt;/combobox-framework&gt;</code></pre>
                 </section>
 
-                <section>
+                <section id="force-valuelistbox">
                     <h3>Force value/Listbox</h3>
 
                     <combobox-framework data-listbox="true">
@@ -349,7 +351,7 @@
 &lt;/combobox-framework></code></pre>
                 </section>
 
-                <section>
+                <section id="limit-suggested-options">
                     <h3>Limit suggested options</h3>
 
                     <combobox-framework data-limit="2">
