@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Combobox Framework</title>
-      <script type="module" crossorigin src="./assets/index-E2K1A0fR.js"></script>
+      <script type="module" crossorigin src="./assets/index-DHccSwkQ.js"></script>
       <link rel="stylesheet" crossorigin href="./assets/index-ZOCpBSN9.css">
     </head>
     <body>
@@ -339,6 +339,36 @@
                         the <code>value</code> to be one of the options in the list or <code>null</code>.
                     </p>
                     <pre><code>&lt;combobox-framework data-listbox="true"&gt;
+    &lt;input type="text" slot="input" /&gt;
+    &lt;ul slot="list"&gt;
+        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
+        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
+        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
+        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/combobox-framework></code></pre>
+                </section>
+
+                <section>
+                    <h3>Limit suggested options</h3>
+
+                    <combobox-framework data-limit="2">
+                        <input placeholder="Click me" type="text" slot="input" />
+                        <ul slot="list">
+                            <li data-value="1">Item 1</li>
+                            <li data-value="2">Item 2</li>
+                            <li data-value="3">Item 3</li>
+                            <li data-value="4">Item 4</li>
+                        </ul>
+                    </combobox-framework>
+
+                    <p>
+                        To limit the number of suggested options, you need to add the <code>data-limit</code> attribute
+                        to the <code>combobox-framework</code> element. This will tell the combobox-framework to only
+                        show the number of options specified in the <code>data-limit</code> attribute.
+                    </p>
+
+                    <pre><code>&lt;combobox-framework data-limit="2"&gt;
     &lt;input type="text" slot="input" /&gt;
     &lt;ul slot="list"&gt;
         &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
