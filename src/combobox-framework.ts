@@ -7,11 +7,11 @@ export default class ComboboxFramework extends HTMLElement {
     private _isAltModifierPressed = false;
     private _forceValue = false;
     private _lastValue: string | undefined = undefined;
+    private _limit: number = Infinity;
 
     // #region Fuzzy search Fuse.js
     private _fuse: Fuse<Element> | null = null;
     private _fuseOptions = {
-        includeScore: true,
         keys: ["dataset.display", "dataset.value", "innerText"],
     };
     // #endregion
@@ -28,7 +28,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
      */
     static get observedAttributes(): string[] {
-        return ["data-value", "data-fuse-options", "data-listbox"];
+        return ["data-value", "data-fuse-options", "data-listbox", "data-limit"];
     }
 
     /**
@@ -60,6 +60,10 @@ export default class ComboboxFramework extends HTMLElement {
                 break;
             case "data-listbox":
                 this._forceValue = !!newValue;
+                break;
+            case "data-limit":
+                this._limit = parseInt(newValue);
+                break;
         }
         // #endregion
     }
@@ -96,6 +100,9 @@ export default class ComboboxFramework extends HTMLElement {
             Array.from((this._originalList!.cloneNode(true) as HTMLElement).children),
             this._fuseOptions
         );
+        // #endregion
+
+        // #region Do initial search the list
         this.searchList();
         // #endregion
 
@@ -296,7 +303,9 @@ export default class ComboboxFramework extends HTMLElement {
         // #region If the input is empty, show the original list and return
         if (this._input!.value == "") {
             this._list!.innerHTML = "";
-            this._list!.append(...(this._originalList!.cloneNode(true) as HTMLElement).children);
+            this._list!.append(
+                ...Array.from((this._originalList!.cloneNode(true) as HTMLElement).children).slice(0, this._limit)
+            );
             this.addEventListenersToListItems();
             return;
         }
@@ -308,7 +317,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Clear the list and add the new items
         this._list!.innerHTML = "";
-        this._list!.append(...newList.map((item) => item.cloneNode(true) as HTMLElement));
+        this._list!.append(...newList.map((item) => item.cloneNode(true) as HTMLElement).slice(0, this._limit));
         // #endregion
 
         // #region Highlight the search string in the list items (or nested childrens) text content
