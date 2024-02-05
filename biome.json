@@ -8,7 +8,7 @@
         "formatWithErrors": true,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 80,
+        "lineWidth": 100,
         "ignore": ["**/node_modules/**", "**/dist/**"]
     },
     "linter": {
