@@ -174,25 +174,6 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     /**
-     * Removes event listeners from the list item elements
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private removeEventListenersFromListItems(): void {
-        // #region Remove event listeners from the list item elements
-        if (!this._list) this.fetchList();
-        const children = this._list!.children;
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i] as HTMLElement;
-            child.removeEventListener("keydown", this.handleListKeyPress.bind(this));
-            child.removeEventListener("keyup", this.handleKeyUp.bind(this));
-            child.removeEventListener("click", this.selectItem.bind(this, child, true));
-        }
-        // #endregion
-    }
-
-    /**
      * Set basic attributes for the input and list elements.
      * Mutates the input and list elements that are stored in `_input` and `_list`
      * @private
@@ -275,6 +256,25 @@ export default class ComboboxFramework extends HTMLElement {
             child.addEventListener("keydown", this.handleListKeyPress.bind(this));
             child.addEventListener("keyup", this.handleKeyUp.bind(this));
             child.addEventListener("click", this.selectItem.bind(this, child, true));
+        }
+        // #endregion
+    }
+
+    /**
+     * Removes event listeners from the list item elements
+     * @private
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private removeEventListenersFromListItems(): void {
+        // #region Remove event listeners from the list item elements
+        if (!this._list) this.fetchList();
+        const children = this._list!.children;
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i] as HTMLElement;
+            child.removeEventListener("keydown", this.handleListKeyPress.bind(this));
+            child.removeEventListener("keyup", this.handleKeyUp.bind(this));
+            child.removeEventListener("click", this.selectItem.bind(this, child, true));
         }
         // #endregion
     }
@@ -466,26 +466,13 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     /**
-     * Sends a change event
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private sendChangeEvent(): void {
-        if (this.dataset.value === this._lastValue) return;
-        const event = new Event("change");
-        this.dispatchEvent(event);
-        this._lastValue = this.dataset.value;
-    }
-
-    /**
      * Selects an item in the list by its value
      * @private
      * @param {string} value The value of the item to select
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    selectItemByValue(value: string | null, grabFocus = true): void {
+    private selectItemByValue(value: string | null, grabFocus = true): void {
         if (!value) return;
         if (!this._list) this.fetchList();
         const item = this._list!.querySelector(`[data-value="${value}"]`) as HTMLElement;
@@ -512,25 +499,6 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     /**
-     * Toggles the expanded state of the combobox if the focus is lost
-     * @param event {FocusEvent} The blur event
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private handleBlur(): void {
-        // Set a timeout to force the focus event on the list item to fire before the foucsout event on the input element
-        setTimeout(() => {
-            if (this.querySelector(":focus")) return;
-
-            // #region If forceValue is true, select the first item in the list
-            this.forceValue();
-            // #endregion
-
-            this.toggleList(false);
-        }, 0);
-    }
-
-    /**
      * Forces the value of the input element to the first item in the list if the input element is not empty
      * @private
      * @memberof ComboboxFramework
@@ -553,6 +521,25 @@ export default class ComboboxFramework extends HTMLElement {
             }
         }
         // #endregion
+    }
+
+    /**
+     * Toggles the expanded state of the combobox if the focus is lost
+     * @param event {FocusEvent} The blur event
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private handleBlur(): void {
+        // Set a timeout to force the focus event on the list item to fire before the foucsout event on the input element
+        setTimeout(() => {
+            if (this.querySelector(":focus")) return;
+
+            // #region If forceValue is true, select the first item in the list
+            this.forceValue();
+            // #endregion
+
+            this.toggleList(false);
+        }, 0);
     }
 
     /**
@@ -713,6 +700,19 @@ export default class ComboboxFramework extends HTMLElement {
                 break;
         }
         // #endregion
+    }
+
+    /**
+     * Sends a change event
+     * @private
+     * @memberof ComboboxFramework
+     * @returns {void}
+     */
+    private sendChangeEvent(): void {
+        if (this.dataset.value === this._lastValue) return;
+        const event = new Event("change");
+        this.dispatchEvent(event);
+        this._lastValue = this.dataset.value;
     }
 }
 
