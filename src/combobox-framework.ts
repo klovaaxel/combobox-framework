@@ -12,6 +12,7 @@ export default class ComboboxFramework extends HTMLElement {
     // #region Fuzzy search Fuse.js
     private _fuse: Fuse<Element> | null = null;
     private _fuseOptions = {
+        includeScore: true,
         keys: ["dataset.display", "dataset.value", "innerText"],
     };
     // #endregion
@@ -356,7 +357,13 @@ export default class ComboboxFramework extends HTMLElement {
                 ...Array.from(
                     (this._originalList!.cloneNode(true) as HTMLElement)
                         .children,
-                ).slice(0, this._limit),
+                )
+                    .slice(0, this._limit)
+                    .sort(
+                        (a, b) =>
+                            Number((b as HTMLElement).dataset.weight) -
+                            Number((a as HTMLElement).dataset.weight),
+                    ),
             );
             this.addEventListenersToListItems();
             return;
@@ -364,17 +371,39 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Search the list
-        const newList = this._fuse
+        let searchedList = this._fuse
             .search(this._input!.value)
-            .map((item: FuseResult<Element>) => item.item as HTMLElement);
+            .slice(0, this._limit);
+
+        // #region Sort the list based on the weight of the items if they have a weight and a score
+        searchedList = searchedList
+            .map((i) => ({
+                item: i.item as HTMLElement,
+                score: i.score ?? 1,
+                weight: Number((i.item as HTMLElement).dataset.weight ?? 1),
+                refIndex: i.refIndex,
+            }))
+            .sort(
+                (a, b) =>
+                    a.score * (b.weight / a.weight) -
+                    b.score * (a.weight / b.weight),
+            )
+            .map((i) => ({
+                item: i.item,
+                score: i.score,
+                weight: i.weight,
+                refIndex: i.refIndex,
+            }));
+
+        const newList = searchedList.map(
+            (item: FuseResult<Element>) => item.item as HTMLElement,
+        );
         // #endregion
 
         // #region Clear the list and add the new items
         this._list!.innerHTML = "";
         this._list!.append(
-            ...newList
-                .map((item) => item.cloneNode(true) as HTMLElement)
-                .slice(0, this._limit),
+            ...newList.map((item) => item.cloneNode(true) as HTMLElement),
         );
         // #endregion
 
