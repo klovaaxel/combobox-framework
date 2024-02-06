@@ -1,17 +1,19 @@
 import Fuse, { FuseResult } from "fuse.js";
+import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "./helpers";
+import { handleBlur, handleComboBoxKeyPress, handleKeyUp, handleListKeyPress } from "./handlers";
 
 export default class ComboboxFramework extends HTMLElement {
-    private _input: HTMLInputElement | null = null;
-    private _list: HTMLElement | null = null;
-    private _originalList: HTMLElement | null = null;
-    private _isAltModifierPressed = false;
-    private _forceValue = false;
-    private _lastValue: string | undefined = undefined;
-    private _limit: number = Infinity;
+    public _input: HTMLInputElement | null = null;
+    public _list: HTMLElement | null = null;
+    public _originalList: HTMLElement | null = null;
+    public _isAltModifierPressed = false;
+    public _forceValue = false;
+    public _lastValue: string | undefined = undefined;
+    public _limit: number = Infinity;
 
     // #region Fuzzy search Fuse.js
-    private _fuse: Fuse<Element> | null = null;
-    private _fuseOptions = {
+    public _fuse: Fuse<Element> | null = null;
+    public _fuseOptions = {
         includeScore: true,
         keys: ["dataset.display", "dataset.value", "innerText"],
     };
@@ -46,7 +48,7 @@ export default class ComboboxFramework extends HTMLElement {
                 this.selectItemByValue(newValue, false);
                 break;
             case "data-fuse-options":
-                if (!this._originalList) this.fetchOriginalList();
+                if (!this._originalList) this._originalList = fetchOriginalList.call(this);
 
                 this._fuseOptions = JSON.parse(newValue);
                 this._fuse = new Fuse(
@@ -81,15 +83,15 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Fetch the input and list elements
-        this.fetchInput();
-        this.fetchList();
+        this._input = fetchInput.call(this);
+        this._list = fetchList.call(this);
         // #endregion
 
-        this.setBasicAttribbutes();
+        setBasicAttribbutes.call(this);
 
         // #region Save the original list
         // This is done to have a original copy of the list to later sort, filter, etc.
-        this.fetchOriginalList();
+        this._originalList = fetchOriginalList.call(this);
         // #endregion
 
         // #region Create the fuse object
@@ -120,97 +122,22 @@ export default class ComboboxFramework extends HTMLElement {
      */
     public disconnectedCallback(): void {
         // #region Remove event listeners
-        this.removeEventListener("focusout", this.handleBlur.bind(this));
+        this.removeEventListener("focusout", handleBlur.bind(this));
         // #endregion
 
         // #region Remove event listeners from the input element
-        if (!this._input) this.fetchList();
+        if (!this._input) this._list = fetchList.call(this);
         this._input!.removeEventListener("input", this.searchList.bind(this, true, true));
         this._input!.removeEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
         // #region Remove event listeners from framework element
-        this._input!.removeEventListener("keydown", this.handleComboBoxKeyPress.bind(this));
-        this._input!.removeEventListener("keyup", this.handleKeyUp.bind(this));
+        this._input!.removeEventListener("keydown", handleComboBoxKeyPress.bind(this));
+        this._input!.removeEventListener("keyup", handleKeyUp.bind(this));
         // #endregion
 
         // #region Remove event listeners from the list element
         this.removeEventListenersFromListItems();
-        // #endregion
-    }
-
-    /**
-     * Fetches the list element and stores it in `_list`
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private fetchList(): void {
-        this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
-        if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
-        if (!this._list) throw new Error("List element not found");
-    }
-
-    /**
-     * Fetches the input element and stores it in `_input`
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private fetchInput(): void {
-        this._input = this.querySelector('[slot="input"]') as HTMLInputElement;
-        if (!this._input) throw new Error("Input element not found");
-    }
-
-    /**
-     * Fetches the original list element and stores it in `_originalList`
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private fetchOriginalList(): void {
-        if (!this._list) this.fetchList();
-        this._originalList = this._list!.cloneNode(true) as HTMLElement;
-    }
-
-    /**
-     * Set basic attributes for the input and list elements.
-     * Mutates the input and list elements that are stored in `_input` and `_list`
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private setBasicAttribbutes(): void {
-        // #region Set the ids of the input and list elements if they are not set
-        this._input!.id =
-            this._input!.id.length !== 0 ? this._input!.id : `input-${crypto.randomUUID()}`;
-        this._list!.id =
-            this._list!.id.length !== 0 ? this._list!.id : `list-${crypto.randomUUID()}`;
-        // #endregion
-
-        // #region Basic attributes for the input element
-        this._input!.setAttribute("role", "combobox");
-        this._input!.setAttribute("aria-controls", this._list!.id);
-        this._input!.setAttribute("aria-expanded", "false");
-        this._input!.setAttribute("aria-autocomplete", "list"); // Maybe change this to both?
-        this._input!.setAttribute("autocomplete", "off");
-        // #endregion
-
-        // #region Basic attributes for the list element
-        this._list!.setAttribute("role", "listbox");
-        this._list!.setAttribute("aria-multiselectable", "false");
-        this._list!.setAttribute("anchor", this._input!.id);
-        this._list!.tabIndex = -1;
-        // #endregion
-
-        // #region  Basic attributes for the children of the list element
-        const children = this._list!.children;
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i] as HTMLElement;
-            child.setAttribute("role", "option");
-            child.setAttribute("aria-selected", "false");
-            child.tabIndex = -1;
-        }
         // #endregion
     }
 
@@ -222,18 +149,18 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private addEventListeners(): void {
         // #region Add event listeners to the framework element
-        this.addEventListener("focusout", this.handleBlur.bind(this));
+        this.addEventListener("focusout", handleBlur.bind(this));
         // #endregion
 
         // #region Add event listeners to the input element
-        if (!this._input) this.fetchInput();
+        if (!this._input) this._input = fetchInput.call(this);
         this._input!.addEventListener("input", this.searchList.bind(this, true, true));
         this._input!.addEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
 
         // #region Add event listeners to framework element
-        this._input!.addEventListener("keydown", this.handleComboBoxKeyPress.bind(this));
-        this._input!.addEventListener("keyup", this.handleKeyUp.bind(this));
+        this._input!.addEventListener("keydown", handleComboBoxKeyPress.bind(this));
+        this._input!.addEventListener("keyup", handleKeyUp.bind(this));
         // #endregion
 
         // #region Add event listeners to the list element
@@ -249,12 +176,12 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private addEventListenersToListItems(): void {
         // #region Add event listeners to the list item elements
-        if (!this._list) this.fetchList();
+        if (!this._list) this._list = fetchList.call(this);
         const children = this._list!.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as HTMLElement;
-            child.addEventListener("keydown", this.handleListKeyPress.bind(this));
-            child.addEventListener("keyup", this.handleKeyUp.bind(this));
+            child.addEventListener("keydown", handleListKeyPress.bind(this));
+            child.addEventListener("keyup", handleKeyUp.bind(this));
             child.addEventListener("click", this.selectItem.bind(this, child, true));
         }
         // #endregion
@@ -268,12 +195,12 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private removeEventListenersFromListItems(): void {
         // #region Remove event listeners from the list item elements
-        if (!this._list) this.fetchList();
+        if (!this._list) this._list = fetchList.call(this);
         const children = this._list!.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as HTMLElement;
-            child.removeEventListener("keydown", this.handleListKeyPress.bind(this));
-            child.removeEventListener("keyup", this.handleKeyUp.bind(this));
+            child.removeEventListener("keydown", handleListKeyPress.bind(this));
+            child.removeEventListener("keyup", handleKeyUp.bind(this));
             child.removeEventListener("click", this.selectItem.bind(this, child, true));
         }
         // #endregion
@@ -288,8 +215,8 @@ export default class ComboboxFramework extends HTMLElement {
     private searchList(openList = true, clearValue = true): void {
         // #region Check if required variables are set
         if (!this._fuse) throw new Error("Fuse object not found");
-        if (!this._list) this.fetchList();
-        if (!this._input) this.fetchInput();
+        if (!this._list) this._list = fetchList.call(this);
+        if (!this._input) this._input = fetchInput.call(this);
         // #endregion
 
         // #region Clear the selected item
@@ -395,7 +322,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private toggleList(
+    public toggleList(
         newValue: boolean = this._input!.getAttribute("aria-expanded") === "true",
     ): void {
         this._input!.setAttribute("aria-expanded", `${newValue}`);
@@ -409,7 +336,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private focusItem(item: HTMLElement): void {
+    public focusItem(item: HTMLElement): void {
         if (!item) return;
         item.focus();
         this.unfocusAllItems();
@@ -424,7 +351,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private unfocusAllItems(): void {
         // #region Check if required variables are set
-        if (!this._list) this.fetchList();
+        if (!this._list) this._list = fetchList.call(this);
         // #endregion
 
         // #region Unfocus all items in the list
@@ -440,8 +367,8 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private selectItem(item: HTMLElement, grabFocus = true): void {
-        if (!this._input) this.fetchInput();
+    public selectItem(item: HTMLElement, grabFocus = true): void {
+        if (!this._input) this._input = fetchInput.call(this);
 
         // #region Set the value of the input element
         // If the item has a data-display attribute, use that as the value
@@ -474,7 +401,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private selectItemByValue(value: string | null, grabFocus = true): void {
         if (!value) return;
-        if (!this._list) this.fetchList();
+        if (!this._list) this._list = fetchList.call(this);
         const item = this._list!.querySelector(`[data-value="${value}"]`) as HTMLElement;
         if (!item) return;
         this.selectItem(item, grabFocus);
@@ -486,9 +413,9 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private clearInput(grabFocus = true): void {
+    public clearInput(grabFocus = true): void {
         // #region Check if required variables are set
-        if (!this._input) this.fetchInput();
+        if (!this._input) this._input = fetchInput.call(this);
         // #endregion
 
         // #region Clear the input element
@@ -504,10 +431,10 @@ export default class ComboboxFramework extends HTMLElement {
      * @memberof ComboboxFramework
      * @returns {void}
      */
-    private forceValue(): void {
+    public forceValue(): void {
         // #region Check if required variables are set
-        if (!this._input) this.fetchInput();
-        if (!this._list) this.fetchList();
+        if (!this._input) this._input = fetchInput.call(this);
+        if (!this._list) this._list = fetchList.call(this);
         // #endregion
 
         // #region If forceValue is true and we don't have a value selected, select the first item (best match) in the list or empty the input and value
@@ -519,185 +446,6 @@ export default class ComboboxFramework extends HTMLElement {
                 this.dataset.value = ""; // Clear the value
                 this.sendChangeEvent(); // Send a change event
             }
-        }
-        // #endregion
-    }
-
-    /**
-     * Toggles the expanded state of the combobox if the focus is lost
-     * @param event {FocusEvent} The blur event
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private handleBlur(): void {
-        // Set a timeout to force the focus event on the list item to fire before the foucsout event on the input element
-        setTimeout(() => {
-            if (this.querySelector(":focus")) return;
-
-            // #region If forceValue is true, select the first item in the list
-            this.forceValue();
-            // #endregion
-
-            this.toggleList(false);
-        }, 0);
-    }
-
-    /**
-     * Handles the key press event on the input element
-     * @param event {KeyboardEvent} The key press event
-     * @memberof ComboboxFramework
-     * @returns {void}
-     * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#keyboardinteraction
-     */
-    private handleComboBoxKeyPress(event: KeyboardEvent): void {
-        // #region Check if required variables are set
-        if (!this._input) this.fetchInput();
-        if (!this._list) this.fetchList();
-        // #endregion
-
-        // #region Handle the key press
-        switch (event.key) {
-            case "ArrowDown":
-                // If the popup is available, moves focus into the popup: If the autocomplete behavior automatically selected a suggestion before Down Arrow was pressed, focus is placed on the suggestion following the automatically selected suggestion. Otherwise, places focus on the first focusable element in the popup.
-                if (this._input!.getAttribute("aria-expanded") !== "true") {
-                    this.toggleList(true);
-                    if (!this._isAltModifierPressed)
-                        this.focusItem(this._list!.children[0] as HTMLElement);
-                } else {
-                    this.focusItem(this._list!.children[0] as HTMLElement);
-                }
-                event.preventDefault(); // prevent scrolling
-                break;
-            case "UpArrow":
-                // (Optional): If the popup is available, places focus on the last focusable element in the popup.
-                if (this._input!.getAttribute("aria-expanded") !== "true") {
-                    this.toggleList(true);
-                    this.focusItem(
-                        this._list!.children[this._list!.children.length - 1] as HTMLElement,
-                    );
-                }
-                event.preventDefault(); // prevent scrolling
-                break;
-            case "Escape":
-                // Dismisses the popup if it is visible. Optionally, if the popup is hidden before Escape is pressed, clears the combobox.
-                if (this._input!.getAttribute("aria-expanded") === "true") {
-                    this.toggleList(false);
-                } else {
-                    this._input!.value = "";
-                }
-                this._input!.focus();
-                break;
-            case "Enter":
-                // Autocompletes the combobox with the first suggestion
-                if (this._input!.getAttribute("aria-expanded") === "true") {
-                    this.selectItem(this._list!.children[0] as HTMLElement);
-                }
-                break;
-            case "Alt":
-                this._isAltModifierPressed = true;
-                break;
-        }
-        // #endregion
-    }
-
-    /**
-     * Handles the key press event on the list element
-     * @param event {KeyboardEvent} The key press event
-     * @memberof ComboboxFramework
-     * @returns {void}
-     * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#keyboardinteraction
-     */
-    private handleListKeyPress(event: KeyboardEvent): void {
-        // #region Check if required variables are set
-        if (!this._input) this.fetchInput();
-        if (!this._list) this.fetchList();
-        // #endregion
-
-        // #region Handle the key press
-        const li = event.target as HTMLElement;
-        switch (event.key) {
-            case "Enter":
-                // Select the item and close the list
-                this.selectItem(li);
-                break;
-            case "Escape":
-                // Close the list and focus the input
-                this.clearInput();
-                break;
-            case "ArrowDown": {
-                // Move focus to the next item in the list
-                const nextLi = li.nextElementSibling as HTMLElement;
-                if (nextLi) this.focusItem(nextLi);
-                else this.focusItem(this._list!.children[0] as HTMLElement);
-                event.preventDefault(); // prevent scrolling
-                break;
-            }
-            case "ArrowUp": {
-                // If alt is pressed, close the list and focus the input
-                if (this._isAltModifierPressed) {
-                    this._input!.focus();
-                    this.toggleList(false);
-                    event.preventDefault(); // prevent scrolling
-                    break;
-                }
-
-                // Move focus to the previous item in the list
-                const previousLi = li.previousElementSibling as HTMLElement;
-                if (previousLi) this.focusItem(previousLi);
-                else
-                    this.focusItem(
-                        this._list!.children[this._list!.children.length - 1] as HTMLElement,
-                    );
-                event.preventDefault(); // prevent scrolling
-                break;
-            }
-            case "ArrowRight":
-                // returns focus to the combobox without closing the popup
-                this._input!.focus();
-                break;
-            case "ArrowLeft":
-                // returns focus to the combobox without closing the popup
-                this._input!.focus();
-                break;
-            case "Home":
-                // Move focus to the first item in the list
-                this._input!.focus();
-                break;
-            case "End":
-                // Move focus to the last item in the list
-                this._input!.focus();
-                break;
-            case "Backspace":
-                // Move focus to the last item in the list
-                this._input!.focus();
-                break;
-            case "Delete":
-                // Move focus to the last item in the list
-                this._input!.focus();
-                break;
-            case "Alt":
-                this._isAltModifierPressed = true;
-                break;
-            default:
-                // If the key is not handled, return focus to the input
-                this._input!.focus();
-                break;
-        }
-        // #endregion
-    }
-
-    /**
-     * Handles the key up event on the input element and list element
-     * @param event {KeyboardEvent} The key up event
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    private handleKeyUp(event: KeyboardEvent): void {
-        // #region Handle the key press
-        switch (event.key) {
-            case "Alt":
-                this._isAltModifierPressed = false;
-                break;
         }
         // #endregion
     }
