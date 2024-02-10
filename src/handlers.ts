@@ -10,8 +10,8 @@ import { fetchInput, fetchList } from "./helpers";
  */
 export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
-    if (!this._input) this._input = fetchInput.call(this);
-    if (!this._list) this._list = fetchList.call(this);
+    if (!this._input) fetchInput.call(this);
+    if (!this._list) fetchList.call(this);
     // #endregion
 
     // #region Handle the key press
@@ -68,8 +68,8 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
  */
 export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
-    if (!this._input) this._input = fetchInput.call(this);
-    if (!this._list) this._list = fetchList.call(this);
+    if (!this._input) fetchInput.call(this);
+    if (!this._list) fetchList.call(this);
     // #endregion
 
     // #region Handle the key press

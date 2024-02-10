@@ -1,6 +1,6 @@
 import Fuse, { FuseResult } from "fuse.js";
-import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "./helpers";
 import { handleBlur, handleComboBoxKeyPress, handleKeyUp, handleListKeyPress } from "./handlers";
+import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "./helpers";
 
 export default class ComboboxFramework extends HTMLElement {
     public _input: HTMLInputElement | null = null;
@@ -48,7 +48,7 @@ export default class ComboboxFramework extends HTMLElement {
                 this.selectItemByValue(newValue, false);
                 break;
             case "data-fuse-options":
-                if (!this._originalList) this._originalList = fetchOriginalList.call(this);
+                if (!this._originalList) fetchOriginalList.call(this);
 
                 this._fuseOptions = JSON.parse(newValue);
                 this._fuse = new Fuse(
@@ -83,15 +83,15 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Fetch the input and list elements
-        this._input = fetchInput.call(this);
-        this._list = fetchList.call(this);
+        fetchInput.call(this);
+        fetchList.call(this);
         // #endregion
 
         setBasicAttribbutes.call(this);
 
         // #region Save the original list
         // This is done to have a original copy of the list to later sort, filter, etc.
-        this._originalList = fetchOriginalList.call(this);
+        fetchOriginalList.call(this);
         // #endregion
 
         // #region Create the fuse object
@@ -126,7 +126,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Remove event listeners from the input element
-        if (!this._input) this._list = fetchList.call(this);
+        if (!this._input) fetchList.call(this);
         this._input!.removeEventListener("input", this.searchList.bind(this, true, true));
         this._input!.removeEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
@@ -153,7 +153,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Add event listeners to the input element
-        if (!this._input) this._input = fetchInput.call(this);
+        if (!this._input) fetchInput.call(this);
         this._input!.addEventListener("input", this.searchList.bind(this, true, true));
         this._input!.addEventListener("focus", this.toggleList.bind(this, true));
         // #endregion
@@ -176,7 +176,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private addEventListenersToListItems(): void {
         // #region Add event listeners to the list item elements
-        if (!this._list) this._list = fetchList.call(this);
+        if (!this._list) fetchList.call(this);
         const children = this._list!.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as HTMLElement;
@@ -195,7 +195,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private removeEventListenersFromListItems(): void {
         // #region Remove event listeners from the list item elements
-        if (!this._list) this._list = fetchList.call(this);
+        if (!this._list) fetchList.call(this);
         const children = this._list!.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as HTMLElement;
@@ -215,8 +215,8 @@ export default class ComboboxFramework extends HTMLElement {
     private searchList(openList = true, clearValue = true): void {
         // #region Check if required variables are set
         if (!this._fuse) throw new Error("Fuse object not found");
-        if (!this._list) this._list = fetchList.call(this);
-        if (!this._input) this._input = fetchInput.call(this);
+        if (!this._list) fetchList.call(this);
+        if (!this._input) fetchInput.call(this);
         // #endregion
 
         // #region Clear the selected item
@@ -351,7 +351,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private unfocusAllItems(): void {
         // #region Check if required variables are set
-        if (!this._list) this._list = fetchList.call(this);
+        if (!this._list) fetchList.call(this);
         // #endregion
 
         // #region Unfocus all items in the list
@@ -368,7 +368,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     public selectItem(item: HTMLElement, grabFocus = true): void {
-        if (!this._input) this._input = fetchInput.call(this);
+        if (!this._input) fetchInput.call(this);
 
         // #region Set the value of the input element
         // If the item has a data-display attribute, use that as the value
@@ -401,7 +401,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private selectItemByValue(value: string | null, grabFocus = true): void {
         if (!value) return;
-        if (!this._list) this._list = fetchList.call(this);
+        if (!this._list) fetchList.call(this);
         const item = this._list!.querySelector(`[data-value="${value}"]`) as HTMLElement;
         if (!item) return;
         this.selectItem(item, grabFocus);
@@ -415,7 +415,7 @@ export default class ComboboxFramework extends HTMLElement {
      */
     public clearInput(grabFocus = true): void {
         // #region Check if required variables are set
-        if (!this._input) this._input = fetchInput.call(this);
+        if (!this._input) fetchInput.call(this);
         // #endregion
 
         // #region Clear the input element
@@ -433,8 +433,8 @@ export default class ComboboxFramework extends HTMLElement {
      */
     public forceValue(): void {
         // #region Check if required variables are set
-        if (!this._input) this._input = fetchInput.call(this);
-        if (!this._list) this._list = fetchList.call(this);
+        if (!this._input) fetchInput.call(this);
+        if (!this._list) fetchList.call(this);
         // #endregion
 
         // #region If forceValue is true and we don't have a value selected, select the first item (best match) in the list or empty the input and value

@@ -2,31 +2,31 @@ import ComboboxFramework from "./combobox-framework";
 
 /**
  * Fetches the list element and stores it in `_list`
- * If the list element is already stored, it returns the stored list element
+ * If the list element is already stored, does nothing
  * If the list element is not found, it throws an error
  * @returns { HTMLElement } list element
  * @param { ComboboxFramework } combobox combobox-framework element
  */
-export function fetchList(this: ComboboxFramework): HTMLElement {
-    if (this._list) return this._list;
+export function fetchList(this: ComboboxFramework): void {
+    if (this._list) return;
     let list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
     if (!list) list = this.querySelector('[slot="list"]') as HTMLElement;
     if (!list) throw new Error("List element not found");
-    return list;
+    this._list = list;
 }
 
 /**
  * Fetches the input element and stores it in `_input`
- * If the input element is already stored, it returns the stored input element
+ * If the input element is already stored, does nothing
  * If the input element is not found, it throws an error
  * @returns { HTMLInputElement } input element
  * @param { ComboboxFramework } combobox combobox-framework element
  */
-export function fetchInput(this: ComboboxFramework): HTMLInputElement {
-    if (this._input) return this._input;
+export function fetchInput(this: ComboboxFramework): void {
+    if (this._input) return;
     const input = this.querySelector('[slot="input"]') as HTMLInputElement;
     if (!input) throw new Error("Input element not found");
-    return input;
+    this._input = input;
 }
 
 /**
@@ -36,10 +36,16 @@ export function fetchInput(this: ComboboxFramework): HTMLInputElement {
  * @returns { HTMLElement } original list element
  * @param { ComboboxFramework } combobox combobox-framework element
  */
-export function fetchOriginalList(this: ComboboxFramework): HTMLElement {
-    if (this._originalList) return this._originalList;
-    if (this._list) return this._list.cloneNode(true) as HTMLElement;
-    return fetchList.call(this).cloneNode(true) as HTMLElement;
+export function fetchOriginalList(this: ComboboxFramework): void {
+    if (this._originalList) return;
+
+    if (this._list) {
+        this._originalList = this._list.cloneNode(true) as HTMLElement;
+        return;
+    }
+
+    fetchList.call(this);
+    this._originalList = this._list!.cloneNode(true) as HTMLElement;
 }
 
 /**
