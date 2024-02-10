@@ -1,45 +1,46 @@
 {
-    "version": "0.4.0",
-    "name": "combobox-framework",
-    "description": "A framework for building comboboxes",
-    "keywords": [
-        "combobox",
-        "Web Component",
-        "ARIA",
-        "accessibility",
-        "autocomplete",
-        "Al11y",
-        "WCAG"
-    ],
-    "homepage": "https://github.com/klovaaxel/combobox-framework",
-    "bugs": {
-        "url": "https://github.com/klovaaxel/combobox-framework/issues",
-        "email": "klovakarlsson@gmail.com"
-    },
-    "license": "SEE LICENSE IN LICENSE",
-    "author": "klovaaxel",
-    "browser": "dist/combobox-framework.js",
-    "types": "dist/combobox-framework.d.ts",
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/klovaaxel/combobox-framework.git"
-    },
-    "scripts": {
-        "dev": "vite",
-        "build": "bun lint; tsc && vite build; bun run build.mjs; echo \"Done! Don't forget to update the version number in package.json\"",
-        "build-demo": "tsc && vite build",
-        "build-module": "bun run build.mjs",
-        "preview": "vite preview",
-        "lint": "bunx @biomejs/biome check --apply *.json; bunx @biomejs/biome check --apply src/"
-    },
-    "devDependencies": {
-        "@biomejs/biome": "^1.5.3",
-        "bun-plugin-dts": "^0.2.1",
-        "typescript": "^5.2.2",
-        "vite": "^5.0.8"
-    },
-    "dependencies": {
-        "fuse.js": "^7.0.0"
-    }
+  "version": "0.4.0",
+  "name": "combobox-framework",
+  "description": "A framework for building comboboxes",
+  "keywords": [
+    "combobox",
+    "Web Component",
+    "ARIA",
+    "accessibility",
+    "autocomplete",
+    "Al11y",
+    "WCAG"
+  ],
+  "homepage": "https://github.com/klovaaxel/combobox-framework",
+  "bugs": {
+    "url": "https://github.com/klovaaxel/combobox-framework/issues",
+    "email": "klovakarlsson@gmail.com"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "klovaaxel",
+  "browser": "dist/combobox-framework.js",
+  "types": "dist/combobox-framework.d.ts",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klovaaxel/combobox-framework.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "bun lint; tsc && vite build; bun run build.mjs; echo \"Done! Don't forget to update the version number in package.json\"",
+    "build-demo": "tsc && vite build",
+    "build-module": "bun run build.mjs",
+    "preview": "vite preview",
+    "lint": "bunx @biomejs/biome check --apply *.json; bunx @biomejs/biome check --apply src/"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "@happy-dom/global-registrator": "^13.3.8",
+    "bun-plugin-dts": "^0.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
 }
