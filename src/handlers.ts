@@ -29,8 +29,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             break;
         case "UpArrow":
             // (Optional): If the popup is available, places focus on the last focusable element in the popup.
-            if (this._input!.getAttribute("aria-expanded") !== "true") {
-                this.toggleList(true);
+            if (this._input!.getAttribute("aria-expanded") === "true") {
                 this.focusItem(
                     this._list!.children[this._list!.children.length - 1] as HTMLElement,
                 );
