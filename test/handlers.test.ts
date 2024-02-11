@@ -69,6 +69,25 @@ describe("handleComboBoxKeyPress", () => {
             // Assert
             expect(combobox.toggleList).toHaveBeenCalledTimes(0);
         });
+
+        test("if alt is pressed and list is closed, should only open the list", () => {
+            // Arrange
+            combobox._input!.setAttribute("aria-expanded", "false");
+            const event = {
+                ...new KeyboardEvent("keyDown", { key: "ArrowDown" }),
+                preventDefault: mock(() => void 0),
+            } as KeyboardEvent;
+
+            // Act
+            handleComboBoxKeyPress.call(combobox, event);
+
+            // Assert
+            setTimeout(() => {
+                expect(combobox.focusItem).toHaveBeenCalledTimes(0);
+                expect(combobox.toggleList).toHaveBeenCalledTimes(1);
+                expect(event.preventDefault).toHaveBeenCalledTimes(1);
+            }, 100);
+        });
     });
 
     describe("ArrowUp", () => {
@@ -172,6 +191,19 @@ describe("handleComboBoxKeyPress", () => {
             expect(combobox.selectItem).toHaveBeenCalledTimes(0);
         });
     });
+
+    describe("Alt", () => {
+        test("should set isAltModifierPressed to true when the Alt key is pressed", () => {
+            // Arrange
+            const event = new KeyboardEvent("keyDown", { key: "Alt" });
+
+            // Act
+            handleComboBoxKeyPress.call(combobox, event);
+
+            // Assert
+            expect(combobox._isAltModifierPressed).toBe(true);
+        });
+    });
 });
 
 describe("handleListKeyPress", () => {
@@ -197,6 +229,7 @@ describe("handleListKeyPress", () => {
         combobox.clearInput = mock(() => void 0);
         combobox.focusItem = mock(() => void 0);
         combobox.selectItem = mock(() => void 0);
+        combobox.toggleList = mock(() => void 0);
 
         document.body.appendChild(combobox);
     });
@@ -315,6 +348,26 @@ describe("handleListKeyPress", () => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
                 expect(document.activeElement).toBe(combobox._list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
+            }, 100);
+        });
+
+        test("should close the list and focus the input if alt is pressed", () => {
+            // Arrange
+            combobox._isAltModifierPressed = true;
+            const event = {
+                ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
+                target: combobox._list!.children[1],
+                preventDefault: mock(() => void 0),
+            } as KeyboardEvent;
+
+            // Act
+            handleListKeyPress.call(combobox, event);
+
+            // Assert
+            setTimeout(() => {
+                expect(combobox._input).toBe(document.activeElement);
+                expect(combobox.toggleList).toHaveBeenCalledTimes(1);
+                expect(event.preventDefault).toHaveBeenCalledTimes(1);
             }, 100);
         });
     });
