@@ -4,8 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Combobox Framework</title>
-      <script type="module" crossorigin src="./assets/index-6kwkdjg8.js"></script>
-      <link rel="stylesheet" crossorigin href="./assets/index-ZOCpBSN9.css">
+
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/css.min.js"></script>
+        <!-- end -->
+      <script type="module" crossorigin src="./assets/index-Dm6fXF5o.js"></script>
+      <link rel="stylesheet" crossorigin href="./assets/index-4Nfxuacq.css">
     </head>
     <body>
 
@@ -135,7 +142,7 @@
                         be shown in the input when a option is selected.
                     </p>
 
-                    <pre><code>&lt;combobox-framework&gt;
+                    <pre><code class="language-html">&lt;combobox-framework&gt;
     &lt;input type="text" slot="input" /&gt;
     &lt;ul slot="list"&gt;
         &lt;li data-value="1" data-display="Item 1"&gt;1&lt;/li&gt;
@@ -489,5 +496,7 @@ combobox-framework input:not([aria-expanded]) + [slot="list"] {
 }</code></pre>
             </section>
         </article>
+
+        <script>hljs.highlightAll();</script>
     </body>
 </html>
