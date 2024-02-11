@@ -216,7 +216,7 @@
                         option with the matching <code>data-value</code> attribute.
                     </p>
 
-                    <div data-example> 
+                    <div data-example>
                         <combobox-framework data-value="1">
                             <input placeholder="Click me" type="text" slot="input" />
                             <ul slot="list">
@@ -244,7 +244,7 @@
                         <a href="https://www.fusejs.io/api/options.html">Fuse.js documentation</a>
                     </p>
 
-                    <div data-example> 
+                    <div data-example>
                         <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
                             <input placeholder="Click me" type="text" slot="input" />
                             <ul slot="list">
@@ -362,34 +362,38 @@
 
                 <p>This is the styling thats being used on this demo page. Hopefully it gives a good starting point</p>
 
-                <pre><code>combobox-framework [slot="list"] {
-    color: var(--background-color);
-    background-color: var(--text-color);
-    position: absolute;
-    top: anchor(bottom);
-    left: anchor(left);
-    right: anchor(right);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid black;
-    border-radius: 0 0 0.2rem 0.2rem;
-}
+                <div data-example>
+                    <style>
+                        combobox-framework [slot="list"] {
+                            color: var(--background-color);
+                            background-color: var(--text-color);
+                            position: absolute;
+                            top: anchor(bottom);
+                            left: anchor(left);
+                            right: anchor(right);
+                            list-style: none;
+                            margin: 0;
+                            padding: 0;
+                            border: 1px solid black;
+                            border-radius: 0 0 0.2rem 0.2rem;
+                        }
 
-combobox-framework [slot="list"] > * {
-    padding: 0.2rem;
-    cursor: pointer;
-}
+                        combobox-framework [slot="list"] > * {
+                            padding: 0.2rem;
+                            cursor: pointer;
+                        }
 
-combobox-framework [slot="list"] li:hover,
-combobox-framework [slot="list"] tr:hover td {
-    background-color: var(--primary-color);
-}
+                        combobox-framework [slot="list"] li:hover,
+                        combobox-framework [slot="list"] tr:hover td {
+                            background-color: var(--primary-color);
+                        }
 
-combobox-framework input[aria-expanded="false"] + [slot="list"],
-combobox-framework input:not([aria-expanded]) + [slot="list"] {
-    display: none;
-}</code></pre>
+                        combobox-framework input[aria-expanded="false"] + [slot="list"],
+                        combobox-framework input:not([aria-expanded]) + [slot="list"] {
+                            display: none;
+                        }
+                    </style>
+                </div>
             </section>
         </article>
 
