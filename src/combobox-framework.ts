@@ -323,7 +323,7 @@ export default class ComboboxFramework extends HTMLElement {
      * @returns {void}
      */
     public toggleList(
-        newValue: boolean = this._input!.getAttribute("aria-expanded") === "true",
+        newValue: boolean = this._input!.getAttribute("aria-expanded") !== true.toString(),
     ): void {
         this._input!.setAttribute("aria-expanded", `${newValue}`);
         if (!newValue) this.unfocusAllItems();
