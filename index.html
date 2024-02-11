@@ -90,16 +90,6 @@
                 <section id="simple-list">
                     <h3>Simple list</h3>
 
-                    <combobox-framework>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
-
                     <p>
                         To use the combobox-framework, you need to add a <code>input</code> element and a list of items.
                         The <code>input</code> element needs to be placed in a <code>slot="input"</code> attribute and
@@ -112,29 +102,21 @@
                         <code>data-value</code> when a option is selected.
                     </p>
 
-                    <pre><code>&lt;combobox-framework&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework&gt;</code></pre>
+                    <div data-example>
+                        <combobox-framework>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="simple-list-with-custom-display-data">
                     <h3>Simple list with custom display data</h3>
-
-                    <combobox-framework>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1" data-display="Item 1">1</li>
-                            <li data-value="2" data-display="Item 2">2</li>
-                            <li data-value="3" data-display="Item 3">3</li>
-                            <li data-value="4" data-display="Item 4">4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To show diffrent data in the input than in the list, you need to add the
@@ -142,37 +124,21 @@
                         be shown in the input when a option is selected.
                     </p>
 
-                    <pre><code class="language-html">&lt;combobox-framework&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1" data-display="Item 1"&gt;1&lt;/li&gt;
-        &lt;li data-value="2" data-display="Item 2"&gt;2&lt;/li&gt;
-        &lt;li data-value="3" data-display="Item 3"&gt;3&lt;/li&gt;
-        &lt;li data-value="4" data-display="Item 4"&gt;4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework&gt;</code></pre>
+                    <div data-example>
+                        <combobox-framework>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1" data-display="Item 1">1</li>
+                                <li data-value="2" data-display="Item 2">2</li>
+                                <li data-value="3" data-display="Item 3">3</li>
+                                <li data-value="4" data-display="Item 4">4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="list-with-nested-elements">
                     <h3>List with nested elements</h3>
-
-                    <combobox-framework>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1" data-display="Item 1">
-                                <div>Item 1</div>
-                            </li>
-                            <li data-value="2" data-display="Item 2">
-                                <div>Item 2</div>
-                            </li>
-                            <li data-value="3" data-display="Item 3">
-                                <div>Item 3</div>
-                            </li>
-                            <li data-value="4" data-display="Item 4">
-                                <div>Item 4</div>
-                            </li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To use nested elements, you need to add the <code>data-display</code> attribute to the
@@ -180,55 +146,29 @@
                         selected.
                     </p>
 
-                    <pre><code>&lt;combobox-framework&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1" data-display="Item 1"&gt;
-            &lt;div&gt;Item 1&lt;/div&gt;
-        &lt;/li&gt; 
-        &lt;li data-value="2" data-display="Item 2"&gt; 
-            &lt;div&gt;Item 2&lt;/div&gt;
-        &lt;/li&gt; 
-        &lt;li data-value="3" data-display="Item 3"&gt; 
-            &lt;div&gt;Item 3&lt;/div&gt;
-        &lt;/li&gt; 
-        &lt;li data-value="4" data-display="Item 4"&gt; 
-            &lt;div&gt;Item 4&lt;/div&gt;
-        &lt;/li&gt; 
-    &lt;/ul&gt;
-&lt;/combobox-framework&gt;</code></pre>
+                    <div data-example>
+                        <combobox-framework>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1" data-display="Item 1">
+                                    <div>Item 1</div>
+                                </li>
+                                <li data-value="2" data-display="Item 2">
+                                    <div>Item 2</div>
+                                </li>
+                                <li data-value="3" data-display="Item 3">
+                                    <div>Item 3</div>
+                                </li>
+                                <li data-value="4" data-display="Item 4">
+                                    <div>Item 4</div>
+                                </li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="tabular-data">
                     <h3>Tabular data</h3>
-
-                    <combobox-framework>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <table slot="list">
-                            <thead>
-                                <th>Name</th>
-                                <th>Number</th>
-                            </thead>
-                            <tbody data-list>
-                                <tr data-value="1" data-display="Item 1">
-                                    <td>Item</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr data-value="2" data-display="Item 2">
-                                    <td>Item</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr data-value="3" data-display="Item 3">
-                                    <td>Item</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr data-value="4" data-display="Item 4">
-                                    <td>Item</td>
-                                    <td>4</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </combobox-framework>
 
                     <p>
                         To use tabular data, you need to add the <code>data-list</code> attribute to the
@@ -236,76 +176,61 @@
                         <code>tbody</code> element as the list of items and not the table itself.
                     </p>
 
-                    <pre><code>&lt;combobox-framework&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;table slot="list"&gt;
-        &lt;thead&gt;   
-            &lt;th&gt;Name&lt;/th&gt;
-            &lt;th&gt;Number&lt;/th&gt; 
-        &lt;/thead&gt;
-        &lt;tbody data-list&gt;
-            &lt;tr data-value="1" data-display="Item 1"&gt;
-                &lt;td&gt;Item&lt;/td&gt;
-                &lt;td&gt;1&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr data-value="2" data-display="Item 2"&gt;
-                &lt;td&gt;Item&lt;/td&gt;
-                &lt;td&gt;2&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr data-value="3" data-display="Item 3"&gt;
-                &lt;td&gt;Item&lt;/td&gt;
-                &lt;td&gt;3&lt;/td&gt;
-            &lt;/tr&gt;
-            &lt;tr data-value="4" data-display="Item 4"&gt;
-                &lt;td&gt;Item&lt;/td&gt;
-                &lt;td&gt;4&lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/tbody&gt;
-    &lt;/table&gt;
-&lt;/combobox-framework&gt;</code></pre>
+                    <div data-example>
+                        <combobox-framework>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <table slot="list">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Number</th>
+                                </thead>
+                                <tbody data-list>
+                                    <tr data-value="1" data-display="Item 1">
+                                        <td>Item</td>
+                                        <td>1</td>
+                                    </tr>
+                                    <tr data-value="2" data-display="Item 2">
+                                        <td>Item</td>
+                                        <td>2</td>
+                                    </tr>
+                                    <tr data-value="3" data-display="Item 3">
+                                        <td>Item</td>
+                                        <td>3</td>
+                                    </tr>
+                                    <tr data-value="4" data-display="Item 4">
+                                        <td>Item</td>
+                                        <td>4</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="preselected-option">
                     <h3>Preselected option</h3>
-
-                    <combobox-framework data-value="1">
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To preselect a option, you need to add the <code>data-value</code> attribute to the
                         <code>combobox-framework</code> element. This will tell the combobox-framework to select the
                         option with the matching <code>data-value</code> attribute.
                     </p>
-                    <pre><code>&lt;combobox-framework data-value="1"&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework&gt;</code></pre>
+
+                    <div data-example> 
+                        <combobox-framework data-value="1">
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="custom-fusefuzzy-search-options">
                     <h3>Custom Fuse/Fuzzy search options</h3>
-
-                    <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To use custom fuse/fuzzy search options, you need to add the
@@ -319,29 +244,21 @@
                         <a href="https://www.fusejs.io/api/options.html">Fuse.js documentation</a>
                     </p>
 
-                    <pre><code>&lt;combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework&gt;</code></pre>
+                    <div data-example> 
+                        <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="force-valuelistbox">
                     <h3>Force value/Listbox</h3>
-
-                    <combobox-framework data-listbox="true">
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To force the combobox-framework to act as a searchable listbox, you need to add the
@@ -349,29 +266,22 @@
                         tell the combobox-framework to act as a searchable listbox instead of a combobox. And only allow
                         the <code>value</code> to be one of the options in the list or <code>null</code>.
                     </p>
-                    <pre><code>&lt;combobox-framework data-listbox="true"&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework></code></pre>
+
+                    <div data-example>
+                        <combobox-framework data-listbox="true">
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section id="limit-suggested-options">
                     <h3>Limit suggested options</h3>
-
-                    <combobox-framework data-limit="2">
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To limit the number of suggested options, you need to add the <code>data-limit</code> attribute
@@ -379,29 +289,21 @@
                         show the number of options specified in the <code>data-limit</code> attribute.
                     </p>
 
-                    <pre><code>&lt;combobox-framework data-limit="2"&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework></code></pre>
+                    <div data-example>
+                        <combobox-framework data-limit="2">
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section>
                     <h3 id="weighted-item-search">Weighted item search</h3>
-
-                    <combobox-framework>
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1" data-display="Item 1" data-weight="5">Item 1</li>
-                            <li data-value="2" data-display="Item 2" data-weight="1">Item 2</li>
-                            <li data-value="3" data-display="Item 3" data-weight="1">Item 3</li>
-                            <li data-value="4" data-display="Item 4" data-weight="10">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To use weighted item search, you need to add the <code>data-weight</code> attribute to the
@@ -418,29 +320,21 @@
                         <em>NOTE: The <code>data-weight</code> attribute is a number, and the higher the number the higher the weight.</em>
                     </p>
 
-                    <pre><code>&lt;combobox-framework&gt;
-    &lt;input type="text" slot="input" /&gt;
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1" data-display="Item 1" data-weight="5"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2" data-display="Item 2" data-weight="1"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3" data-display="Item 3" data-weight="1"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4" data-display="Item 4" data-weight="10"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework></code></pre>
+                    <div data-example>
+                        <combobox-framework>
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1" data-display="Item 1" data-weight="5">Item 1</li>
+                                <li data-value="2" data-display="Item 2" data-weight="1">Item 2</li>
+                                <li data-value="3" data-display="Item 3" data-weight="1">Item 3</li>
+                                <li data-value="4" data-display="Item 4" data-weight="10">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
                 <section>
                     <h3 id="change-events">Change events</h3>
-
-                    <combobox-framework onchange="console.log('Changed')">
-                        <input placeholder="Click me" type="text" slot="input" />
-                        <ul slot="list">
-                            <li data-value="1">Item 1</li>
-                            <li data-value="2">Item 2</li>
-                            <li data-value="3">Item 3</li>
-                            <li data-value="4">Item 4</li>
-                        </ul>
-                    </combobox-framework>
 
                     <p>
                         To add a change event, you need to add the <code>onchange</code> attribute to the
@@ -448,15 +342,17 @@
                         function when the value of the combobox changes.
                     </p>
 
-                    <pre><code>&lt;combobox-framework onchange="console.log('changed')"&gt;
-    &lt;input type="text" slot="input" /&gt;    
-    &lt;ul slot="list"&gt;
-        &lt;li data-value="1"&gt;Item 1&lt;/li&gt;
-        &lt;li data-value="2"&gt;Item 2&lt;/li&gt;
-        &lt;li data-value="3"&gt;Item 3&lt;/li&gt;
-        &lt;li data-value="4"&gt;Item 4&lt;/li&gt;
-    &lt;/ul&gt;
-&lt;/combobox-framework></code></pre>
+                    <div data-example>
+                        <combobox-framework onchange="console.log('Changed')">
+                            <input placeholder="Click me" type="text" slot="input" />
+                            <ul slot="list">
+                                <li data-value="1">Item 1</li>
+                                <li data-value="2">Item 2</li>
+                                <li data-value="3">Item 3</li>
+                                <li data-value="4">Item 4</li>
+                            </ul>
+                        </combobox-framework>
+                    </div>
                 </section>
 
             </section>
@@ -497,6 +393,34 @@ combobox-framework input:not([aria-expanded]) + [slot="list"] {
             </section>
         </article>
 
+        <script>
+            const examples = document.querySelectorAll("[data-example]");
+            for (const example of examples) {
+                let exampleContent = example.innerHTML.trimEnd();
+
+                // Remove leading and ending newlines
+                if(exampleContent.startsWith('\n')) exampleContent = exampleContent.slice(1);
+                if(exampleContent.endsWith('\n')) exampleContent = exampleContent.slice(exampleContent.length, 1);
+                // end - Remove leading and ending newlines
+
+                // Replace < and > with &lt; and &gt;
+                exampleContent = exampleContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                // end - Replace < and > with &lt; and &gt;
+
+                // Remove leading spaces
+                leadingSpaces = exampleContent.match(/^\s+/);
+                if(leadingSpaces) {
+                    exampleContent = exampleContent.replace(new RegExp(`^${leadingSpaces[0]}`, "gm"), "");
+                }
+                // end - Remove leading spaces
+                
+                // Add pre and code tags
+                pre = document.createElement("pre");
+                pre.innerHTML = `<code>${exampleContent}</code>`;
+                example.appendChild(pre);
+                // end - Add pre and code tags
+            }
+        </script>
         <script>hljs.highlightAll();</script>
     </body>
 </html>
