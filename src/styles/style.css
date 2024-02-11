@@ -6,9 +6,6 @@ You can find it in the index.html file, in the <style> tag, in the Styling secti
 The styles in this file are only for the page, not the combobox behavior och look.
 */
 
-
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400&display=swap");
-
 /* Page styling */
 :root {
     --primary-color: #4cb5ae;
