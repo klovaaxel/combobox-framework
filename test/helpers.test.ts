@@ -1,6 +1,5 @@
 import { expect, test, describe } from "bun:test";
 import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "../src/helpers";
-import "../dist/combobox-framework";
 import ComboboxFramework from "../src/combobox-framework";
 
 describe("fetchList", () => {
