@@ -81,6 +81,405 @@
             </section>
 
             <section>
+                <h2>Demo</h2>
+
+                <p>
+                    A "real world" example of how the combobox-framework can be used.
+                    Meant to show how the search functionality can be used with a larger dataset (91 options).
+                </p>
+
+                <p>
+                    The example is a combobox-framework with a input and a table of cast members from the movie The
+                    Shawshank Redemption. The input is used to search for a cast member, and the table is used to show
+                    the cast members.
+                </p>
+
+                <p>
+                    <em>Note:</em> The focus of this demo is not on the styling, but on the functionality of the combobox-framework.
+                </p>
+
+                <label style="display: block;" for="demo-input">Select a cast member:</label>
+                <combobox-framework data-limit="20">
+                    <input id="demo-input" placeholder="Click me" type="text" slot="input" />
+                    <table slot="list">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                            </tr>
+                        </thead>
+
+                        <tbody data-list>
+                            <tr data-value="1" data-display="Tim Robbins">
+                                <td>Tim Robbins</td>
+                                <td>Andy Dufresne</td>
+                            </tr>
+                            <tr data-value="2" data-display="Morgan Freeman">
+                                <td>Morgan Freeman</td>
+                                <td>Ellis Boyd "Red" Redding</td>
+                            </tr>
+                            <tr data-value="3" data-display="Bob Gunton">
+                                <td>Bob Gunton</td>
+                                <td>Warden Samuel Norton</td>
+                            </tr>
+                            <tr data-value="4" data-display="William Sadler">
+                                <td>William Sadler</td>
+                                <td>Heywood</td>
+                            </tr>
+                            <tr data-value="5" data-display="Clancy Brown">
+                                <td>Clancy Brown</td>
+                                <td>Byron Hadley</td>
+                            </tr>
+                            <tr data-value="6" data-display="Gil Bellows">
+                                <td>Gil Bellows</td>
+                                <td>Tommy Williams</td>
+                            </tr>
+                            <tr data-value="7" data-display="James Whitmore">
+                                <td>James Whitmore</td>
+                                <td>Brooks Hatlen</td>
+                            </tr>
+                            <tr data-value="8" data-display="Mark Rolston">
+                                <td>Mark Rolston</td>
+                                <td>Bogs Diamond</td>
+                            </tr>
+                            <tr data-value="9" data-display="Jeffrey DeMunn">
+                                <td>Jeffrey DeMunn</td>
+                                <td>1946 D.A.</td>
+                            </tr>
+                            <tr data-value="10" data-display="Larry Brandenburg">
+                                <td>Larry Brandenburg</td>
+                                <td>Skeet</td>
+                            </tr>
+                            <tr data-value="11" data-display="Neil Giuntoli">
+                                <td>Neil Giuntoli</td>
+                                <td>Jigger</td>
+                            </tr>
+                            <tr data-value="12" data-display="Brian Libby">
+                                <td>Brian Libby</td>
+                                <td>Floyd</td>
+                            </tr>
+                            <tr data-value="13" data-display="David Proval">
+                                <td>David Proval</td>
+                                <td>Snooze</td>
+                            </tr>
+                            <tr data-value="14" data-display="Joseph Ragno">
+                                <td>Joseph Ragno</td>
+                                <td>Ernie</td>
+                            </tr>
+                            <tr data-value="15" data-display="Jude Ciccolella">
+                                <td>Jude Ciccolella</td>
+                                <td>Guard Mert</td>
+                            </tr>
+                            <tr data-value="16" data-display="Paul McCrane">
+                                <td>Paul McCrane</td>
+                                <td>Guard Trout</td>
+                            </tr>
+                            <tr data-value="17" data-display="Renee Blaine">
+                                <td>Renee Blaine</td>
+                                <td>Linda Dufresne (Andy Dufresne's Wife)</td>
+                            </tr>
+                            <tr data-value="18" data-display="Scott Mann">
+                                <td>Scott Mann</td>
+                                <td>Glenn Quentin</td>
+                            </tr>
+                            <tr data-value="19" data-display="John Horton">
+                                <td>John Horton</td>
+                                <td>Lloyd Henreid (Judge)</td>
+                            </tr>
+                            <tr data-value="20" data-display="Gordon Greene">
+                                <td>Gordon Greene</td>
+                                <td>1947 Parole Hearings Man</td>
+                            </tr>
+                            <tr data-value="21" data-display="Alfonso Freeman">
+                                <td>Alfonso Freeman</td>
+                                <td>Fresh Fish Con</td>
+                            </tr>
+                            <tr data-value="22" data-display="V.J. Foster">
+                                <td>V.J. Foster</td>
+                                <td>Hungry Fish Con (as V.J. Foster)</td>
+                            </tr>
+                            <tr data-value="23" data-display="John E. Summers">
+                                <td>John E. Summers</td>
+                                <td>New Fish Guard</td>
+                            </tr>
+                            <tr data-value="24" data-display="Frank Medrano">
+                                <td>Frank Medrano</td>
+                                <td>Fat Ass</td>
+                            </tr>
+                            <tr data-value="25" data-display="Mack Miles">
+                                <td>Mack Miles</td>
+                                <td>Tyrell</td>
+                            </tr>
+                            <tr data-value="26" data-display="Alan R. Kessler">
+                                <td>Alan R. Kessler</td>
+                                <td>Laundry Bob</td>
+                            </tr>
+                            <tr data-value="27" data-display="Morgan Lund">
+                                <td>Morgan Lund</td>
+                                <td>Laundry Truck Driver</td>
+                            </tr>
+                            <tr data-value="28" data-display="Cornell Wallace">
+                                <td>Cornell Wallace</td>
+                                <td>Laundry Leonard</td>
+                            </tr>
+                            <tr data-value="29" data-display="Gary Lee Davis">
+                                <td>Gary Lee Davis</td>
+                                <td>Rooster</td>
+                            </tr>
+                            <tr data-value="30" data-display="Neil Summers">
+                                <td>Neil Summers</td>
+                                <td>Pete</td>
+                            </tr>
+                            <tr data-value="31" data-display="Ned Bellamy">
+                                <td>Ned Bellamy</td>
+                                <td>Guard Youngblood</td>
+                            </tr>
+                            <tr data-value="32" data-display="Joe Pecoraro">
+                                <td>Joe Pecoraro</td>
+                                <td>Projectionist</td>
+                            </tr>
+                            <tr data-value="33" data-display="Harold E. Cope Jr.">
+                                <td>Harold E. Cope Jr.</td>
+                                <td>Hole Guard</td>
+                            </tr>
+                            <tr data-value="34" data-display="Brian Delate">
+                                <td>Brian Delate</td>
+                                <td>Guard Dekins</td>
+                            </tr>
+                            <tr data-value="35" data-display="Don McManus">
+                                <td>Don McManus</td>
+                                <td>Guard Wiley</td>
+                            </tr>
+                            <tr data-value="36" data-display="Dorothy Silver">
+                                <td>Dorothy Silver</td>
+                                <td>Landlady</td>
+                            </tr>
+                            <tr data-value="37" data-display="Donald Zinn">
+                                <td>Donald Zinn</td>
+                                <td>Moresby Batter</td>
+                            </tr>
+                            <tr data-value="38" data-display="Robert Haley">
+                                <td>Robert Haley</td>
+                                <td>1954 Food-Way Manager</td>
+                            </tr>
+                            <tr data-value="39" data-display="Dana Snyder">
+                                <td>Dana Snyder</td>
+                                <td>1954 Food-Way Proprietor</td>
+                            </tr>
+                            <tr data-value="40" data-display="John D. Craig">
+                                <td>John D. Craig</td>
+                                <td>1954 Food-Way Customer</td>
+                            </tr>
+                            <tr data-value="41" data-display="Ken Magee">
+                                <td>Ken Magee</td>
+                                <td>Ned Grimes</td>
+                            </tr>
+                            <tr data-value="42" data-display="Eugene C. DePasquale">
+                                <td>Eugene C. DePasquale</td>
+                                <td>Mail Caller</td>
+                            </tr>
+                            <tr data-value="43" data-display="Bill Bolender">
+                                <td>Bill Bolender</td>
+                                <td>Elmo Blatch</td>
+                            </tr>
+                            <tr data-value="44" data-display="Ron Newell">
+                                <td>Ron Newell</td>
+                                <td>Elderly Hole Guard</td>
+                            </tr>
+                            <tr data-value="45" data-display="John R. Woodward">
+                                <td>John R. Woodward</td>
+                                <td>Bullhorn Tower Guard</td>
+                            </tr>
+                            <tr data-value="46" data-display="Chuck Brauchler">
+                                <td>Chuck Brauchler</td>
+                                <td>Man Missing Guard</td>
+                            </tr>
+                            <tr data-value="47" data-display="Dion Anderson">
+                                <td>Dion Anderson</td>
+                                <td>Head Bull Haig</td>
+                            </tr>
+                            <tr data-value="48" data-display="Claire Slemmer">
+                                <td>Claire Slemmer</td>
+                                <td>Bank Teller</td>
+                            </tr>
+                            <tr data-value="49" data-display="James Kisicki">
+                                <td>James Kisicki</td>
+                                <td>Bank Manager</td>
+                            </tr>
+                            <tr data-value="50" data-display="Rohn Thomas">
+                                <td>Rohn Thomas</td>
+                                <td>Bugle Editor</td>
+                            </tr>
+                            <tr data-value="51" data-display="Charlie Kearns">
+                                <td>Charlie Kearns</td>
+                                <td>1966 D.A</td>
+                            </tr>
+                            <tr data-value="52" data-display="Rob Reider">
+                                <td>Rob Reider</td>
+                                <td>Duty Guard</td>
+                            </tr>
+                            <tr data-value="53" data-display="Brian Brophy">
+                                <td>Brian Brophy</td>
+                                <td>1967 Parole Hearings Man</td>
+                            </tr>
+                            <tr data-value="54" data-display="Paul Kennedy">
+                                <td>Paul Kennedy</td>
+                                <td>1967 1967 Food-Way Manager</td>
+                            </tr>
+                            <tr data-value="55" data-display="Dennis Baker">
+                                <td>John D. Craig</td>
+                                <td>Old Man on Bus (uncredited)</td>
+                            </tr>
+                            <tr data-value="56" data-display="Fred Culbertson">
+                                <td>Fred Culbertson</td>
+                                <td>Police Officer (uncredited)</td>
+                            </tr>
+                            <tr data-value="57" data-display="Richard Doone">
+                                <td>Richard Doone</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="58" data-display="Samantha Goldberg">
+                                <td>Samantha Goldberg</td>
+                                <td>Bank Employee (uncredited)</td>
+                            </tr>
+                            <tr data-value="59" data-display="Shane Grove">
+                                <td>Shane Grove</td>
+                                <td>Inmate (uncredited)</td>
+                            </tr>
+                            <tr data-value="60" data-display="Rita Hayworth">
+                                <td>Rita Hayworth</td>
+                                <td>Gilda Mundson Farrell (archive footage) (uncredited)</td>
+                            </tr>
+                            <tr data-value="61" data-display="David Hecht">
+                                <td>Bill McKinney</td>
+                                <td>Bank Teller</td>
+                            </tr>
+                            <tr data-value="62" data-display="Alonzo F. Jones">
+                                <td>Alonzo F. Jones</td>
+                                <td>Inmate (uncredited)</td>
+                            </tr>
+                            <tr data-value="63" data-display="Gary Jones">
+                                <td>Gary Jones</td>
+                                <td>Convict (uncredited)</td>
+                            </tr>
+                            <tr data-value="64" data-display="Sergio Kato">
+                                <td>Sergio Kato</td>
+                                <td>Inmate II (uncredited)</td>
+                            </tr>
+                            <tr data-value="65" data-display="Michael Lightsey">
+                                <td>Michael Lightsey</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="66" data-display="Tracy Love">
+                                <td>Tracy Love</td>
+                                <td>Court Spectator (uncredited)</td>
+                            </tr>
+                            <tr data-value="67" data-display="George Macready">
+                                <td>George Macready</td>
+                                <td>Ballin Mundson (archive footage) (uncredited)</td>
+                            </tr>
+                            <tr data-value="68" data-display="Christopher Page">
+                                <td>Christopher Page</td>
+                                <td>Traffic (driver) (uncredited)</td>
+                            </tr>
+                            <tr data-value="69" data-display="Neil Riddaway">
+                                <td>Neil Riddaway</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="70" data-display="Brad Spencer">
+                                <td>Brad Spencer</td>
+                                <td>1957 Parole Hearings Guard (uncredited)</td>
+                            </tr>
+                            <tr data-value="71" data-display="Jodiviah Stepp">
+                                <td>Jodiviah Stepp</td>
+                                <td>New Fish Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="72" data-display="Mark A. Strain">
+                                <td>Mark A. Strain</td>
+                                <td>Yard Inmate (uncredited)</td>
+                            </tr>
+                            <tr data-value="73" data-display="James Babson">
+                                <td>James Babson</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="74" data-display="Dennis Baker">
+                                <td>Dennis Baker</td>
+                                <td>Old Man on Bus (uncredited)</td>
+                            </tr>
+                            <tr data-value="75" data-display="Fred Culbertson">
+                                <td>Fred Culbertson</td>
+                                <td>Police Officer (uncredited)</td>
+                            </tr>
+                            <tr data-value="76" data-display="Richard Doone">
+                                <td>Richard Doone</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="77" data-display="Samantha Goldberg">
+                                <td>Samantha Goldberg</td>
+                                <td>Bank Employee (uncredited)</td>
+                            </tr>
+                            <tr data-value="78" data-display="Shane Grove">
+                                <td>Shane Grove</td>
+                                <td>Inmate (uncredited)</td>
+                            </tr>
+                            <tr data-value="79" data-display="Rita Hayworth">
+                                <td>Rita Hayworth</td>
+                                <td>Gilda Mundson Farrell (archive footage) (uncredited)</td>
+                            </tr>
+                            <tr data-value="80" data-display="David Hecht">
+                                <td>David Hecht</td>
+                                <td>Bank Teller</td>
+                            </tr>
+                            <tr data-value="81" data-display="Alonzo F. Jones">
+                                <td>Alonzo F. Jones</td>
+                                <td>Inmate (uncredited)</td>
+                            </tr>
+                            <tr data-value="82" data-display="Gary Jones">
+                                <td>Gary Jones</td>
+                                <td>Convict (uncredited)</td>
+                            </tr>
+                            <tr data-value="83" data-display="Sergio Kato">
+                                <td>Sergio Kato</td>
+                                <td>Inmate II (uncredited)</td>
+                            </tr>
+                            <tr data-value="84" data-display="Michael Lightsey">
+                                <td>Michael Lightsey</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="85" data-display="Tracy Love">
+                                <td>Tracy Love</td>
+                                <td>Court Spectator (uncredited)</td>
+                            </tr>
+                            <tr data-value="86" data-display="George Macready">
+                                <td>George Macready</td>
+                                <td>Ballin Mundson (archive footage) (uncredited)</td>
+                            </tr>
+                            <tr data-value="87" data-display="Christopher Page">
+                                <td>Christopher Page</td>
+                                <td>Traffic (driver) (uncredited)</td>
+                            </tr>
+                            <tr data-value="88" data-display="Neil Riddaway">
+                                <td>Neil Riddaway</td>
+                                <td>Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="89" data-display="Brad Spencer">
+                                <td>Brad Spencer</td>
+                                <td>1957 Parole Hearings Guard (uncredited)</td>
+                            </tr>
+                            <tr data-value="90" data-display="Jodiviah Stepp">
+                                <td>Jodiviah Stepp</td>
+                                <td>New Fish Con (uncredited)</td>
+                            </tr>
+                            <tr data-value="91" data-display="Mark A. Strain">
+                                <td>Mark A. Strain</td>
+                                <td>Yard Inmate (uncredited)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </combobox-framework>
+            </section>
+
+            <section>
                 <h2 id="examples">Examples</h2>
 
                 <nav>
