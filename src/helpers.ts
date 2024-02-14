@@ -9,10 +9,9 @@ import ComboboxFramework from "./combobox-framework";
  */
 export function fetchList(this: ComboboxFramework): void {
     if (this._list) return;
-    let list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
-    if (!list) list = this.querySelector('[slot="list"]') as HTMLElement;
-    if (!list) throw new Error("List element not found");
-    this._list = list;
+    this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
+    if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
+    if (!this._list) throw new Error("List element not found");
 }
 
 /**
@@ -38,11 +37,6 @@ export function fetchInput(this: ComboboxFramework): void {
  */
 export function fetchOriginalList(this: ComboboxFramework): void {
     if (this._originalList) return;
-
-    if (this._list) {
-        this._originalList = this._list.cloneNode(true) as HTMLElement;
-        return;
-    }
 
     fetchList.call(this);
     this._originalList = this._list!.cloneNode(true) as HTMLElement;

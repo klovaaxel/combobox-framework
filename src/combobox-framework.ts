@@ -48,7 +48,15 @@ export default class ComboboxFramework extends HTMLElement {
                 this.selectItemByValue(newValue, false);
                 break;
             case "data-fuse-options":
-                if (!this._originalList) fetchOriginalList.call(this);
+                // #region If the fuse object is not created, save the options and return
+                if (!this._fuse) {
+                    this._fuseOptions = JSON.parse(newValue);
+                    return;
+                }
+                // #endregion
+
+                // #region If the fuse object is created, recreate it and search the list
+                fetchOriginalList.call(this);
 
                 this._fuseOptions = JSON.parse(newValue);
                 this._fuse = new Fuse(
@@ -56,6 +64,7 @@ export default class ComboboxFramework extends HTMLElement {
                     this._fuseOptions,
                 );
                 this.searchList();
+                // #endregion
                 break;
             case "data-listbox":
                 this._forceValue = !!newValue;
@@ -338,8 +347,8 @@ export default class ComboboxFramework extends HTMLElement {
      */
     public focusItem(item: HTMLElement): void {
         if (!item) return;
-        item.focus();
         this.unfocusAllItems();
+        item.focus();
         item.setAttribute("aria-selected", "true");
     }
 
