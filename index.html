@@ -99,7 +99,7 @@
                 </p>
 
                 <label style="display: block;" for="demo-input">Select a cast member:</label>
-                <combobox-framework data-limit="20">
+                <combobox-framework data-limit="20" data-fuse-options='{ "includeScore": true, "keys": ["dataset.search"]}'>
                     <input id="demo-input" placeholder="Click me" type="text" slot="input" />
                     <table slot="list">
                         <thead>
@@ -110,367 +110,367 @@
                         </thead>
 
                         <tbody data-list>
-                            <tr data-value="1" data-display="Tim Robbins">
+                            <tr data-value="1" data-display="Tim Robbins" data-search="Tim Robbins Andy Dufresne">
                                 <td>Tim Robbins</td>
                                 <td>Andy Dufresne</td>
                             </tr>
-                            <tr data-value="2" data-display="Morgan Freeman">
+                            <tr data-value="2" data-display="Morgan Freeman" data-search='Morgan Freeman Ellis Boyd "Red" Redding'>
                                 <td>Morgan Freeman</td>
                                 <td>Ellis Boyd "Red" Redding</td>
                             </tr>
-                            <tr data-value="3" data-display="Bob Gunton">
+                            <tr data-value="3" data-display="Bob Gunton" data-search="Bob Gunton Warden Samuel Norton">
                                 <td>Bob Gunton</td>
                                 <td>Warden Samuel Norton</td>
                             </tr>
-                            <tr data-value="4" data-display="William Sadler">
+                            <tr data-value="4" data-display="William Sadler" data-search="William Sadler Heywood">
                                 <td>William Sadler</td>
                                 <td>Heywood</td>
                             </tr>
-                            <tr data-value="5" data-display="Clancy Brown">
+                            <tr data-value="5" data-display="Clancy Brown" data-search="Clancy Brown Byron Hadley">
                                 <td>Clancy Brown</td>
                                 <td>Byron Hadley</td>
                             </tr>
-                            <tr data-value="6" data-display="Gil Bellows">
+                            <tr data-value="6" data-display="Gil Bellows" data-search="Gil Bellows Tommy Williams">
                                 <td>Gil Bellows</td>
                                 <td>Tommy Williams</td>
                             </tr>
-                            <tr data-value="7" data-display="James Whitmore">
+                            <tr data-value="7" data-display="James Whitmore" data-search="James Whitmore Brooks Hatlen">
                                 <td>James Whitmore</td>
                                 <td>Brooks Hatlen</td>
                             </tr>
-                            <tr data-value="8" data-display="Mark Rolston">
+                            <tr data-value="8" data-display="Mark Rolston" data-search="Mark Rolston Bogs Diamond">
                                 <td>Mark Rolston</td>
                                 <td>Bogs Diamond</td>
                             </tr>
-                            <tr data-value="9" data-display="Jeffrey DeMunn">
+                            <tr data-value="9" data-display="Jeffrey DeMunn" data-search="Jeffrey DeMunn 1946 D.A.">
                                 <td>Jeffrey DeMunn</td>
                                 <td>1946 D.A.</td>
                             </tr>
-                            <tr data-value="10" data-display="Larry Brandenburg">
+                            <tr data-value="10" data-display="Larry Brandenburg" data-search="Larry Brandenburg Skeet">
                                 <td>Larry Brandenburg</td>
                                 <td>Skeet</td>
                             </tr>
-                            <tr data-value="11" data-display="Neil Giuntoli">
+                            <tr data-value="11" data-display="Neil Giuntoli" data-search="Neil Giunt Jigger">
                                 <td>Neil Giuntoli</td>
                                 <td>Jigger</td>
                             </tr>
-                            <tr data-value="12" data-display="Brian Libby">
+                            <tr data-value="12" data-display="Brian Libby" data-search="Brian Libby Floyd">
                                 <td>Brian Libby</td>
                                 <td>Floyd</td>
                             </tr>
-                            <tr data-value="13" data-display="David Proval">
+                            <tr data-value="13" data-display="David Proval" data-search="David Proval Snooze">
                                 <td>David Proval</td>
                                 <td>Snooze</td>
                             </tr>
-                            <tr data-value="14" data-display="Joseph Ragno">
+                            <tr data-value="14" data-display="Joseph Ragno" data-search="Joseph Ragno Ernie">
                                 <td>Joseph Ragno</td>
                                 <td>Ernie</td>
                             </tr>
-                            <tr data-value="15" data-display="Jude Ciccolella">
+                            <tr data-value="15" data-display="Jude Ciccolella" data-search="Jude Ciccolella Guard Mert">
                                 <td>Jude Ciccolella</td>
                                 <td>Guard Mert</td>
                             </tr>
-                            <tr data-value="16" data-display="Paul McCrane">
+                            <tr data-value="16" data-display="Paul McCrane" data-search="Paul McCrane Guard Trout">
                                 <td>Paul McCrane</td>
                                 <td>Guard Trout</td>
                             </tr>
-                            <tr data-value="17" data-display="Renee Blaine">
+                            <tr data-value="17" data-display="Renee Blaine" data-search="Renee Blaine Linda Dufresne (Andy Dufresne's Wife)">
                                 <td>Renee Blaine</td>
                                 <td>Linda Dufresne (Andy Dufresne's Wife)</td>
                             </tr>
-                            <tr data-value="18" data-display="Scott Mann">
+                            <tr data-value="18" data-display="Scott Mann" data-search="Scott Mann Glenn Quentin">
                                 <td>Scott Mann</td>
                                 <td>Glenn Quentin</td>
                             </tr>
-                            <tr data-value="19" data-display="John Horton">
+                            <tr data-value="19" data-display="John Horton" data-search="John Horton Lloyd Henreid (Judge)">
                                 <td>John Horton</td>
                                 <td>Lloyd Henreid (Judge)</td>
                             </tr>
-                            <tr data-value="20" data-display="Gordon Greene">
+                            <tr data-value="20" data-display="Gordon Greene" data-search="Gordon Greene 1947 Parole Hearings Man">
                                 <td>Gordon Greene</td>
                                 <td>1947 Parole Hearings Man</td>
                             </tr>
-                            <tr data-value="21" data-display="Alfonso Freeman">
+                            <tr data-value="21" data-display="Alfonso Freeman" data-search="Alfonso Freeman Fresh Fish Con">
                                 <td>Alfonso Freeman</td>
                                 <td>Fresh Fish Con</td>
                             </tr>
-                            <tr data-value="22" data-display="V.J. Foster">
+                            <tr data-value="22" data-display="V.J. Foster" data-search="V.J. Foster Hungry Fish Con (as V.J. Foster)">
                                 <td>V.J. Foster</td>
                                 <td>Hungry Fish Con (as V.J. Foster)</td>
                             </tr>
-                            <tr data-value="23" data-display="John E. Summers">
+                            <tr data-value="23" data-display="John E. Summers" data-search="John E. Summers New Fish Guard">
                                 <td>John E. Summers</td>
                                 <td>New Fish Guard</td>
                             </tr>
-                            <tr data-value="24" data-display="Frank Medrano">
+                            <tr data-value="24" data-display="Frank Medrano" data-search="Frank Medr Fat Ass">
                                 <td>Frank Medrano</td>
                                 <td>Fat Ass</td>
                             </tr>
-                            <tr data-value="25" data-display="Mack Miles">
+                            <tr data-value="25" data-display="Mack Miles" data-search="Mack Miles Tyrell">
                                 <td>Mack Miles</td>
                                 <td>Tyrell</td>
                             </tr>
-                            <tr data-value="26" data-display="Alan R. Kessler">
+                            <tr data-value="26" data-display="Alan R. Kessler" data-search="Alan R. Kessler Laundry Bob">
                                 <td>Alan R. Kessler</td>
                                 <td>Laundry Bob</td>
                             </tr>
-                            <tr data-value="27" data-display="Morgan Lund">
+                            <tr data-value="27" data-display="Morgan Lund" data-search="Morgan Lund Laundry Truck Driver">
                                 <td>Morgan Lund</td>
                                 <td>Laundry Truck Driver</td>
                             </tr>
-                            <tr data-value="28" data-display="Cornell Wallace">
+                            <tr data-value="28" data-display="Cornell Wallace" data-search="Cornell Wallace Laundry Leonard">
                                 <td>Cornell Wallace</td>
                                 <td>Laundry Leonard</td>
                             </tr>
-                            <tr data-value="29" data-display="Gary Lee Davis">
+                            <tr data-value="29" data-display="Gary Lee Davis" data-search="Gary Lee Davis Rooster">
                                 <td>Gary Lee Davis</td>
                                 <td>Rooster</td>
                             </tr>
-                            <tr data-value="30" data-display="Neil Summers">
+                            <tr data-value="30" data-display="Neil Summers" data-search="Neil Summers Pete">
                                 <td>Neil Summers</td>
                                 <td>Pete</td>
                             </tr>
-                            <tr data-value="31" data-display="Ned Bellamy">
+                            <tr data-value="31" data-display="Ned Bellamy" data-search="Ned Bellamy Guard Youngblood">
                                 <td>Ned Bellamy</td>
                                 <td>Guard Youngblood</td>
                             </tr>
-                            <tr data-value="32" data-display="Joe Pecoraro">
+                            <tr data-value="32" data-display="Joe Pecoraro" data-search="Joe Pecoraro Projectionist">
                                 <td>Joe Pecoraro</td>
                                 <td>Projectionist</td>
                             </tr>
-                            <tr data-value="33" data-display="Harold E. Cope Jr.">
+                            <tr data-value="33" data-display="Harold E. Cope Jr." data-search="Harold E. Cope Jr. Hole Guard">
                                 <td>Harold E. Cope Jr.</td>
                                 <td>Hole Guard</td>
                             </tr>
-                            <tr data-value="34" data-display="Brian Delate">
+                            <tr data-value="34" data-display="Brian Delate" data-search="Brian Delate Guard Dekins">
                                 <td>Brian Delate</td>
                                 <td>Guard Dekins</td>
                             </tr>
-                            <tr data-value="35" data-display="Don McManus">
+                            <tr data-value="35" data-display="Don McManus" data-search="Don McManus Guard Wiley">
                                 <td>Don McManus</td>
                                 <td>Guard Wiley</td>
                             </tr>
-                            <tr data-value="36" data-display="Dorothy Silver">
+                            <tr data-value="36" data-display="Dorothy Silver" data-search="Dorothy Silver Landlady">
                                 <td>Dorothy Silver</td>
                                 <td>Landlady</td>
                             </tr>
-                            <tr data-value="37" data-display="Donald Zinn">
+                            <tr data-value="37" data-display="Donald Zinn" data-search="Donald Zinn Moresby Batter">
                                 <td>Donald Zinn</td>
                                 <td>Moresby Batter</td>
                             </tr>
-                            <tr data-value="38" data-display="Robert Haley">
+                            <tr data-value="38" data-display="Robert Haley" data-search="Robert Haley 1954 Food-Way Manager">
                                 <td>Robert Haley</td>
                                 <td>1954 Food-Way Manager</td>
                             </tr>
-                            <tr data-value="39" data-display="Dana Snyder">
+                            <tr data-value="39" data-display="Dana Snyder" data-search="Dana Snyder 1954 Food-Way Proprietor">
                                 <td>Dana Snyder</td>
                                 <td>1954 Food-Way Proprietor</td>
                             </tr>
-                            <tr data-value="40" data-display="John D. Craig">
+                            <tr data-value="40" data-display="John D. Craig" data-search="John D. Craig 1954 Food-Way Customer">
                                 <td>John D. Craig</td>
                                 <td>1954 Food-Way Customer</td>
                             </tr>
-                            <tr data-value="41" data-display="Ken Magee">
+                            <tr data-value="41" data-display="Ken Magee" data-search="Ken Magee Ned Grimes">
                                 <td>Ken Magee</td>
                                 <td>Ned Grimes</td>
                             </tr>
-                            <tr data-value="42" data-display="Eugene C. DePasquale">
+                            <tr data-value="42" data-display="Eugene C. DePasquale" data-search="Eugene C. DePasquale Mail Caller">
                                 <td>Eugene C. DePasquale</td>
                                 <td>Mail Caller</td>
                             </tr>
-                            <tr data-value="43" data-display="Bill Bolender">
+                            <tr data-value="43" data-display="Bill Bolender" data-search="Bill Bolender Elmo Blatch">
                                 <td>Bill Bolender</td>
                                 <td>Elmo Blatch</td>
                             </tr>
-                            <tr data-value="44" data-display="Ron Newell">
+                            <tr data-value="44" data-display="Ron Newell" data-search="Ron Newell Elderly Hole Guard">
                                 <td>Ron Newell</td>
                                 <td>Elderly Hole Guard</td>
                             </tr>
-                            <tr data-value="45" data-display="John R. Woodward">
+                            <tr data-value="45" data-display="John R. Woodward" data-search="John R. Woodward Bullhorn Tower Guard">
                                 <td>John R. Woodward</td>
                                 <td>Bullhorn Tower Guard</td>
                             </tr>
-                            <tr data-value="46" data-display="Chuck Brauchler">
+                            <tr data-value="46" data-display="Chuck Brauchler" data-search="Chuck Brauchler Man Missing Guard">
                                 <td>Chuck Brauchler</td>
                                 <td>Man Missing Guard</td>
                             </tr>
-                            <tr data-value="47" data-display="Dion Anderson">
+                            <tr data-value="47" data-display="Dion Anderson" data-search="Dion Anderson Head Bull Haig">
                                 <td>Dion Anderson</td>
                                 <td>Head Bull Haig</td>
                             </tr>
-                            <tr data-value="48" data-display="Claire Slemmer">
+                            <tr data-value="48" data-display="Claire Slemmer" data-search="Claire Slemmer Bank Teller">
                                 <td>Claire Slemmer</td>
                                 <td>Bank Teller</td>
                             </tr>
-                            <tr data-value="49" data-display="James Kisicki">
+                            <tr data-value="49" data-display="James Kisicki" data-search="James Kisicki Bank Manager">
                                 <td>James Kisicki</td>
                                 <td>Bank Manager</td>
                             </tr>
-                            <tr data-value="50" data-display="Rohn Thomas">
+                            <tr data-value="50" data-display="Rohn Thomas" data-search="Rohn Thomas Bugle Editor">
                                 <td>Rohn Thomas</td>
                                 <td>Bugle Editor</td>
                             </tr>
-                            <tr data-value="51" data-display="Charlie Kearns">
+                            <tr data-value="51" data-display="Charlie Kearns" data-search="Charlie Kearns 1966 D.A">
                                 <td>Charlie Kearns</td>
                                 <td>1966 D.A</td>
                             </tr>
-                            <tr data-value="52" data-display="Rob Reider">
+                            <tr data-value="52" data-display="Rob Reider" data-search="Rob Reider Duty Guard">
                                 <td>Rob Reider</td>
                                 <td>Duty Guard</td>
                             </tr>
-                            <tr data-value="53" data-display="Brian Brophy">
+                            <tr data-value="53" data-display="Brian Brophy" data-search="Brian Brophy 1967 Parole Hearings Man">
                                 <td>Brian Brophy</td>
                                 <td>1967 Parole Hearings Man</td>
                             </tr>
-                            <tr data-value="54" data-display="Paul Kennedy">
+                            <tr data-value="54" data-display="Paul Kennedy" data-search="Paul Kennedy 1967 Food-Way Manager">
                                 <td>Paul Kennedy</td>
-                                <td>1967 1967 Food-Way Manager</td>
+                                <td>1967 Food-Way Manager</td>
                             </tr>
-                            <tr data-value="55" data-display="Dennis Baker">
+                            <tr data-value="55" data-display="Dennis Baker" data-search="Dennis Baker Old Man on Bus (uncredited)">
                                 <td>John D. Craig</td>
                                 <td>Old Man on Bus (uncredited)</td>
                             </tr>
-                            <tr data-value="56" data-display="Fred Culbertson">
+                            <tr data-value="56" data-display="Fred Culbertson" data-search="Fred Culbertson Police Officer (uncredited)">
                                 <td>Fred Culbertson</td>
                                 <td>Police Officer (uncredited)</td>
                             </tr>
-                            <tr data-value="57" data-display="Richard Doone">
+                            <tr data-value="57" data-display="Richard Doone" data-search="Richard Doone Con (uncredited)">
                                 <td>Richard Doone</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="58" data-display="Samantha Goldberg">
+                            <tr data-value="58" data-display="Samantha Goldberg" data-search="Samantha Goldberg Bank Employee (uncredited)">
                                 <td>Samantha Goldberg</td>
                                 <td>Bank Employee (uncredited)</td>
                             </tr>
-                            <tr data-value="59" data-display="Shane Grove">
+                            <tr data-value="59" data-display="Shane Grove" data-search="Shane Grove Inmate (uncredited)">
                                 <td>Shane Grove</td>
                                 <td>Inmate (uncredited)</td>
                             </tr>
-                            <tr data-value="60" data-display="Rita Hayworth">
+                            <tr data-value="60" data-display="Rita Hayworth" data-search="Rita Hayworth Gilda Mundson Farrell (archive footage) (uncredited)">
                                 <td>Rita Hayworth</td>
                                 <td>Gilda Mundson Farrell (archive footage) (uncredited)</td>
                             </tr>
-                            <tr data-value="61" data-display="David Hecht">
+                            <tr data-value="61" data-display="David Hecht" data-search="David Hecht Bank Teller">
                                 <td>Bill McKinney</td>
                                 <td>Bank Teller</td>
                             </tr>
-                            <tr data-value="62" data-display="Alonzo F. Jones">
+                            <tr data-value="62" data-display="Alonzo F. Jones" data-search="Alonzo F. Jones Inmate (uncredited)">
                                 <td>Alonzo F. Jones</td>
                                 <td>Inmate (uncredited)</td>
                             </tr>
-                            <tr data-value="63" data-display="Gary Jones">
+                            <tr data-value="63" data-display="Gary Jones" data-search="Gary Jones Convict (uncredited)">
                                 <td>Gary Jones</td>
                                 <td>Convict (uncredited)</td>
                             </tr>
-                            <tr data-value="64" data-display="Sergio Kato">
+                            <tr data-value="64" data-display="Sergio Kato" data-search="Sergio Kato Inmate II (uncredited)">
                                 <td>Sergio Kato</td>
                                 <td>Inmate II (uncredited)</td>
                             </tr>
-                            <tr data-value="65" data-display="Michael Lightsey">
+                            <tr data-value="65" data-display="Michael Lightsey" data-search="Michael Lightsey Con (uncredited)">
                                 <td>Michael Lightsey</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="66" data-display="Tracy Love">
+                            <tr data-value="66" data-display="Tracy Love" data-search="Tracy Love Court Spectator (uncredited)">
                                 <td>Tracy Love</td>
                                 <td>Court Spectator (uncredited)</td>
                             </tr>
-                            <tr data-value="67" data-display="George Macready">
+                            <tr data-value="67" data-display="George Macready" data-search="George Macready Ballin Mundson (archive footage) (uncredited)">
                                 <td>George Macready</td>
                                 <td>Ballin Mundson (archive footage) (uncredited)</td>
                             </tr>
-                            <tr data-value="68" data-display="Christopher Page">
+                            <tr data-value="68" data-display="Christopher Page" data-search="Christopher Page Traffic (driver) (uncredited)">
                                 <td>Christopher Page</td>
                                 <td>Traffic (driver) (uncredited)</td>
                             </tr>
-                            <tr data-value="69" data-display="Neil Riddaway">
+                            <tr data-value="69" data-display="Neil Riddaway" data-search="Neil Riddaway Con (uncredited)">
                                 <td>Neil Riddaway</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="70" data-display="Brad Spencer">
+                            <tr data-value="70" data-display="Brad Spencer" data-search="Brad Spencer 1957 Parole Hearings Guard (uncredited)">
                                 <td>Brad Spencer</td>
                                 <td>1957 Parole Hearings Guard (uncredited)</td>
                             </tr>
-                            <tr data-value="71" data-display="Jodiviah Stepp">
+                            <tr data-value="71" data-display="Jodiviah Stepp" data-search="Jodiviah Stepp New Fish Con (uncredited)">
                                 <td>Jodiviah Stepp</td>
                                 <td>New Fish Con (uncredited)</td>
                             </tr>
-                            <tr data-value="72" data-display="Mark A. Strain">
+                            <tr data-value="72" data-display="Mark A. Strain" data-search="Mark A. Strain Yard Inmate (uncredited)">
                                 <td>Mark A. Strain</td>
                                 <td>Yard Inmate (uncredited)</td>
                             </tr>
-                            <tr data-value="73" data-display="James Babson">
+                            <tr data-value="73" data-display="James Babson" data-search="James Babson Con (uncredited)">
                                 <td>James Babson</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="74" data-display="Dennis Baker">
+                            <tr data-value="74" data-display="Dennis Baker" data-search="Dennis Baker Old Man on Bus (uncredited)">
                                 <td>Dennis Baker</td>
                                 <td>Old Man on Bus (uncredited)</td>
                             </tr>
-                            <tr data-value="75" data-display="Fred Culbertson">
+                            <tr data-value="75" data-display="Fred Culbertson" data-search="Fred Culbertson Police Officer (uncredited)">
                                 <td>Fred Culbertson</td>
                                 <td>Police Officer (uncredited)</td>
                             </tr>
-                            <tr data-value="76" data-display="Richard Doone">
+                            <tr data-value="76" data-display="Richard Doone" data-search="Richard Doone Con (uncredited)">
                                 <td>Richard Doone</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="77" data-display="Samantha Goldberg">
+                            <tr data-value="77" data-display="Samantha Goldberg" data-search="Samantha Goldberg Bank Employee (uncredited)">
                                 <td>Samantha Goldberg</td>
                                 <td>Bank Employee (uncredited)</td>
                             </tr>
-                            <tr data-value="78" data-display="Shane Grove">
+                            <tr data-value="78" data-display="Shane Grove" data-search="Shane Grove Inmate (uncredited)">
                                 <td>Shane Grove</td>
                                 <td>Inmate (uncredited)</td>
                             </tr>
-                            <tr data-value="79" data-display="Rita Hayworth">
+                            <tr data-value="79" data-display="Rita Hayworth" data-search="Rita Hayworth Gilda Mundson Farrell (archive footage) (uncredited)">
                                 <td>Rita Hayworth</td>
                                 <td>Gilda Mundson Farrell (archive footage) (uncredited)</td>
                             </tr>
-                            <tr data-value="80" data-display="David Hecht">
+                            <tr data-value="80" data-display="David Hecht" data-search="David Hecht Bank Teller">
                                 <td>David Hecht</td>
                                 <td>Bank Teller</td>
                             </tr>
-                            <tr data-value="81" data-display="Alonzo F. Jones">
+                            <tr data-value="81" data-display="Alonzo F. Jones" data-search="Alonzo F. Jones Inmate (uncredited)">
                                 <td>Alonzo F. Jones</td>
                                 <td>Inmate (uncredited)</td>
                             </tr>
-                            <tr data-value="82" data-display="Gary Jones">
+                            <tr data-value="82" data-display="Gary Jones" data-search="Gary Jones Convict (uncredited)">
                                 <td>Gary Jones</td>
                                 <td>Convict (uncredited)</td>
                             </tr>
-                            <tr data-value="83" data-display="Sergio Kato">
+                            <tr data-value="83" data-display="Sergio Kato" data-search="Sergio Kato Inmate II (uncredited)">
                                 <td>Sergio Kato</td>
                                 <td>Inmate II (uncredited)</td>
                             </tr>
-                            <tr data-value="84" data-display="Michael Lightsey">
+                            <tr data-value="84" data-display="Michael Lightsey" data-search="Michael Lightsey Con (uncredited)">
                                 <td>Michael Lightsey</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="85" data-display="Tracy Love">
+                            <tr data-value="85" data-display="Tracy Love" data-search="Tracy Love Court Spectator (uncredited)">
                                 <td>Tracy Love</td>
                                 <td>Court Spectator (uncredited)</td>
                             </tr>
-                            <tr data-value="86" data-display="George Macready">
+                            <tr data-value="86" data-display="George Macready" data-search="George Macready Ballin Mundson (archive footage) (uncredited)">
                                 <td>George Macready</td>
                                 <td>Ballin Mundson (archive footage) (uncredited)</td>
                             </tr>
-                            <tr data-value="87" data-display="Christopher Page">
+                            <tr data-value="87" data-display="Christopher Page" data-search="Christopher Page Traffic (driver) (uncredited)">
                                 <td>Christopher Page</td>
                                 <td>Traffic (driver) (uncredited)</td>
                             </tr>
-                            <tr data-value="88" data-display="Neil Riddaway">
+                            <tr data-value="88" data-display="Neil Riddaway" data-search="Neil Riddaway Con (uncredited)">
                                 <td>Neil Riddaway</td>
                                 <td>Con (uncredited)</td>
                             </tr>
-                            <tr data-value="89" data-display="Brad Spencer">
+                            <tr data-value="89" data-display="Brad Spencer" data-search="Brad Spencer 1957 Parole Hearings Guard (uncredited)">
                                 <td>Brad Spencer</td>
                                 <td>1957 Parole Hearings Guard (uncredited)</td>
                             </tr>
-                            <tr data-value="90" data-display="Jodiviah Stepp">
+                            <tr data-value="90" data-display="Jodiviah Stepp" data-search="Jodiviah Stepp New Fish Con (uncredited)">
                                 <td>Jodiviah Stepp</td>
                                 <td>New Fish Con (uncredited)</td>
                             </tr>
-                            <tr data-value="91" data-display="Mark A. Strain">
+                            <tr data-value="91" data-display="Mark A. Strain" data-search="Mark A. Strain Yard Inmate (uncredited)">
                                 <td>Mark A. Strain</td>
                                 <td>Yard Inmate (uncredited)</td>
                             </tr>
@@ -799,6 +799,10 @@
                         combobox-framework input[aria-expanded="false"] + [slot="list"],
                         combobox-framework input:not([aria-expanded]) + [slot="list"] {
                             display: none;
+                        }
+
+                        *:focus {
+                            background: red;   
                         }
                     </style>
                 </div>
