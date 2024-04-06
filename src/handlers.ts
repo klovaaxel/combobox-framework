@@ -27,7 +27,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             }
             event.preventDefault(); // prevent scrolling
             break;
-        case "UpArrow":
+        case "ArrowUp":
             // (Optional): If the popup is available, places focus on the last focusable element in the popup.
             if (this._input!.getAttribute("aria-expanded") === "true") {
                 this.focusItem(
