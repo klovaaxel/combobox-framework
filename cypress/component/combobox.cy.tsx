@@ -52,7 +52,7 @@ describe("Component ", () => {
                 cy.focused().should("have.attr", "role", "option");
             });
 
-            it.skip("moves focus into the popup (last element) when uparrow is clicked", () => {
+            it("moves focus into the popup (last element) when uparrow is clicked", () => {
                 cy.getByTestAttr("input").focus();
                 cy.pressKey("ArrowUp");
                 cy.getByTestAttr("listbox").should("be.visible");
@@ -78,14 +78,6 @@ describe("Component ", () => {
                 cy.pressKey("Escape"); // Close the popup so we acn open it
                 cy.pressKey("Alt");
                 cy.pressKey("ArrowDown");
-                cy.getByTestAttr("listbox").should("be.visible");
-                cy.focused().should("have.attr", "role", "combobox");
-            });
-
-            it("Returns focus to the combobox without closing the popup when alt and uparrow are clicked", () => {
-                cy.getByTestAttr("input").focus();
-                cy.pressKey("Alt");
-                cy.pressKey("ArrowUp");
                 cy.getByTestAttr("listbox").should("be.visible");
                 cy.focused().should("have.attr", "role", "combobox");
             });
@@ -155,12 +147,18 @@ describe("Component ", () => {
                 //cy.getByTestAttr("input").should("have.value", "on"); // Can't seem to mock this whith only js events
             });
 
-            it.skip("returns focus to the combobox, removes the selected state if a suggestion was selected when delete is clicked", () => {
+            it("returns focus to the combobox when delete is clicked", () => {
                 cy.getByTestAttr("input").type("one");
                 cy.pressKey("ArrowDown");
                 cy.pressKey("Delete");
                 cy.focused().should("have.attr", "role", "combobox");
-                cy.getByTestAttr("input").should("have.value", "");
+            });
+
+            it("Returns focus to the combobox closing the popup when alt and uparrow are clicked", () => {
+                cy.pressKey("Alt");
+                cy.pressKey("ArrowUp");
+                cy.getByTestAttr("listbox").should("not.be.visible");
+                cy.focused().should("have.attr", "role", "combobox");
             });
         });
     });

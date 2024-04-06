@@ -18,6 +18,5 @@ Cypress.Commands.add("getByTestAttr", (val) => {
 
 Cypress.Commands.add("pressKey", (val) => {
     const element = document.activeElement ?? document;
-    debugger;
     element.dispatchEvent(new KeyboardEvent("keydown", { key: val }));
 });

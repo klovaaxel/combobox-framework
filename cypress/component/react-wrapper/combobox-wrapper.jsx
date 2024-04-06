@@ -1,6 +1,6 @@
 import React from "react";
 import "./combobox-wrapper.css";
-import "../../../dist/combobox-framework";
+import "../../../src/combobox-framework";
 
 export const ComboboxWrapper = ({ items, placeholder = "Choose a value" }) => {
     return (
