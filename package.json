@@ -25,6 +25,7 @@
         "type": "git",
         "url": "git+https://github.com/klovaaxel/combobox-framework.git"
     },
+    "files": ["dist/**"],
     "scripts": {
         "dev": "vite",
         "build:watch": "vite build --watch",
