@@ -29,7 +29,7 @@
     "scripts": {
         "dev": "vite",
         "build:watch": "vite build --watch",
-        "build": "bun lint; tsc && vite build; bun run build.mjs; bun test; echo \"Done! Don't forget to update the version number in package.json\"",
+        "build": "bun lint; tsc && vite build; bun run build.mjs; bun test; cypress run --component; echo \"Done! Don't forget to update the version number in package.json\"",
         "build-demo": "tsc && vite build",
         "build-module": "bun run build.mjs",
         "preview": "vite preview",
