@@ -14,11 +14,13 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
     if (!this._list) fetchList.call(this);
     // #endregion
 
+    const isInputExpanded = () => this._input!.getAttribute("aria-expanded") === "true";
+
     // #region Handle the key press
     switch (event.key) {
         case "ArrowDown":
             // If the popup is available, moves focus into the popup: If the autocomplete behavior automatically selected a suggestion before Down Arrow was pressed, focus is placed on the suggestion following the automatically selected suggestion. Otherwise, places focus on the first focusable element in the popup.
-            if (this._input!.getAttribute("aria-expanded") !== "true") {
+            if (!isInputExpanded()) {
                 this.toggleList(true);
                 if (!this._isAltModifierPressed)
                     this.focusItem(this._list!.children[0] as HTMLElement);
@@ -29,7 +31,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             break;
         case "ArrowUp":
             // (Optional): If the popup is available, places focus on the last focusable element in the popup.
-            if (this._input!.getAttribute("aria-expanded") === "true") {
+            if (isInputExpanded()) {
                 this.focusItem(
                     this._list!.children[this._list!.children.length - 1] as HTMLElement,
                 );
@@ -38,7 +40,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             break;
         case "Escape":
             // Dismisses the popup if it is visible. Optionally, if the popup is hidden before Escape is pressed, clears the combobox.
-            if (this._input!.getAttribute("aria-expanded") === "true") {
+            if (isInputExpanded()) {
                 this.toggleList(false);
             } else {
                 this._input!.value = "";
@@ -47,7 +49,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             break;
         case "Enter":
             // Autocompletes the combobox with the first suggestion
-            if (this._input!.getAttribute("aria-expanded") === "true") {
+            if (isInputExpanded()) {
                 this.selectItem(this._list!.children[0] as HTMLElement);
             }
             break;
