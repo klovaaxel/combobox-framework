@@ -80,3 +80,20 @@ export function setBasicAttributes(this: ComboboxFramework): void {
     }
     // #endregion
 }
+
+/**
+ * Enum for all the key codes that are used in the combobox
+ */
+export enum KeyCode {
+    ArrowDown = "ArrowDown",
+    ArrowUp = "ArrowUp",
+    ArrowRight = "ArrowRight",
+    ArrowLeft = "ArrowLeft",
+    Home = "Home",
+    End = "End",
+    Backspace = "Backspace",
+    Delete = "Delete",
+    Escape = "Escape",
+    Enter = "Enter",
+    Alt = "Alt",
+}

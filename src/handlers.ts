@@ -1,5 +1,5 @@
 import ComboboxFramework from "./combobox-framework";
-import { fetchInput, fetchList } from "./helpers";
+import { KeyCode, fetchInput, fetchList } from "./helpers";
 
 /**
  * Handles the key press event on the input element
@@ -18,7 +18,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
 
     // #region Handle the key press
     switch (event.key) {
-        case "ArrowDown":
+        case KeyCode.ArrowDown:
             // If the popup is available, moves focus into the popup: If the autocomplete behavior automatically selected a suggestion before Down Arrow was pressed, focus is placed on the suggestion following the automatically selected suggestion. Otherwise, places focus on the first focusable element in the popup.
             if (!isInputExpanded()) {
                 this.toggleList(true);
@@ -29,7 +29,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             }
             event.preventDefault(); // prevent scrolling
             break;
-        case "ArrowUp":
+        case KeyCode.ArrowUp:
             // (Optional): If the popup is available, places focus on the last focusable element in the popup.
             if (isInputExpanded()) {
                 this.focusItem(
@@ -38,7 +38,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             }
             event.preventDefault(); // prevent scrolling
             break;
-        case "Escape":
+        case KeyCode.Escape:
             // Dismisses the popup if it is visible. Optionally, if the popup is hidden before Escape is pressed, clears the combobox.
             if (isInputExpanded()) {
                 this.toggleList(false);
@@ -47,13 +47,13 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             }
             this._input!.focus();
             break;
-        case "Enter":
+        case KeyCode.Enter:
             // Autocompletes the combobox with the first suggestion
             if (isInputExpanded()) {
                 this.selectItem(this._list!.children[0] as HTMLElement);
             }
             break;
-        case "Alt":
+        case KeyCode.Alt:
             this._isAltModifierPressed = true;
             break;
     }
@@ -76,15 +76,15 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
     // #region Handle the key press
     const li = event.target as HTMLElement;
     switch (event.key) {
-        case "Enter":
+        case KeyCode.Enter:
             // Select the item and close the list
             this.selectItem(li);
             break;
-        case "Escape":
+        case KeyCode.Escape:
             // Close the list and focus the input
             this.clearInput();
             break;
-        case "ArrowDown": {
+        case KeyCode.ArrowDown: {
             // Move focus to the next item in the list
             const nextLi = li.nextElementSibling as HTMLElement;
             if (nextLi) this.focusItem(nextLi);
@@ -92,7 +92,7 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             event.preventDefault(); // prevent scrolling
             break;
         }
-        case "ArrowUp": {
+        case KeyCode.ArrowUp: {
             // If alt is pressed, close the list and focus the input
             if (this._isAltModifierPressed) {
                 this._input!.focus();
@@ -111,31 +111,31 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             event.preventDefault(); // prevent scrolling
             break;
         }
-        case "ArrowRight":
+        case KeyCode.ArrowRight:
             // returns focus to the combobox without closing the popup
             this._input!.focus();
             break;
-        case "ArrowLeft":
+        case KeyCode.ArrowLeft:
             // returns focus to the combobox without closing the popup
             this._input!.focus();
             break;
-        case "Home":
+        case KeyCode.Home:
             // Move focus to the first item in the list
             this._input!.focus();
             break;
-        case "End":
+        case KeyCode.End:
             // Move focus to the last item in the list
             this._input!.focus();
             break;
-        case "Backspace":
+        case KeyCode.Backspace:
             // Move focus to the last item in the list
             this._input!.focus();
             break;
-        case "Delete":
+        case KeyCode.Delete:
             // Move focus to the last item in the list
             this._input!.focus();
             break;
-        case "Alt":
+        case KeyCode.Alt:
             this._isAltModifierPressed = true;
             break;
         default:
