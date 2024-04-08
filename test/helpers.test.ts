@@ -1,5 +1,5 @@
 import { expect, test, describe } from "bun:test";
-import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "../src/helpers";
+import { fetchInput, fetchList, fetchOriginalList, setBasicAttributes } from "../src/helpers";
 import ComboboxFramework from "../src/combobox-framework";
 
 describe("fetchList", () => {
@@ -213,7 +213,7 @@ describe("setBasicAttributes", () => {
             fetchInput.call(combobox);
             fetchList.call(combobox);
 
-            setBasicAttribbutes.call(combobox);
+            setBasicAttributes.call(combobox);
 
             expect(combobox._input!.id).not.toEqual("");
             expect(combobox._input!.id.split("-")[0]).toEqual("input");
@@ -236,7 +236,7 @@ describe("setBasicAttributes", () => {
             fetchInput.call(combobox);
             fetchList.call(combobox);
 
-            setBasicAttribbutes.call(combobox);
+            setBasicAttributes.call(combobox);
 
             expect(combobox._input!.id).toEqual("input-element");
             expect(combobox._list!.id).toEqual("list-element");
@@ -257,7 +257,7 @@ describe("setBasicAttributes", () => {
         fetchInput.call(combobox);
         fetchList.call(combobox);
 
-        setBasicAttribbutes.call(combobox);
+        setBasicAttributes.call(combobox);
 
         expect(combobox._input!.getAttribute("role")).toEqual("combobox");
         expect(combobox._input!.getAttribute("aria-controls")).toEqual("list-element");

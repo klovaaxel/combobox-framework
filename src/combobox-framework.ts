@@ -1,6 +1,6 @@
 import Fuse, { FuseResult } from "fuse.js";
 import { handleBlur, handleComboBoxKeyPress, handleKeyUp, handleListKeyPress } from "./handlers";
-import { fetchInput, fetchList, fetchOriginalList, setBasicAttribbutes } from "./helpers";
+import { fetchInput, fetchList, fetchOriginalList, setBasicAttributes } from "./helpers";
 
 export default class ComboboxFramework extends HTMLElement {
     public _input: HTMLInputElement | null = null;
@@ -96,7 +96,7 @@ export default class ComboboxFramework extends HTMLElement {
         fetchList.call(this);
         // #endregion
 
-        setBasicAttribbutes.call(this);
+        setBasicAttributes.call(this);
 
         // #region Save the original list
         // This is done to have a original copy of the list to later sort, filter, etc.

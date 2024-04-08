@@ -48,7 +48,7 @@ export function fetchOriginalList(this: ComboboxFramework): void {
  * @returns { void }
  * @param { ComboboxFramework } combobox combobox-framework element
  */
-export function setBasicAttribbutes(this: ComboboxFramework): void {
+export function setBasicAttributes(this: ComboboxFramework): void {
     // #region Set the ids of the input and list elements if they are not set
     this._input!.id =
         this._input!.id.length !== 0 ? this._input!.id : `input-${crypto.randomUUID()}`;
