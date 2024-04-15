@@ -145,18 +145,28 @@ export default class ComboboxFramework extends HTMLElement {
      */
     private addEventListeners(): void {
         // #region Add event listeners to the framework element
-        this.addEventListener("focusout", handleBlur.bind(this), { signal: this.abortController.signal });
+        this.addEventListener("focusout", handleBlur.bind(this), {
+            signal: this.abortController.signal,
+        });
         // #endregion
 
         // #region Add event listeners to the input element
         if (!this._input) fetchInput.call(this);
-        this._input!.addEventListener("input", this.searchList.bind(this, true, true), { signal: this.abortController.signal });
-        this._input!.addEventListener("focus", this.toggleList.bind(this, true), { signal: this.abortController.signal });
+        this._input!.addEventListener("input", this.searchList.bind(this, true, true), {
+            signal: this.abortController.signal,
+        });
+        this._input!.addEventListener("focus", this.toggleList.bind(this, true), {
+            signal: this.abortController.signal,
+        });
         // #endregion
 
         // #region Add event listeners to framework element
-        this._input!.addEventListener("keydown", handleComboBoxKeyPress.bind(this), { signal: this.abortController.signal });
-        this._input!.addEventListener("keyup", handleKeyUp.bind(this), { signal: this.abortController.signal });
+        this._input!.addEventListener("keydown", handleComboBoxKeyPress.bind(this), {
+            signal: this.abortController.signal,
+        });
+        this._input!.addEventListener("keyup", handleKeyUp.bind(this), {
+            signal: this.abortController.signal,
+        });
         // #endregion
 
         // #region Add event listeners to the list element
@@ -176,9 +186,15 @@ export default class ComboboxFramework extends HTMLElement {
         const children = this._list!.children;
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as HTMLElement;
-            child.addEventListener("keydown", handleListKeyPress.bind(this), { signal: this.abortController.signal });
-            child.addEventListener("keyup", handleKeyUp.bind(this), { signal: this.abortController.signal });
-            child.addEventListener("click", this.selectItem.bind(this, child, true), { signal: this.abortController.signal });
+            child.addEventListener("keydown", handleListKeyPress.bind(this), {
+                signal: this.abortController.signal,
+            });
+            child.addEventListener("keyup", handleKeyUp.bind(this), {
+                signal: this.abortController.signal,
+            });
+            child.addEventListener("click", this.selectItem.bind(this, child, true), {
+                signal: this.abortController.signal,
+            });
         }
         // #endregion
     }
