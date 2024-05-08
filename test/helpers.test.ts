@@ -267,7 +267,6 @@ describe("setBasicAttributes", () => {
 
         expect(combobox._list!.getAttribute("role")).toEqual("listbox");
         expect(combobox._list!.getAttribute("aria-multiselectable")).toEqual("false");
-        expect(combobox._list!.getAttribute("anchor")).toEqual("input-element");
         expect(combobox._list!.tabIndex).toEqual(-1);
 
         const listItems = combobox._list!.querySelectorAll("li");

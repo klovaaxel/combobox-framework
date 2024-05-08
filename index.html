@@ -100,8 +100,8 @@
 
                 <label style="display: block;" for="demo-input">Select a cast member:</label>
                 <combobox-framework data-limit="20" data-fuse-options='{ "includeScore": true, "keys": ["dataset.search"]}'>
-                    <input id="demo-input" placeholder="Click me" type="text" slot="input" />
-                    <table slot="list">
+                    <input id="demo-input" placeholder="Click me" type="text" slot="input" size="50" />
+                    <table anchor="demo-input" slot="list">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -512,8 +512,8 @@
 
                     <div data-example>
                         <combobox-framework>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="simple-list-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="simple-list-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>
@@ -534,8 +534,8 @@
 
                     <div data-example>
                         <combobox-framework>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="custom-display-data-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="custom-display-data-input" slot="list">
                                 <li data-value="1" data-display="Item 1">1</li>
                                 <li data-value="2" data-display="Item 2">2</li>
                                 <li data-value="3" data-display="Item 3">3</li>
@@ -556,8 +556,8 @@
 
                     <div data-example>
                         <combobox-framework>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="nested-elements-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="nested-elements-input" slot="list">
                                 <li data-value="1" data-display="Item 1">
                                     <div>Item 1</div>
                                 </li>
@@ -586,8 +586,8 @@
 
                     <div data-example>
                         <combobox-framework>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <table slot="list">
+                            <input id="tabular-data-input" placeholder="Click me" type="text" slot="input" />
+                            <table anchor="tabular-data-input" slot="list">
                                 <thead>
                                     <th>Name</th>
                                     <th>Number</th>
@@ -626,8 +626,8 @@
 
                     <div data-example>
                         <combobox-framework data-value="1">
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="preselected-option-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="preselected-option-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>
@@ -654,8 +654,8 @@
 
                     <div data-example>
                         <combobox-framework data-fuse-options='{ "includeScore": true, "keys": ["dataset.value"]}'>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="fuse-options-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="fuse-options-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>
@@ -677,8 +677,8 @@
 
                     <div data-example>
                         <combobox-framework data-listbox="true">
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="force-valuelistbox-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="force-valuelistbox-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>
@@ -699,8 +699,8 @@
 
                     <div data-example>
                         <combobox-framework data-limit="2">
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="limit-suggested-options-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="limit-suggested-options-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>
@@ -730,8 +730,8 @@
 
                     <div data-example>
                         <combobox-framework>
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="weighted-item-search-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="weighted-item-search-input" slot="list">
                                 <li data-value="1" data-display="Item 1" data-weight="5">Item 1</li>
                                 <li data-value="2" data-display="Item 2" data-weight="1">Item 2</li>
                                 <li data-value="3" data-display="Item 3" data-weight="1">Item 3</li>
@@ -752,8 +752,8 @@
 
                     <div data-example>
                         <combobox-framework onchange="console.log('Changed')">
-                            <input placeholder="Click me" type="text" slot="input" />
-                            <ul slot="list">
+                            <input id="change-events-input" placeholder="Click me" type="text" slot="input" />
+                            <ul anchor="change-events-input" slot="list">
                                 <li data-value="1">Item 1</li>
                                 <li data-value="2">Item 2</li>
                                 <li data-value="3">Item 3</li>

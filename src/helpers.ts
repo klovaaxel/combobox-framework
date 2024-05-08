@@ -66,7 +66,6 @@ export function setBasicAttributes(this: ComboboxFramework): void {
     // #region Basic attributes for the list element
     this._list!.setAttribute("role", "listbox");
     this._list!.setAttribute("aria-multiselectable", "false");
-    this._list!.setAttribute("anchor", this._input!.id);
     this._list!.tabIndex = -1;
     // #endregion
 
