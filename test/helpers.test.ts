@@ -87,6 +87,63 @@ describe("fetchList", () => {
     });
 });
 
+describe("fetchOriginalList", () => {
+    test("does nothing if original list element is already stored", () => {
+        const combobox = document.createElement("combobox-framework") as ComboboxFramework;
+        combobox.innerHTML = `
+        <input placeholder="Click me" type="text" slot="input" />
+        <ul slot="list">
+            <li data-value="1">Item 1</li>
+            <li data-value="2">Item 2</li>
+            <li data-value="3">Item 3</li>
+            <li data-value="4">Item 4</li>
+        </ul>`;
+
+        const something = document.createElement("ul");
+
+        combobox._originalList = something;
+        expect(combobox._originalList).toEqual(something);
+        fetchOriginalList.call(combobox);
+        expect(combobox._originalList).toEqual(something);
+    });
+
+    test("gets a clone of the list element if list element is already stored", () => {
+        const combobox = document.createElement("combobox-framework") as ComboboxFramework;
+        combobox.innerHTML = `
+        <input placeholder="Click me" type="text" slot="input" />
+        <ul id="list-element" slot="list">
+            <li data-value="1">Item 1</li>
+            <li data-value="2">Item 2</li>
+            <li data-value="3">Item 3</li>
+            <li data-value="4">Item 4</li>
+        </ul>`;
+
+        combobox._list = combobox.querySelector("#list-element");
+        combobox._originalList = null;
+        expect(combobox._originalList).toEqual(null);
+        fetchOriginalList.call(combobox);
+        expect(combobox._originalList).toEqual(combobox._list!.cloneNode(true));
+    });
+
+    test("if no list is stored calls fetchList and sets original list to clone of list", () => {
+        const combobox = document.createElement("combobox-framework") as ComboboxFramework;
+        combobox.innerHTML = `
+        <input placeholder="Click me" type="text" slot="input" />
+        <ul id="list-element" slot="list">
+            <li data-value="1">Item 1</li>
+            <li data-value="2">Item 2</li>
+            <li data-value="3">Item 3</li>
+            <li data-value="4">Item 4</li>
+        </ul>`;
+        combobox._list = null;
+        combobox._originalList = null;
+        expect(combobox._originalList).toEqual(null);
+        fetchOriginalList.call(combobox);
+        expect(combobox._originalList).toEqual(combobox._list!.cloneNode(true));
+    });
+});
+
+
 describe("fetchInput", () => {
     test("gets element with marked with slot input", () => {
         const combobox = document.createElement("combobox-framework") as ComboboxFramework;

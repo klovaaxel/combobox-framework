@@ -1,10 +1,11 @@
 import Fuse, { FuseResult } from "fuse.js";
 import { handleBlur, handleComboBoxKeyPress, handleKeyUp, handleListKeyPress } from "./handlers";
-import { fetchInput, fetchList, fetchOriginalList, setBasicAttributes } from "./helpers";
+import { fetchInput, fetchList, fetchListContainer, fetchOriginalList, setBasicAttributes } from "./helpers";
 
 export default class ComboboxFramework extends HTMLElement {
     public _input: HTMLInputElement | null = null;
     public _list: HTMLElement | null = null;
+    public _listContainer: HTMLElement | null = null;
     public _originalList: HTMLElement | null = null;
     public _isAltModifierPressed = false;
     public _forceValue = false;
@@ -95,6 +96,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         // #region Fetch the input and list elements
         fetchInput.call(this);
+        fetchListContainer.call(this);
         fetchList.call(this);
         // #endregion
 
@@ -319,7 +321,13 @@ export default class ComboboxFramework extends HTMLElement {
         newValue: boolean = this._input!.getAttribute("aria-expanded") !== true.toString(),
     ): void {
         this._input!.setAttribute("aria-expanded", `${newValue}`);
-        if (!newValue) this.unfocusAllItems();
+        if (newValue) {
+            this._listContainer?.showPopover()
+        }
+        else {
+            this._listContainer?.hidePopover()
+            this.unfocusAllItems();
+        }
     }
 
     /**

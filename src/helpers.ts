@@ -1,5 +1,11 @@
 import ComboboxFramework from "./combobox-framework";
 
+export function fetchListContainer(this: ComboboxFramework): HTMLElement{
+    if (this._listContainer) return this._listContainer;
+    this._listContainer = this.querySelector('[slot="list"]') as HTMLElement;
+    return this._listContainer
+}
+
 /**
  * Fetches the list element and stores it in `_list`
  * If the list element is already stored, does nothing
@@ -62,6 +68,10 @@ export function setBasicAttributes(this: ComboboxFramework): void {
     this._input!.setAttribute("aria-autocomplete", "list"); // Maybe change combobox to both?
     this._input!.setAttribute("autocomplete", "off");
     // #endregion
+
+    //#region set basic attributes for list element container
+    this._listContainer?.setAttribute('popover', 'manual')
+    //#endregion
 
     // #region Basic attributes for the list element
     this._list!.setAttribute("role", "listbox");
