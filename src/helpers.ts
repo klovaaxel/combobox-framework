@@ -1,59 +1,69 @@
 import ComboboxFramework from "./combobox-framework";
 
-export function fetchListContainer(this: ComboboxFramework): HTMLElement{
+export function fetchListContainer(this: ComboboxFramework): HTMLElement {
     if (this._listContainer) return this._listContainer;
     this._listContainer = this.querySelector('[slot="list"]') as HTMLElement;
-    return this._listContainer
+    return this._listContainer;
 }
 
-export function fetchList(this: ComboboxFramework): void {
-    if (this._list) return;
+export function fetchList(this: ComboboxFramework): HTMLElement {
+    if (this._list) return this._list;
     this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
     if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
     if (!this._list) throw new Error("List element not found");
+
+    return this._list;
 }
 
-export function fetchInput(this: ComboboxFramework): void {
-    if (this._input) return;
+export function fetchInput(this: ComboboxFramework): HTMLInputElement {
+    if (this._input) return this._input;
     const input = this.querySelector('[slot="input"]') as HTMLInputElement;
     if (!input) throw new Error("Input element not found");
     this._input = input;
+
+    return this._input;
 }
 
-export function fetchOriginalList(this: ComboboxFramework): void {
-    if (this._originalList) return;
+export function fetchOriginalList(this: ComboboxFramework): HTMLElement {
+    if (this._originalList) return this._originalList;
 
-    fetchList.call(this);
-    this._originalList = this._list!.cloneNode(true) as HTMLElement;
+    const list = fetchList.call(this);
+    this._originalList = list.cloneNode(true) as HTMLElement;
+
+    return this._originalList;
 }
 
 export function setBasicAttributes(this: ComboboxFramework): void {
+    // #region get the input and list elements
+    const list = fetchList.call(this);
+    const input = fetchInput.call(this);
+    // #endregion
+
     // #region Set the ids of the input and list elements if they are not set
-    this._input!.id =
-        this._input!.id.length !== 0 ? this._input!.id : `input-${crypto.randomUUID()}`;
-    this._list!.id = this._list!.id.length !== 0 ? this._list!.id : `list-${crypto.randomUUID()}`;
+    input.id = input.id.length !== 0 ? input.id : `input-${crypto.randomUUID()}`;
+    list.id = list.id.length !== 0 ? list.id : `list-${crypto.randomUUID()}`;
     // #endregion
 
     // #region Basic attributes for the input element
-    this._input!.setAttribute("role", "combobox");
-    this._input!.setAttribute("aria-controls", this._list!.id);
-    this._input!.setAttribute("aria-expanded", "false");
-    this._input!.setAttribute("aria-autocomplete", "list"); // Maybe change combobox to both?
-    this._input!.setAttribute("autocomplete", "off");
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-controls", list.id);
+    input.setAttribute("aria-expanded", "false");
+    input.setAttribute("aria-autocomplete", "list"); // Maybe change combobox to both?
+    input.setAttribute("autocomplete", "off");
     // #endregion
 
     //#region set basic attributes for list element container
-    this._listContainer?.setAttribute('popover', 'manual')
+    this._listContainer?.setAttribute("popover", "manual");
     //#endregion
 
     // #region Basic attributes for the list element
-    this._list!.setAttribute("role", "listbox");
-    this._list!.setAttribute("aria-multiselectable", "false");
-    this._list!.tabIndex = -1;
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-multiselectable", "false");
+    list.tabIndex = -1;
     // #endregion
 
     // #region  Basic attributes for the children of the list element
-    const children = this._list!.children;
+    const children = list.children;
     for (let i = 0; i < children.length; i++) {
         const child = children[i] as HTMLElement;
         child.setAttribute("role", "option");

@@ -3,11 +3,11 @@ import { KeyCode, fetchInput, fetchList } from "./helpers";
 
 export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
-    if (!this._input) fetchInput.call(this);
-    if (!this._list) fetchList.call(this);
+    const input = fetchInput.call(this);
+    const list = fetchList.call(this);
     // #endregion
 
-    const isInputExpanded = () => this._input!.getAttribute("aria-expanded") === "true";
+    const isInputExpanded = () => input.getAttribute("aria-expanded") === "true";
 
     // #region Handle the key press
     switch (event.key) {
@@ -15,19 +15,16 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             // If the popup is available, moves focus into the popup: If the autocomplete behavior automatically selected a suggestion before Down Arrow was pressed, focus is placed on the suggestion following the automatically selected suggestion. Otherwise, places focus on the first focusable element in the popup.
             if (!isInputExpanded()) {
                 this.toggleList(true);
-                if (!this._isAltModifierPressed)
-                    this.focusItem(this._list!.children[0] as HTMLElement);
+                if (!this._isAltModifierPressed) this.focusItem(list.children[0] as HTMLElement);
             } else {
-                this.focusItem(this._list!.children[0] as HTMLElement);
+                this.focusItem(list.children[0] as HTMLElement);
             }
             event.preventDefault(); // prevent scrolling
             break;
         case KeyCode.ArrowUp:
             // (Optional): If the popup is available, places focus on the last focusable element in the popup.
             if (isInputExpanded()) {
-                this.focusItem(
-                    this._list!.children[this._list!.children.length - 1] as HTMLElement,
-                );
+                this.focusItem(list.children[list.children.length - 1] as HTMLElement);
             }
             event.preventDefault(); // prevent scrolling
             break;
@@ -36,14 +33,14 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             if (isInputExpanded()) {
                 this.toggleList(false);
             } else {
-                this._input!.value = "";
+                input.value = "";
             }
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.Enter:
             // Autocompletes the combobox with the first suggestion
             if (isInputExpanded()) {
-                this.selectItem(this._list!.children[0] as HTMLElement);
+                this.selectItem(list.children[0] as HTMLElement);
             }
             break;
         case KeyCode.Alt:
@@ -55,8 +52,8 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
 
 export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
-    if (!this._input) fetchInput.call(this);
-    if (!this._list) fetchList.call(this);
+    const input = fetchInput.call(this);
+    const list = fetchList.call(this);
     // #endregion
 
     // #region Handle the key press
@@ -74,14 +71,14 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             // Move focus to the next item in the list
             const nextLi = li.nextElementSibling as HTMLElement;
             if (nextLi) this.focusItem(nextLi);
-            else this.focusItem(this._list!.children[0] as HTMLElement);
+            else this.focusItem(list.children[0] as HTMLElement);
             event.preventDefault(); // prevent scrolling
             break;
         }
         case KeyCode.ArrowUp: {
             // If alt is pressed, close the list and focus the input
             if (this._isAltModifierPressed) {
-                this._input!.focus();
+                input.focus();
                 this.toggleList(false);
                 event.preventDefault(); // prevent scrolling
                 break;
@@ -90,43 +87,40 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             // Move focus to the previous item in the list
             const previousLi = li.previousElementSibling as HTMLElement;
             if (previousLi) this.focusItem(previousLi);
-            else
-                this.focusItem(
-                    this._list!.children[this._list!.children.length - 1] as HTMLElement,
-                );
+            else this.focusItem(list.children[list.children.length - 1] as HTMLElement);
             event.preventDefault(); // prevent scrolling
             break;
         }
         case KeyCode.ArrowRight:
             // returns focus to the combobox without closing the popup
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.ArrowLeft:
             // returns focus to the combobox without closing the popup
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.Home:
             // Move focus to the first item in the list
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.End:
             // Move focus to the last item in the list
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.Backspace:
             // Move focus to the last item in the list
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.Delete:
             // Move focus to the last item in the list
-            this._input!.focus();
+            input.focus();
             break;
         case KeyCode.Alt:
             this._isAltModifierPressed = true;
             break;
         default:
             // If the key is not handled, return focus to the input
-            this._input!.focus();
+            input.focus();
             break;
     }
     // #endregion
