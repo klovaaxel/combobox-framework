@@ -1,13 +1,6 @@
 import ComboboxFramework from "./combobox-framework";
 import { KeyCode, fetchInput, fetchList } from "./helpers";
 
-/**
- * Handles the key press event on the input element
- * @param event {KeyboardEvent} The key press event
- * @memberof ComboboxFramework
- * @returns {void}
- * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#keyboardinteraction
- */
 export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
     if (!this._input) fetchInput.call(this);
@@ -60,13 +53,6 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
     // #endregion
 }
 
-/**
- * Handles the key press event on the list element
- * @param event {KeyboardEvent} The key press event
- * @memberof ComboboxFramework
- * @returns {void}
- * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#keyboardinteraction
- */
 export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Check if required variables are set
     if (!this._input) fetchInput.call(this);
@@ -146,12 +132,6 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
     // #endregion
 }
 
-/**
- * Handles the key up event on the input element and list element
- * @returns { void }
- * @param { ComboboxFramework } combobox combobox-framework element
- * @param { KeyboardEvent } event The key up event
- */
 export function handleKeyUp(this: ComboboxFramework, event: KeyboardEvent): void {
     // #region Handle the key press
     switch (event.key) {
@@ -162,12 +142,6 @@ export function handleKeyUp(this: ComboboxFramework, event: KeyboardEvent): void
     // #endregion
 }
 
-/**
- * Toggles the expanded state of the combobox if the focus is lost
- * @param event {FocusEvent} The blur event
- * @memberof ComboboxFramework
- * @returns {void}
- */
 export function handleBlur(this: ComboboxFramework): void {
     // Set a timeout to force the focus event on the list item to fire before the foucsout event on the input element
     setTimeout(() => {

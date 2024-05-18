@@ -6,13 +6,6 @@ export function fetchListContainer(this: ComboboxFramework): HTMLElement{
     return this._listContainer
 }
 
-/**
- * Fetches the list element and stores it in `_list`
- * If the list element is already stored, does nothing
- * If the list element is not found, it throws an error
- * @returns { HTMLElement } list element
- * @param { ComboboxFramework } combobox combobox-framework element
- */
 export function fetchList(this: ComboboxFramework): void {
     if (this._list) return;
     this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
@@ -20,13 +13,6 @@ export function fetchList(this: ComboboxFramework): void {
     if (!this._list) throw new Error("List element not found");
 }
 
-/**
- * Fetches the input element and stores it in `_input`
- * If the input element is already stored, does nothing
- * If the input element is not found, it throws an error
- * @returns { HTMLInputElement } input element
- * @param { ComboboxFramework } combobox combobox-framework element
- */
 export function fetchInput(this: ComboboxFramework): void {
     if (this._input) return;
     const input = this.querySelector('[slot="input"]') as HTMLInputElement;
@@ -34,13 +20,6 @@ export function fetchInput(this: ComboboxFramework): void {
     this._input = input;
 }
 
-/**
- * Fetches the original list element and stores it in `_originalList`
- * If the original list element is already stored, it returns the stored original list element
- * If no list element is found, it throws an error
- * @returns { HTMLElement } original list element
- * @param { ComboboxFramework } combobox combobox-framework element
- */
 export function fetchOriginalList(this: ComboboxFramework): void {
     if (this._originalList) return;
 
@@ -48,12 +27,6 @@ export function fetchOriginalList(this: ComboboxFramework): void {
     this._originalList = this._list!.cloneNode(true) as HTMLElement;
 }
 
-/**
- * Set basic attributes for the input and list elements.
- * Mutates the input and list elements that are stored in `_input` and `_list`
- * @returns { void }
- * @param { ComboboxFramework } combobox combobox-framework element
- */
 export function setBasicAttributes(this: ComboboxFramework): void {
     // #region Set the ids of the input and list elements if they are not set
     this._input!.id =
@@ -90,9 +63,6 @@ export function setBasicAttributes(this: ComboboxFramework): void {
     // #endregion
 }
 
-/**
- * Enum for all the key codes that are used in the combobox
- */
 export enum KeyCode {
     ArrowDown = "ArrowDown",
     ArrowUp = "ArrowUp",

@@ -22,26 +22,10 @@ export default class ComboboxFramework extends HTMLElement {
 
     private abortController = new AbortController();
 
-    /**
-     * Returns an array of the names of the attributes to observe.
-     * @static
-     * @returns {string[]}
-     * @memberof ComboboxFramework
-     * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
-     */
     static get observedAttributes(): string[] {
         return ["data-value", "data-fuse-options", "data-listbox", "data-limit"];
     }
 
-    /**
-     * Called when an attribute is changed, appended, removed, or replaced on the element.
-     * @param name {string} Name of the attribute that changed
-     * @param oldValue {string} Old value of the attribute
-     * @param newValue {string} New value of the attribute
-     * @returns {void}
-     * @memberof ComboboxFramework
-     * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
-     */
     public attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
         if (oldValue === newValue) return; // If the value is the same, do nothing
 
@@ -79,12 +63,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Called when the element is inserted into a document, including into a shadow tree.
-     * @returns {void}
-     * @memberof ComboboxFramework
-     * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
-     */
     public connectedCallback(): void {
         // #region Create the shadow DOM
         const shadow = this.attachShadow({ mode: "open" });
@@ -127,24 +105,32 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Called when the element is removed from a document. Removes event listeners.
-     * @returns {void}
-     * @memberof ComboboxFramework
-     * @see https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements#using_the_lifecycle_callbacks
-     */
     public disconnectedCallback(): void {
         // #region Send signal to remove all event listeners
         this.abortController.abort();
         // #endregion
     }
 
-    /**
-     * Adds event listeners
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
+    public toggleList(
+        newValue: boolean = this._input!.getAttribute("aria-expanded") !== true.toString(),
+    ): void {
+        this._input!.setAttribute("aria-expanded", `${newValue}`);
+        if (newValue) {
+            this._listContainer?.showPopover()
+        }
+        else {
+            this._listContainer?.hidePopover()
+            this.unfocusAllItems();
+        }
+    }
+
+    public focusItem(item: HTMLElement): void {
+        if (!item) return;
+        this.unfocusAllItems();
+        item.focus();
+        item.setAttribute("aria-selected", "true");
+    }
+
     private addEventListeners(): void {
         // #region Add event listeners to the framework element
         this.addEventListener("focusout", handleBlur.bind(this), {
@@ -176,12 +162,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Adds event listeners to the list item elements
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     private addEventListenersToListItems(): void {
         // #region Add event listeners to the list item elements
         if (!this._list) fetchList.call(this);
@@ -201,12 +181,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Search the list and update the list element with the new, filtered, and sorted list
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     private searchList(openList = true, clearValue = true): void {
         // #region Check if required variables are set
         if (!this._fuse) throw new Error("Fuse object not found");
@@ -297,59 +271,11 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Highlights the search string in the text
-     * @private
-     * @param {string} text The text to highlight
-     * @param {string} searchString The search string
-     * @memberof ComboboxFramework
-     * @returns {string}
-     */
     private highlightText(text: string, searchString: string): string {
         const regex = new RegExp(`[${searchString}]+`, "gmi");
         return text.replace(regex, "<strong>$&</strong>");
     }
 
-    /**
-     * Toggles the expanded state of the combobox
-     * @private
-     * @param {boolean} [newValue] The new value of the expanded state - optional - defaults to the opposite of the current value
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    public toggleList(
-        newValue: boolean = this._input!.getAttribute("aria-expanded") !== true.toString(),
-    ): void {
-        this._input!.setAttribute("aria-expanded", `${newValue}`);
-        if (newValue) {
-            this._listContainer?.showPopover()
-        }
-        else {
-            this._listContainer?.hidePopover()
-            this.unfocusAllItems();
-        }
-    }
-
-    /**
-     * Focuses an item in the list
-     * @private
-     * @param {HTMLElement} item The list item to focus
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
-    public focusItem(item: HTMLElement): void {
-        if (!item) return;
-        this.unfocusAllItems();
-        item.focus();
-        item.setAttribute("aria-selected", "true");
-    }
-
-    /**
-     * Unfocuses all items in the list
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     private unfocusAllItems(): void {
         // #region Check if required variables are set
         if (!this._list) fetchList.call(this);
@@ -361,13 +287,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Selects an item in the list
-     * @private
-     * @param {HTMLElement} item The item to select
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     public selectItem(item: HTMLElement, grabFocus = true): void {
         if (!this._input) fetchInput.call(this);
 
@@ -393,13 +312,6 @@ export default class ComboboxFramework extends HTMLElement {
         this.sendChangeEvent();
     }
 
-    /**
-     * Selects an item in the list by its value
-     * @private
-     * @param {string} value The value of the item to select
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     private selectItemByValue(value: string | null, grabFocus = true): void {
         if (!value) return;
         if (!this._list) fetchList.call(this);
@@ -408,12 +320,6 @@ export default class ComboboxFramework extends HTMLElement {
         this.selectItem(item, grabFocus);
     }
 
-    /**
-     * Clears the input element, focuses it and closes the list
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     public clearInput(grabFocus = true): void {
         // #region Check if required variables are set
         if (!this._input) fetchInput.call(this);
@@ -426,12 +332,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Forces the value of the input element to the first item in the list if the input element is not empty
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     public forceValue(): void {
         // #region Check if required variables are set
         if (!this._input) fetchInput.call(this);
@@ -451,12 +351,6 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    /**
-     * Sends a change event
-     * @private
-     * @memberof ComboboxFramework
-     * @returns {void}
-     */
     private sendChangeEvent(): void {
         if (this.dataset.value === this._lastValue) return;
         const event = new Event("change");
