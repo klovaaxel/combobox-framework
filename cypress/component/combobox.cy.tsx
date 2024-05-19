@@ -162,4 +162,30 @@ describe("Component ", () => {
             });
         });
     });
+
+    describe("Handles options with special characters correctly", () => {
+        beforeEach(() => {
+            cy.mount(
+                <ComboboxWrapper
+                    items={[
+                        { value: 1, display: "[one\\|]" },
+                        { value: 2, display: "Something days 1-3" },
+                        { value: 3, display: "thre&" },
+                    ]}
+                />,
+            );
+        });
+
+        it("searches for the item with special characters correctly", () => {
+            cy.getByTestAttr("input").type("[one\\|]");
+            cy.getByTestAttr("listbox").children().should("have.length", 1);
+            cy.getByTestAttr("listbox").children().eq(0).should("have.text", "[one\\|]");
+        });
+
+        it("selects the item with special characters correctly", () => {
+            cy.getByTestAttr("input").click();
+            cy.getByTestAttr("listbox").children().eq(0).click();
+            cy.getByTestAttr("input").should("have.value", "[one\\|]");
+        });
+    });
 });

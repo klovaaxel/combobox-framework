@@ -283,7 +283,8 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     private highlightText(text: string, searchString: string): string {
-        const regex = new RegExp(`[${searchString}]+`, "gmi");
+        const escapedSearchString = searchString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const regex = new RegExp(`[${escapedSearchString}]+`, "gmi");
         return text.replace(regex, "<strong>$&</strong>");
     }
 
