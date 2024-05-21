@@ -61,7 +61,8 @@ export default class ComboboxFramework extends HTMLElement {
                 break;
             }
             case "data-listbox":
-                this._forceValue = !!newValue;
+                if (newValue === "false") this._forceValue = false;
+                else this._forceValue = !!newValue;
                 break;
             case "data-limit":
                 this._limit = parseInt(newValue);

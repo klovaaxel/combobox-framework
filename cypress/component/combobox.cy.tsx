@@ -188,4 +188,39 @@ describe("Component ", () => {
             cy.getByTestAttr("input").should("have.value", "[one\\|]");
         });
     });
+
+    describe("Handles listbox attribute correctly", () => {
+        it("does not force value when listbox is set to false", () => {
+            document
+                .getElementsByTagName("combobox-framework")[0]
+                .setAttribute("data-listbox", "false");
+            cy.getByTestAttr("input").type("o");
+            cy.getByTestAttr("input").blur();
+            cy.getByTestAttr("input").should("have.value", "o");
+        });
+
+        it("does not force value when listbox is missing", () => {
+            cy.getByTestAttr("input").type("o");
+            cy.getByTestAttr("input").blur();
+            cy.getByTestAttr("input").should("have.value", "o");
+        });
+
+        it("does force value when listbox is set to true", () => {
+            document
+                .getElementsByTagName("combobox-framework")[0]
+                .setAttribute("data-listbox", "true");
+            cy.getByTestAttr("input").type("o");
+            cy.getByTestAttr("input").blur();
+            cy.getByTestAttr("input").should("have.value", "one");
+        });
+
+        it("does force value when listbox is set to something", () => {
+            document
+                .getElementsByTagName("combobox-framework")[0]
+                .setAttribute("data-listbox", "something");
+            cy.getByTestAttr("input").type("o");
+            cy.getByTestAttr("input").blur();
+            cy.getByTestAttr("input").should("have.value", "one");
+        });
+    });
 });
