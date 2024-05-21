@@ -286,7 +286,15 @@ export default class ComboboxFramework extends HTMLElement {
     private highlightText(text: string, searchString: string): string {
         const escapedSearchString = searchString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const regex = new RegExp(`[${escapedSearchString}]+`, "gmi");
-        return text.replace(regex, "<strong>$&</strong>");
+        const html = text.replace(regex, "<strong>$&</strong>");
+
+        const sanitizedHtml = html
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/&lt;strong&gt;(.*?)&lt;\/strong&gt;/g, "<strong>$1</strong>");
+
+        return sanitizedHtml;
     }
 
     private unfocusAllItems(): void {

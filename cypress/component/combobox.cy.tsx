@@ -171,6 +171,7 @@ describe("Component ", () => {
                         { value: 1, display: "[one\\|]" },
                         { value: 2, display: "Something days 1-3" },
                         { value: 3, display: "thre&" },
+                        { value: 4, display: "<h1>test<h1>" },
                     ]}
                 />,
             );
@@ -186,6 +187,11 @@ describe("Component ", () => {
             cy.getByTestAttr("input").click();
             cy.getByTestAttr("listbox").children().eq(0).click();
             cy.getByTestAttr("input").should("have.value", "[one\\|]");
+        });
+
+        it("does not htmlify the display text of options containing tags", () => {
+            cy.getByTestAttr("input").type("test");
+            cy.getByTestAttr("listbox").children().eq(0).should("have.text", "<h1>test<h1>");
         });
     });
 
