@@ -12,9 +12,6 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add("getByTestAttr", (val) => {
-    return cy.get(`[data-cy="${val}"]`);
-});
 
 Cypress.Commands.add("pressKey", (val) => {
     const element = document.activeElement ?? document;

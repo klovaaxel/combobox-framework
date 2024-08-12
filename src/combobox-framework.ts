@@ -38,6 +38,7 @@ export default class ComboboxFramework extends HTMLElement {
         super();
 
         this.abortController ??= new AbortController();
+        this.attachShadow({ mode: "open" });
     }
 
     static get observedAttributes(): string[] {
@@ -67,8 +68,9 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     public connectedCallback(): void {
+        const shadow = this.shadowRoot as ShadowRoot;
+
         // #region Create the shadow DOM
-        const shadow = this.attachShadow({ mode: "open" });
         shadow.innerHTML = `
         <slot name="input"></slot>
         <slot name="list"></slot>
