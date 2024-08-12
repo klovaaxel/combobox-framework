@@ -9,14 +9,14 @@ import {
 } from "./helpers";
 
 export default class ComboboxFramework extends HTMLElement {
-    public _input: HTMLInputElement | null = null;
-    public _list: HTMLElement | null = null;
-    public _listContainer: HTMLElement | null = null;
-    public _originalList: HTMLElement | null = null;
-    public _isAltModifierPressed = false;
-    public _forceValue = false;
-    public _lastValue: string | undefined = undefined;
-    public _limit: number = Infinity;
+    public input: HTMLInputElement | null = null;
+    public list: HTMLElement | null = null;
+    public listContainer: HTMLElement | null = null;
+    public originalList: HTMLElement | null = null;
+    public isAltModifierPressed = false;
+    public shouldForceValue = false;
+    public lastValue: string | undefined = undefined;
+    public limit: number = Infinity;
 
     // #region Fuzzy search Fuse.js
     public _fuse: Fuse<Element> | null = null;
@@ -27,48 +27,43 @@ export default class ComboboxFramework extends HTMLElement {
     // #endregion
 
     private abortController = new AbortController();
+    private initFuseObj = () => {
+        const originalList = this.originalList ?? fetchOriginalList.call(this);
+        const elementArray = Array.from((originalList.cloneNode(true) as HTMLElement).children);
+
+        return new Fuse(Array.from(elementArray), this._fuseOptions);
+    };
+
+    constructor() {
+        super();
+
+        this.abortController ??= new AbortController();
+    }
 
     static get observedAttributes(): string[] {
         return ["data-value", "data-fuse-options", "data-listbox", "data-limit"];
     }
 
     public attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-        if (oldValue === newValue) return; // If the value is the same, do nothing
+        if (oldValue === newValue) return;
 
-        // #region Handle the attribute change
         switch (name) {
             case "data-value":
                 this.selectItemByValue(newValue, false);
                 break;
-            case "data-fuse-options": {
-                // #region If the fuse object is not created, save the options and return
-                if (!this._fuse) {
-                    this._fuseOptions = JSON.parse(newValue);
-                    return;
-                }
-                // #endregion
-
-                // #region If the fuse object is created, recreate it and search the list
-                const originalList = fetchOriginalList.call(this);
-
+            case "data-fuse-options":
                 this._fuseOptions = JSON.parse(newValue);
-                this._fuse = new Fuse(
-                    Array.from((originalList.cloneNode(true) as HTMLElement).children),
-                    this._fuseOptions,
-                );
+                this._fuse = this.initFuseObj();
                 this.searchList();
-                // #endregion
                 break;
-            }
             case "data-listbox":
-                if (newValue === "false") this._forceValue = false;
-                else this._forceValue = !!newValue;
+                if (newValue === "false") this.shouldForceValue = false;
+                else this.shouldForceValue = !!newValue;
                 break;
             case "data-limit":
-                this._limit = parseInt(newValue);
+                this.limit = parseInt(newValue);
                 break;
         }
-        // #endregion
     }
 
     public connectedCallback(): void {
@@ -88,47 +83,28 @@ export default class ComboboxFramework extends HTMLElement {
 
         setBasicAttributes.call(this);
 
-        // #region Save the original list
-        // This is done to have a original copy of the list to later sort, filter, etc.
-        const originalList = fetchOriginalList.call(this);
-        // #endregion
+        this.originalList = fetchOriginalList.call(this);
+        this._fuse ??= this.initFuseObj.call(this);
 
-        // #region Create the fuse object
-        this._fuse = new Fuse(
-            Array.from((originalList.cloneNode(true) as HTMLElement).children),
-            this._fuseOptions,
-        );
-        // #endregion
-
-        // #region Do initial search the list
         this.searchList();
-        // #endregion
-
-        // #region Add event listeners
         this.addEventListeners();
-        // #endregion
-
-        // #region If forceValue is true, select the first item in the list
-        this.forceValue();
-        // #endregion
+        this.forcedValue();
     }
 
     public disconnectedCallback(): void {
-        // #region Send signal to remove all event listeners
         this.abortController.abort();
-        // #endregion
     }
 
     public toggleList(
-        newValue: boolean = this._input?.getAttribute("aria-expanded") !== true.toString(),
+        newValue: boolean = this.input?.getAttribute("aria-expanded") !== true.toString(),
     ): void {
         const input = fetchInput.call(this);
 
         input.setAttribute("aria-expanded", `${newValue}`);
         if (newValue) {
-            this._listContainer?.showPopover();
+            this.listContainer?.showPopover();
         } else {
-            this._listContainer?.hidePopover();
+            this.listContainer?.hidePopover();
             this.unfocusAllItems();
         }
     }
@@ -150,7 +126,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Add event listeners to the input element
-        if (!this._input) fetchInput.call(this);
+        if (!this.input) fetchInput.call(this);
         input.addEventListener("input", this.searchList.bind(this, true, true), {
             signal: this.abortController.signal,
         });
@@ -168,9 +144,7 @@ export default class ComboboxFramework extends HTMLElement {
         });
         // #endregion
 
-        // #region Add event listeners to the list element
         this.addEventListenersToListItems();
-        // #endregion
     }
 
     private addEventListenersToListItems(): void {
@@ -194,7 +168,7 @@ export default class ComboboxFramework extends HTMLElement {
 
     private searchList(openList = true, clearValue = true): void {
         // #region Check if required variables are set
-        if (!this._fuse) throw new Error("Fuse object not found");
+        this._fuse ??= this.initFuseObj();
         const input = fetchInput.call(this);
         const list = fetchList.call(this);
         const originalList = fetchOriginalList.call(this);
@@ -212,7 +186,7 @@ export default class ComboboxFramework extends HTMLElement {
             list.innerHTML = "";
             list.append(
                 ...Array.from((originalList.cloneNode(true) as HTMLElement).children)
-                    .slice(0, this._limit)
+                    .slice(0, this.limit)
                     .sort(
                         (a, b) =>
                             Number((b as HTMLElement).dataset.weight) -
@@ -225,7 +199,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Search the list
-        let searchedList = this._fuse.search(input.value).slice(0, this._limit);
+        let searchedList = this._fuse.search(input.value).slice(0, this.limit);
 
         // #region Sort the list based on the weight of the items if they have a weight and a score
         searchedList = searchedList
@@ -353,13 +327,13 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
     }
 
-    public forceValue(): void {
+    public forcedValue(): void {
         // #region Check if required variables are set
         const list = fetchList.call(this);
         // #endregion
 
         // #region If forceValue is true and we don't have a value selected, select the first item (best match) in the list or empty the input and value
-        if (this._forceValue && !!this._input?.value && !this.dataset.value) {
+        if (this.shouldForceValue && !!this.input?.value && !this.dataset.value) {
             const bestMatch = list.children[0] as HTMLElement;
             if (bestMatch) this.selectItem(bestMatch, false);
             else {
@@ -372,13 +346,11 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     private sendChangeEvent(): void {
-        if (this.dataset.value === this._lastValue) return;
+        if (this.dataset.value === this.lastValue) return;
         const event = new Event("change");
         this.dispatchEvent(event);
-        this._lastValue = this.dataset.value;
+        this.lastValue = this.dataset.value;
     }
 }
 
-// #region Register the component
 customElements.define("combobox-framework", ComboboxFramework);
-// #endregion

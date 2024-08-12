@@ -1,36 +1,36 @@
 import ComboboxFramework from "./combobox-framework";
 
 export function fetchListContainer(this: ComboboxFramework): HTMLElement {
-    if (this._listContainer) return this._listContainer;
-    this._listContainer = this.querySelector('[slot="list"]') as HTMLElement;
-    return this._listContainer;
+    if (this.listContainer) return this.listContainer;
+    this.listContainer = this.querySelector('[slot="list"]') as HTMLElement;
+    return this.listContainer;
 }
 
 export function fetchList(this: ComboboxFramework): HTMLElement {
-    if (this._list) return this._list;
-    this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
-    if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
-    if (!this._list) throw new Error("List element not found");
+    if (this.list) return this.list;
+    this.list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
+    if (!this.list) this.list = this.querySelector('[slot="list"]') as HTMLElement;
+    if (!this.list) throw new Error("List element not found");
 
-    return this._list;
+    return this.list;
 }
 
 export function fetchInput(this: ComboboxFramework): HTMLInputElement {
-    if (this._input) return this._input;
+    if (this.input) return this.input;
     const input = this.querySelector('[slot="input"]') as HTMLInputElement;
     if (!input) throw new Error("Input element not found");
-    this._input = input;
+    this.input = input;
 
-    return this._input;
+    return this.input;
 }
 
 export function fetchOriginalList(this: ComboboxFramework): HTMLElement {
-    if (this._originalList) return this._originalList;
+    if (this.originalList) return this.originalList;
 
     const list = fetchList.call(this);
-    this._originalList = list.cloneNode(true) as HTMLElement;
+    this.originalList = list.cloneNode(true) as HTMLElement;
 
-    return this._originalList;
+    return this.originalList;
 }
 
 export function setBasicAttributes(this: ComboboxFramework): void {
@@ -53,7 +53,7 @@ export function setBasicAttributes(this: ComboboxFramework): void {
     // #endregion
 
     //#region set basic attributes for list element container
-    this._listContainer?.setAttribute("popover", "manual");
+    this.listContainer?.setAttribute("popover", "manual");
     //#endregion
 
     // #region Basic attributes for the list element
