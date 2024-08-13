@@ -142,7 +142,7 @@ export function handleBlur(this: ComboboxFramework): void {
         if (this.querySelector(":focus")) return;
 
         // #region If forceValue is true, select the first item in the list
-        this.forcedValue();
+        this.forceValue();
         // #endregion
 
         this.toggleList(false);

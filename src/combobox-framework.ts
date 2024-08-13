@@ -69,19 +69,11 @@ export default class ComboboxFramework extends HTMLElement {
 
     public connectedCallback(): void {
         const shadow = this.shadowRoot as ShadowRoot;
+        shadow.innerHTML = `<slot name="input"></slot><slot name="list"></slot>`;
 
-        // #region Create the shadow DOM
-        shadow.innerHTML = `
-        <slot name="input"></slot>
-        <slot name="list"></slot>
-        `;
-        // #endregion
-
-        // #region Fetch the input and list elements
         fetchInput.call(this);
         fetchListContainer.call(this);
         fetchList.call(this);
-        // #endregion
 
         setBasicAttributes.call(this);
 
@@ -90,7 +82,7 @@ export default class ComboboxFramework extends HTMLElement {
 
         this.searchList();
         this.addEventListeners();
-        this.forcedValue();
+        this.forceValue();
     }
 
     public disconnectedCallback(): void {
@@ -135,9 +127,6 @@ export default class ComboboxFramework extends HTMLElement {
         input.addEventListener("focus", this.toggleList.bind(this, true), {
             signal: this.abortController.signal,
         });
-        // #endregion
-
-        // #region Add event listeners to framework element
         input.addEventListener("keydown", handleComboBoxKeyPress.bind(this), {
             signal: this.abortController.signal,
         });
@@ -200,7 +189,6 @@ export default class ComboboxFramework extends HTMLElement {
         }
         // #endregion
 
-        // #region Search the list
         let searchedList = this._fuse.search(input.value).slice(0, this.limit);
 
         // #region Sort the list based on the weight of the items if they have a weight and a score
@@ -250,13 +238,8 @@ export default class ComboboxFramework extends HTMLElement {
         }
         // #endregion
 
-        // #region Add event listeners to the list item elements
         this.addEventListenersToListItems();
-        // #endregion
-
-        // #region Show the list after the search is complete
         this.toggleList(openList);
-        // #endregion
     }
 
     private highlightText(text: string, searchString: string): string {
@@ -274,14 +257,10 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     private unfocusAllItems(): void {
-        // #region Check if required variables are set
         const list = fetchList.call(this);
-        // #endregion
 
-        // #region Unfocus all items in the list
         for (const item of list.querySelectorAll("[aria-selected]"))
             item.removeAttribute("aria-selected");
-        // #endregion
     }
 
     public selectItem(item: HTMLElement, grabFocus = true): void {
@@ -318,33 +297,28 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     public clearInput(grabFocus = true): void {
-        // #region Check if required variables are set
         const input = fetchInput.call(this);
-        // #endregion
 
-        // #region Clear the input element
         input.value = "";
         if (grabFocus) input.focus();
         this.toggleList(false);
-        // #endregion
     }
 
-    public forcedValue(): void {
-        // #region Check if required variables are set
-        const list = fetchList.call(this);
-        // #endregion
+    public forceValue(): void {
+        if (!this.shouldForceValue) return;
+        if (this.dataset.value) return;
+        if (!this.input?.value) return;
 
-        // #region If forceValue is true and we don't have a value selected, select the first item (best match) in the list or empty the input and value
-        if (this.shouldForceValue && !!this.input?.value && !this.dataset.value) {
-            const bestMatch = list.children[0] as HTMLElement;
-            if (bestMatch) this.selectItem(bestMatch, false);
-            else {
-                this.clearInput(false); // Clear the input
-                this.dataset.value = ""; // Clear the value
-                this.sendChangeEvent(); // Send a change event
-            }
+        const list = fetchList.call(this);
+
+        const bestMatch = list.children[0] as HTMLElement;
+        if (bestMatch) {
+            this.selectItem(bestMatch, false);
+        } else {
+            this.clearInput(false); // Clear the input
+            this.dataset.value = ""; // Clear the value
+            this.sendChangeEvent(); // Send a change event
         }
-        // #endregion
     }
 
     private sendChangeEvent(): void {
