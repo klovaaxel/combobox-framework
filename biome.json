@@ -15,7 +15,9 @@
         "enabled": true,
         "rules": {
             "recommended": true,
-            "style": {}
+            "style": {
+                "noNonNullAssertion": "off"
+            }
         }
     }
 }
