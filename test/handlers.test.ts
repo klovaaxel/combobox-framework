@@ -26,13 +26,13 @@ describe("handleComboBoxKeyPress", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "false");
+        combobox.input!.setAttribute("aria-expanded", "false");
 
         combobox.clearInput = mock(() => void 0);
         combobox.focusItem = mock(() => void 0);
         combobox.selectItem = mock(() => void 0);
         combobox.toggleList = mock((boolean) =>
-            combobox._list!.setAttribute("aria-expanded", boolean.toString()),
+            combobox.list!.setAttribute("aria-expanded", boolean.toString()),
         );
 
         document.body.appendChild(combobox);
@@ -51,16 +51,16 @@ describe("handleComboBoxKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(combobox._input!.getAttribute("aria-expanded")).toBe("true");
+                expect(combobox.input!.getAttribute("aria-expanded")).toBe("true");
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(combobox.toggleList).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[3]);
+                expect(document.activeElement).toBe(combobox.list!.children[3]);
             }, 100);
         });
 
         test("should not open the list if the list is already open", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "true");
+            combobox.input!.setAttribute("aria-expanded", "true");
             const event = new KeyboardEvent("keyDown", { key: "ArrowDown" });
 
             // Act
@@ -72,7 +72,7 @@ describe("handleComboBoxKeyPress", () => {
 
         test("if alt is pressed and list is closed, should only open the list", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "false");
+            combobox.input!.setAttribute("aria-expanded", "false");
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowDown" }),
                 preventDefault: mock(() => void 0),
@@ -93,7 +93,7 @@ describe("handleComboBoxKeyPress", () => {
     describe("ArrowUp", () => {
         test("if the list is open focus the last item in the list", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "true");
+            combobox.input!.setAttribute("aria-expanded", "true");
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
                 preventDefault: mock(() => void 0),
@@ -106,13 +106,13 @@ describe("handleComboBoxKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[3]);
+                expect(document.activeElement).toBe(combobox.list!.children[3]);
             }, 100);
         });
 
         test("if the list is closed only prevents default", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "true");
+            combobox.input!.setAttribute("aria-expanded", "true");
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
                 preventDefault: mock(() => void 0),
@@ -131,8 +131,8 @@ describe("handleComboBoxKeyPress", () => {
     describe("Escape", () => {
         test("only dismisses the popup if it is visible", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "true");
-            combobox._input!.value = "test";
+            combobox.input!.setAttribute("aria-expanded", "true");
+            combobox.input!.value = "test";
             const event = new KeyboardEvent("keyDown", { key: "Escape" });
 
             // Act
@@ -142,14 +142,14 @@ describe("handleComboBoxKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.toggleList).toHaveBeenCalledTimes(1);
                 expect(combobox.clearInput).toHaveBeenCalledTimes(0);
-                expect(combobox._input!.value).toBe("test");
+                expect(combobox.input!.value).toBe("test");
             }, 100);
         });
 
         test("clears the input if the popup is not visible", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "false");
-            combobox._input!.value = "test";
+            combobox.input!.setAttribute("aria-expanded", "false");
+            combobox.input!.value = "test";
             const event = new KeyboardEvent("keyDown", { key: "Escape" });
 
             // Act
@@ -159,7 +159,7 @@ describe("handleComboBoxKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.toggleList).toHaveBeenCalledTimes(0);
                 expect(combobox.clearInput).toHaveBeenCalledTimes(1);
-                expect(combobox._input!.value).toBe("");
+                expect(combobox.input!.value).toBe("");
             }, 100);
         });
     });
@@ -167,7 +167,7 @@ describe("handleComboBoxKeyPress", () => {
     describe("Enter", () => {
         test("autocompletes the combobox with the first suggestion if the list is open", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "true");
+            combobox.input!.setAttribute("aria-expanded", "true");
             const event = new KeyboardEvent("keyDown", { key: "Enter" });
 
             // Act
@@ -181,7 +181,7 @@ describe("handleComboBoxKeyPress", () => {
 
         test("does nothing if the list is closed", () => {
             // Arrange
-            combobox._input!.setAttribute("aria-expanded", "false");
+            combobox.input!.setAttribute("aria-expanded", "false");
             const event = new KeyboardEvent("keyDown", { key: "Enter" });
 
             // Act
@@ -201,7 +201,7 @@ describe("handleComboBoxKeyPress", () => {
             handleComboBoxKeyPress.call(combobox, event);
 
             // Assert
-            expect(combobox._isAltModifierPressed).toBe(true);
+            expect(combobox.isAltModifierPressed).toBe(true);
         });
     });
 });
@@ -224,7 +224,7 @@ describe("handleListKeyPress", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "true");
+        combobox.input!.setAttribute("aria-expanded", "true");
 
         combobox.clearInput = mock(() => void 0);
         combobox.focusItem = mock(() => void 0);
@@ -239,7 +239,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "Enter" }),
-                target: combobox._list!.children[0],
+                target: combobox.list!.children[0],
             } as KeyboardEvent;
 
             // Act
@@ -247,7 +247,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(combobox._input!.getAttribute("aria-expanded")).toBe("false");
+                expect(combobox.input!.getAttribute("aria-expanded")).toBe("false");
                 expect(combobox.selectItem).toHaveBeenCalledTimes(1);
             }, 100);
         });
@@ -258,7 +258,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "Escape" }),
-                target: combobox._list!.children[0],
+                target: combobox.list!.children[0],
             } as KeyboardEvent;
 
             // Act
@@ -266,7 +266,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(combobox._input!.getAttribute("aria-expanded")).toBe("false");
+                expect(combobox.input!.getAttribute("aria-expanded")).toBe("false");
                 expect(combobox.clearInput).toHaveBeenCalledTimes(1);
             }, 100);
         });
@@ -277,7 +277,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowDown" }),
-                target: combobox._list!.children[1],
+                target: combobox.list!.children[1],
                 preventDefault: mock(() => void 0),
             } as KeyboardEvent;
 
@@ -288,7 +288,7 @@ describe("handleListKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[2]); // FIXME: This is borken, can be any item, so test does not really work
+                expect(document.activeElement).toBe(combobox.list!.children[2]); // FIXME: This is borken, can be any item, so test does not really work
             }, 100);
         });
 
@@ -296,7 +296,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowDown" }),
-                target: combobox._list!.children[3],
+                target: combobox.list!.children[3],
                 preventDefault: mock(() => void 0),
             } as KeyboardEvent;
 
@@ -307,7 +307,7 @@ describe("handleListKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
+                expect(document.activeElement).toBe(combobox.list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
             }, 100);
         });
     });
@@ -317,7 +317,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
-                target: combobox._list!.children[1],
+                target: combobox.list!.children[1],
                 preventDefault: mock(() => void 0),
             } as KeyboardEvent;
 
@@ -328,7 +328,7 @@ describe("handleListKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
+                expect(document.activeElement).toBe(combobox.list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
             }, 100);
         });
 
@@ -336,7 +336,7 @@ describe("handleListKeyPress", () => {
             // Arrange
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
-                target: combobox._list!.children[3],
+                target: combobox.list!.children[3],
                 preventDefault: mock(() => void 0),
             } as KeyboardEvent;
 
@@ -347,16 +347,16 @@ describe("handleListKeyPress", () => {
             setTimeout(() => {
                 expect(combobox.focusItem).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
-                expect(document.activeElement).toBe(combobox._list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
+                expect(document.activeElement).toBe(combobox.list!.children[0]); // FIXME: This is borken, can be any item, so test does not really work
             }, 100);
         });
 
         test("should close the list and focus the input if alt is pressed", () => {
             // Arrange
-            combobox._isAltModifierPressed = true;
+            combobox.isAltModifierPressed = true;
             const event = {
                 ...new KeyboardEvent("keyDown", { key: "ArrowUp" }),
-                target: combobox._list!.children[1],
+                target: combobox.list!.children[1],
                 preventDefault: mock(() => void 0),
             } as KeyboardEvent;
 
@@ -365,7 +365,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(combobox._input).toBe(document.activeElement);
+                expect(combobox.input).toBe(document.activeElement);
                 expect(combobox.toggleList).toHaveBeenCalledTimes(1);
                 expect(event.preventDefault).toHaveBeenCalledTimes(1);
             }, 100);
@@ -375,7 +375,7 @@ describe("handleListKeyPress", () => {
     describe("ArrowRight", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "ArrowRight" });
 
             // Act
@@ -383,7 +383,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -391,7 +391,7 @@ describe("handleListKeyPress", () => {
     describe("ArrowLeft", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "ArrowLeft" });
 
             // Act
@@ -399,7 +399,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -407,7 +407,7 @@ describe("handleListKeyPress", () => {
     describe("Home", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "Home" });
 
             // Act
@@ -415,7 +415,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -423,7 +423,7 @@ describe("handleListKeyPress", () => {
     describe("End", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "End" });
 
             // Act
@@ -431,7 +431,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -439,7 +439,7 @@ describe("handleListKeyPress", () => {
     describe("Backspace", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "Backspace" });
 
             // Act
@@ -447,7 +447,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -455,7 +455,7 @@ describe("handleListKeyPress", () => {
     describe("Delete", () => {
         test("should return focus to the combobox without closing the list", () => {
             // Arrange
-            (combobox._list!.children[1] as HTMLElement).focus();
+            (combobox.list!.children[1] as HTMLElement).focus();
             const event = new KeyboardEvent("keyDown", { key: "Delete" });
 
             // Act
@@ -463,7 +463,7 @@ describe("handleListKeyPress", () => {
 
             // Assert
             setTimeout(() => {
-                expect(document.activeElement).toBe(combobox._input);
+                expect(document.activeElement).toBe(combobox.input);
             }, 100);
         });
     });
@@ -477,7 +477,7 @@ describe("handleListKeyPress", () => {
             handleListKeyPress.call(combobox, event);
 
             // Assert
-            expect(combobox._isAltModifierPressed).toBe(true);
+            expect(combobox.isAltModifierPressed).toBe(true);
         });
     });
 });
@@ -495,14 +495,14 @@ describe("handleKeyUp", () => {
             <li data-value="4">Item 4</li>
         </ul>`;
 
-        combobox._isAltModifierPressed = true;
+        combobox.isAltModifierPressed = true;
         const event = new KeyboardEvent("keyUp", { key: "Alt" });
 
         // Act
         handleKeyUp.call(combobox, event);
 
         // Assert
-        expect(combobox._isAltModifierPressed).toBe(false);
+        expect(combobox.isAltModifierPressed).toBe(false);
     });
 });
 
@@ -521,14 +521,14 @@ describe("hanldeBlur", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "true");
+        combobox.input!.setAttribute("aria-expanded", "true");
 
         // Act
         handleBlur.call(combobox);
 
         // Assert
         setTimeout(() => {
-            expect(combobox._input!.getAttribute("aria-expanded")).toBe("false");
+            expect(combobox.input!.getAttribute("aria-expanded")).toBe("false");
         }, 100);
     });
 
@@ -546,15 +546,15 @@ describe("hanldeBlur", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "true");
+        combobox.input!.setAttribute("aria-expanded", "true");
 
         // Act
-        combobox._list!.focus();
+        combobox.list!.focus();
         handleBlur.call(combobox);
 
         // Assert
         setTimeout(() => {
-            expect(combobox._input!.getAttribute("aria-expanded")).toBe("true");
+            expect(combobox.input!.getAttribute("aria-expanded")).toBe("true");
         }, 0);
     });
 
@@ -572,7 +572,7 @@ describe("hanldeBlur", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "true");
+        combobox.input!.setAttribute("aria-expanded", "true");
         combobox.setAttribute("force-value", "true");
 
         // Act
@@ -580,7 +580,7 @@ describe("hanldeBlur", () => {
 
         // Assert
         setTimeout(() => {
-            expect(combobox._input!.value).toBe("Item 1");
+            expect(combobox.input!.value).toBe("Item 1");
         }, 100);
     });
 
@@ -598,7 +598,7 @@ describe("hanldeBlur", () => {
 
         fetchInput.call(combobox);
         fetchList.call(combobox);
-        combobox._input!.setAttribute("aria-expanded", "true");
+        combobox.input!.setAttribute("aria-expanded", "true");
         combobox.setAttribute("force-value", "");
 
         // Act
@@ -606,7 +606,7 @@ describe("hanldeBlur", () => {
 
         // Assert
         setTimeout(() => {
-            expect(combobox._input!.value).toBe("");
+            expect(combobox.input!.value).toBe("");
         }, 100);
     });
 });

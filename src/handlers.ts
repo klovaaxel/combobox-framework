@@ -15,7 +15,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             // If the popup is available, moves focus into the popup: If the autocomplete behavior automatically selected a suggestion before Down Arrow was pressed, focus is placed on the suggestion following the automatically selected suggestion. Otherwise, places focus on the first focusable element in the popup.
             if (!isInputExpanded()) {
                 this.toggleList(true);
-                if (!this._isAltModifierPressed) this.focusItem(list.children[0] as HTMLElement);
+                if (!this.isAltModifierPressed) this.focusItem(list.children[0] as HTMLElement);
             } else {
                 this.focusItem(list.children[0] as HTMLElement);
             }
@@ -44,7 +44,7 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
             }
             break;
         case KeyCode.Alt:
-            this._isAltModifierPressed = true;
+            this.isAltModifierPressed = true;
             break;
     }
     // #endregion
@@ -77,7 +77,7 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
         }
         case KeyCode.ArrowUp: {
             // If alt is pressed, close the list and focus the input
-            if (this._isAltModifierPressed) {
+            if (this.isAltModifierPressed) {
                 input.focus();
                 this.toggleList(false);
                 event.preventDefault(); // prevent scrolling
@@ -116,7 +116,7 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             input.focus();
             break;
         case KeyCode.Alt:
-            this._isAltModifierPressed = true;
+            this.isAltModifierPressed = true;
             break;
         default:
             // If the key is not handled, return focus to the input
@@ -130,7 +130,7 @@ export function handleKeyUp(this: ComboboxFramework, event: KeyboardEvent): void
     // #region Handle the key press
     switch (event.key) {
         case "Alt":
-            this._isAltModifierPressed = false;
+            this.isAltModifierPressed = false;
             break;
     }
     // #endregion
