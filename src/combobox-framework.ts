@@ -110,6 +110,56 @@ export default class ComboboxFramework extends HTMLElement {
         item.setAttribute("aria-selected", "true");
     }
 
+    public selectItem(item: HTMLElement, grabFocus = true): void {
+        const input = fetchInput.call(this);
+
+        // #region Set the value of the input element
+        // If the item has a data-display attribute, use that as the value
+        if (item.dataset.display) input.value = item.dataset.display;
+        // Else If the element does not have any children or only has strong children, use the innerText as the value
+        else if (
+            item.children.length ||
+            Array.from(item.children).every((c) => c.nodeName === "STRONG")
+        )
+            input.value = item.innerText;
+        // Else If the element has a data-value attribute, use that as the value
+        else if (item.dataset.value) input.value = item.dataset.value;
+        // Else fallback to a empty string
+        else input.value = "";
+        // #endregion
+
+        if (item.dataset.value) this.dataset.value = item.dataset.value;
+        if (grabFocus) input.focus();
+        this.toggleList(false);
+        this.searchList(false, false);
+        this.sendChangeEvent();
+    }
+
+    public clearInput(grabFocus = true): void {
+        const input = fetchInput.call(this);
+
+        input.value = "";
+        if (grabFocus) input.focus();
+        this.toggleList(false);
+    }
+
+    public forceValue(): void {
+        if (!this.shouldForceValue) return;
+        if (this.dataset.value) return;
+        if (!this.input?.value) return;
+
+        const list = fetchList.call(this);
+
+        const bestMatch = list.children[0] as HTMLElement;
+        if (bestMatch) {
+            this.selectItem(bestMatch, false);
+        } else {
+            this.clearInput(false); // Clear the input
+            this.dataset.value = ""; // Clear the value
+            this.sendChangeEvent(); // Send a change event
+        }
+    }
+
     private addEventListeners(): void {
         const input = fetchInput.call(this);
 
@@ -263,62 +313,12 @@ export default class ComboboxFramework extends HTMLElement {
             item.removeAttribute("aria-selected");
     }
 
-    public selectItem(item: HTMLElement, grabFocus = true): void {
-        const input = fetchInput.call(this);
-
-        // #region Set the value of the input element
-        // If the item has a data-display attribute, use that as the value
-        if (item.dataset.display) input.value = item.dataset.display;
-        // Else If the element does not have any children or only has strong children, use the innerText as the value
-        else if (
-            item.children.length ||
-            Array.from(item.children).every((c) => c.nodeName === "STRONG")
-        )
-            input.value = item.innerText;
-        // Else If the element has a data-value attribute, use that as the value
-        else if (item.dataset.value) input.value = item.dataset.value;
-        // Else fallback to a empty string
-        else input.value = "";
-        // #endregion
-
-        if (item.dataset.value) this.dataset.value = item.dataset.value;
-        if (grabFocus) input.focus();
-        this.toggleList(false);
-        this.searchList(false, false);
-        this.sendChangeEvent();
-    }
-
     private selectItemByValue(value: string | null, grabFocus = true): void {
         if (!value) return;
         const list = fetchList.call(this);
         const item = list.querySelector(`[data-value="${value}"]`) as HTMLElement;
         if (!item) return;
         this.selectItem(item, grabFocus);
-    }
-
-    public clearInput(grabFocus = true): void {
-        const input = fetchInput.call(this);
-
-        input.value = "";
-        if (grabFocus) input.focus();
-        this.toggleList(false);
-    }
-
-    public forceValue(): void {
-        if (!this.shouldForceValue) return;
-        if (this.dataset.value) return;
-        if (!this.input?.value) return;
-
-        const list = fetchList.call(this);
-
-        const bestMatch = list.children[0] as HTMLElement;
-        if (bestMatch) {
-            this.selectItem(bestMatch, false);
-        } else {
-            this.clearInput(false); // Clear the input
-            this.dataset.value = ""; // Clear the value
-            this.sendChangeEvent(); // Send a change event
-        }
     }
 
     private sendChangeEvent(): void {
