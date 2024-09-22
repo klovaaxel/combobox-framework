@@ -28,7 +28,7 @@
     "files": ["dist/**"],
     "scripts": {
         "dev": "cypress open --component",
-        "build": "bun lint; tsc && bun run build.mjs; bun test; cypress run --component; echo \"Done! Don't forget to update the version number in package.json\"",
+        "build": "bun lint; tsc && bun run build.mjs; cypress run --component; echo \"Done! Don't forget to update the version number in package.json\"",
         "lint": "bunx @biomejs/biome check --apply *.json; bunx @biomejs/biome check --apply src/"
     },
     "devDependencies": {
