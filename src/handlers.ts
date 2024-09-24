@@ -47,7 +47,6 @@ export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardE
 }
 
 export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {
-    // #region Handle the key press
     const li = event.target as HTMLElement;
     switch (event.key) {
         case KeyCode.Enter:
@@ -83,11 +82,6 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
             event.preventDefault(); // prevent scrolling
             break;
         }
-        case KeyCode.ArrowRight:
-        case KeyCode.ArrowLeft:
-            // returns focus to the combobox without closing the popup
-            this.input?.focus();
-            break;
         case KeyCode.Alt:
             this.isAltModifierPressed = true;
             break;
@@ -95,22 +89,17 @@ export function handleListKeyPress(this: ComboboxFramework, event: KeyboardEvent
         case KeyCode.End:
         case KeyCode.Backspace:
         case KeyCode.Delete:
+        case KeyCode.ArrowRight:
+        case KeyCode.ArrowLeft:
         default:
             // Move focus back to the input
             this.input?.focus();
             break;
     }
-    // #endregion
 }
 
 export function handleKeyUp(this: ComboboxFramework, event: KeyboardEvent): void {
-    // #region Handle the key press
-    switch (event.key) {
-        case "Alt":
-            this.isAltModifierPressed = false;
-            break;
-    }
-    // #endregion
+    if (event.key === "Alt") this.isAltModifierPressed = false;
 }
 
 export function handleBlur(this: ComboboxFramework): void {
@@ -118,10 +107,7 @@ export function handleBlur(this: ComboboxFramework): void {
     setTimeout(() => {
         if (this.querySelector(":focus")) return;
 
-        // #region If forceValue is true, select the first item in the list
         this.forceValue();
-        // #endregion
-
         this.toggleList(false);
     }, 0);
 }
