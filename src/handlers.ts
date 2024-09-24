@@ -1,4 +1,4 @@
-import ComboboxFramework from "./combobox-framework";
+import type ComboboxFramework from "./combobox-framework";
 import { KeyCode } from "./helpers";
 
 export function handleComboBoxKeyPress(this: ComboboxFramework, event: KeyboardEvent): void {

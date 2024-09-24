@@ -1,4 +1,4 @@
-import Fuse, { FuseResult } from "fuse.js";
+import Fuse, { type FuseResult } from "fuse.js";
 import { handleBlur, handleComboBoxKeyPress, handleKeyUp, handleListKeyPress } from "./handlers";
 import { setBasicAttributes } from "./helpers";
 
@@ -6,7 +6,7 @@ export default class ComboboxFramework extends HTMLElement {
     public isAltModifierPressed = false;
     public shouldForceValue = false;
     public lastValue: string | undefined = undefined;
-    public limit: number = Infinity;
+    public limit: number = Number.POSITIVE_INFINITY;
 
     public get list(): HTMLElement | null {
         if (this._list) return this._list;
@@ -107,7 +107,7 @@ export default class ComboboxFramework extends HTMLElement {
                 else this.shouldForceValue = !!newValue;
                 break;
             case "data-limit":
-                this.limit = parseInt(newValue);
+                this.limit = Number.parseInt(newValue);
                 break;
         }
     }
