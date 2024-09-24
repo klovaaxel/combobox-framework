@@ -29,7 +29,7 @@
     "scripts": {
         "dev": "cypress open --component",
         "build": "bun lint; tsc && bun run build.mjs; cypress run --component; bun dev-tools/filesize.ts; echo \"Done! Don't forget to update the version number in package.json\"",
-        "lint": "bunx @biomejs/biome check --apply *.json; bunx @biomejs/biome check --apply src/"
+        "lint": "bunx biome lint --write *.json; bunx biome lint --write ./src"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.5.3",
