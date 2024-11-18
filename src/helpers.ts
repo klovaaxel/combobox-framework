@@ -1,4 +1,4 @@
-import ComboboxFramework from "./combobox-framework";
+import type ComboboxFramework from "./combobox-framework";
 
 export function setBasicAttributes(this: ComboboxFramework): void {
     // #region Set the ids of the input and list elements if they are not set
