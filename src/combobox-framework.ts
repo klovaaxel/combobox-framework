@@ -344,7 +344,13 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     private selectItemByValue(value: string | null, grabFocus = true): void {
-        if (!value) return;
+        if (!value) {
+            this.clearInput(false); // Clear the input
+            this.dataset.value = ""; // Clear the value
+            this.sendChangeEvent(); // Send a change event
+            return;
+        }
+
         const item = this.list?.querySelector(`[data-value="${value}"]`) as HTMLElement;
         if (!item) return;
         this.selectItem(item, grabFocus);
