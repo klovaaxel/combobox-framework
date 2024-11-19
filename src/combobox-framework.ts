@@ -12,7 +12,7 @@ export default class ComboboxFramework extends HTMLElement {
         if (this._list) return this._list;
         this._list = this.querySelector('[slot="list"] [data-list]') as HTMLElement;
         if (!this._list) this._list = this.querySelector('[slot="list"]') as HTMLElement;
-        if (!this._list) throw new Error("List element not found");
+        if (!this._list) return null;
 
         this._originalList ??= this._list.cloneNode(true) as HTMLElement;
         return this._list;
@@ -25,7 +25,7 @@ export default class ComboboxFramework extends HTMLElement {
     public get input(): HTMLInputElement | null {
         if (this._input) return this._input;
         const input = this.querySelector('[slot="input"]') as HTMLInputElement;
-        if (!input) throw new Error("Input element not found");
+        if (!input) return null;
         this._input = input;
 
         return this._input;
