@@ -38,7 +38,8 @@ export default class ComboboxFramework extends HTMLElement {
         // #region Handle the attribute change
         switch (name) {
             case "data-value":
-                this.selectItemByValue(newValue, false);
+                if (!newValue) this.clearInput(false);
+                else this.selectItemByValue(newValue, false);
                 break;
             case "data-fuse-options": {
                 // #region If the fuse object is not created, save the options and return
