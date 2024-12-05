@@ -381,5 +381,6 @@ export default class ComboboxFramework extends HTMLElement {
 }
 
 // #region Register the component
-customElements.define("combobox-framework", ComboboxFramework);
+if (!customElements.get("combobox-framework"))
+    customElements.define("combobox-framework", ComboboxFramework);
 // #endregion
