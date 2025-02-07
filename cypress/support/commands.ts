@@ -13,12 +13,12 @@
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 
-Cypress.Commands.add("pressKey", (val) => {
-    const element = document.activeElement ?? document;
-    element.dispatchEvent(new KeyboardEvent("keydown", { key: val }));
+Cypress.Commands.add('pressKey', (val) => {
+  const element = document.activeElement ?? document;
+  element.dispatchEvent(new KeyboardEvent('keydown', { key: val }));
 });
 
-Cypress.Commands.add("releaseKey", (val) => {
-    const element = document.activeElement ?? document;
-    element.dispatchEvent(new KeyboardEvent("keyup", { key: val }));
+Cypress.Commands.add('releaseKey', (val) => {
+  const element = document.activeElement ?? document;
+  element.dispatchEvent(new KeyboardEvent('keyup', { key: val }));
 });

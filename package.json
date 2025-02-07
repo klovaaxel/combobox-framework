@@ -25,14 +25,14 @@
         "type": "git",
         "url": "git+https://github.com/klovaaxel/combobox-framework.git"
     },
-    "files": ["dist/**"],
+    "files": [
+        "dist/**"
+    ],
     "scripts": {
         "dev": "cypress open --component",
-        "build": "bun lint; tsc && bun run build.mjs; cypress run --component; bun dev-tools/filesize.ts; echo \"Done! Don't forget to update the version number in package.json\"",
-        "lint": "bunx biome lint --write *.json; bunx biome lint --write ./src"
+        "build": "tsc && bun run build.mjs; cypress run --component; bun dev-tools/filesize.ts; echo \"Done! Don't forget to update the version number in package.json\""
     },
     "devDependencies": {
-        "@biomejs/biome": "^1.5.3",
         "@types/cypress": "^1.1.3",
         "bun-plugin-dts": "^0.2.1",
         "cypress": "^13.7.2",
