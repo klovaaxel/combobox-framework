@@ -44,6 +44,7 @@ export default class ComboboxFramework extends HTMLElement {
   public get listContainer(): HTMLElement | null {
     if (this._listContainer) return this._listContainer;
     this._listContainer = this.querySelector('[slot="list"]') as HTMLElement;
+    this.listContainer?.setAttribute('popover', 'manual'); // Make sure the list container is a popover
     return this._listContainer;
   }
 
