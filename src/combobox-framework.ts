@@ -61,20 +61,24 @@ export default class ComboboxFramework extends HTMLElement {
     private _originalList: HTMLElement | null = null;
 
     // #region Fuzzy search Fuse.js
-    public _fuse: Fuse<Element> | null = null;
+    public get fuse(): Fuse<Element> {
+        if (!this._fuse) this._fuse = this.initFuseObj();
+        return this._fuse;
+    }
+
     public _fuseOptions = {
         includeScore: true,
         keys: ["dataset.display", "dataset.value", "innerText"],
     };
+
+    private _fuse: Fuse<Element> | null = null;
     // #endregion
 
     private abortController = new AbortController();
     private initFuseObj = () => {
         if (!this.originalList) return new Fuse([], this._fuseOptions);
 
-        const elementArray = Array.from(
-            (this.originalList.cloneNode(true) as HTMLElement).children,
-        );
+        const elementArray = Array.from((this.originalList.cloneNode(true) as HTMLElement).children);
 
         return new Fuse(Array.from(elementArray), this._fuseOptions);
     };
@@ -118,7 +122,6 @@ export default class ComboboxFramework extends HTMLElement {
         setBasicAttributes.call(this);
 
         this.originalList;
-        this._fuse ??= this.initFuseObj.call(this);
 
         this.searchList();
         this.addEventListeners();
@@ -129,9 +132,7 @@ export default class ComboboxFramework extends HTMLElement {
         this.abortController.abort();
     }
 
-    public toggleList(
-        newValue: boolean = this.input?.getAttribute("aria-expanded") !== true.toString(),
-    ): void {
+    public toggleList(newValue: boolean = this.input?.getAttribute("aria-expanded") !== true.toString()): void {
         this.input?.setAttribute("aria-expanded", `${newValue}`);
         if (newValue) {
             this.listContainer?.showPopover();
@@ -155,8 +156,7 @@ export default class ComboboxFramework extends HTMLElement {
         // Else If the element does not have any children or only has strong children, use the innerText as the value
         else if (
             this.input &&
-            (item.children.length ||
-                Array.from(item.children).every((c) => c.nodeName === "STRONG"))
+            (item.children.length || Array.from(item.children).every((c) => c.nodeName === "STRONG"))
         )
             this.input.value = item.innerText;
         // Else If the element has a data-value attribute, use that as the value
@@ -240,10 +240,6 @@ export default class ComboboxFramework extends HTMLElement {
     private searchList(openList = true, clearValue = true): void {
         if (!this.input) return;
 
-        // #region Check if required variables are set
-        this._fuse ??= this.initFuseObj();
-        // #endregion
-
         // #region Clear the selected item
         if (clearValue) {
             this.dataset.value = "";
@@ -258,10 +254,8 @@ export default class ComboboxFramework extends HTMLElement {
                 ...Array.from((this.originalList!.cloneNode(true) as HTMLElement).children)
                     .slice(0, this.limit)
                     .sort(
-                        (a, b) =>
-                            Number((b as HTMLElement).dataset.weight) -
-                            Number((a as HTMLElement).dataset.weight),
-                    ),
+                        (a, b) => Number((b as HTMLElement).dataset.weight) - Number((a as HTMLElement).dataset.weight)
+                    )
             );
             this.addEventListenersToListItems();
             return;
@@ -269,7 +263,7 @@ export default class ComboboxFramework extends HTMLElement {
         // #endregion
 
         // #region Sort the list based on the weight of the items if they have a weight and a score
-        let searchedList = this._fuse.search(this.input.value).slice(0, this.limit);
+        let searchedList = this.fuse.search(this.input.value).slice(0, this.limit);
         searchedList = searchedList
             .map((i) => ({
                 item: i.item as HTMLElement,
@@ -339,8 +333,7 @@ export default class ComboboxFramework extends HTMLElement {
     }
 
     private unfocusAllItems(): void {
-        for (const item of this.list?.querySelectorAll("[aria-selected]") ?? [])
-            item.removeAttribute("aria-selected");
+        for (const item of this.list?.querySelectorAll("[aria-selected]") ?? []) item.removeAttribute("aria-selected");
     }
 
     private selectItemByValue(value: string | null, grabFocus = true): void {
