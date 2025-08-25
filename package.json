@@ -1,48 +1,48 @@
 {
-    "version": "1.4.5",
-    "name": "combobox-framework",
-    "description": "A framework for building comboboxes",
-    "keywords": [
-        "combobox",
-        "Web Component",
-        "ARIA",
-        "accessibility",
-        "autocomplete",
-        "Al11y",
-        "WCAG"
-    ],
-    "homepage": "https://github.com/klovaaxel/combobox-framework",
-    "bugs": {
-        "url": "https://github.com/klovaaxel/combobox-framework/issues",
-        "email": "klovakarlsson@gmail.com"
-    },
-    "license": "SEE LICENSE IN FILE",
-    "author": "klovaaxel",
-    "browser": "dist/combobox-framework.js",
-    "types": "dist/combobox-framework.d.ts",
-    "type": "module",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/klovaaxel/combobox-framework.git"
-    },
-    "files": [
-        "dist/**"
-    ],
-    "scripts": {
-        "dev": "cypress open --component",
-        "build": "tsc && bun run build.mjs; cypress run --component; bun dev-tools/filesize.ts; echo \"Done! Don't forget to update the version number in package.json\""
-    },
-    "devDependencies": {
-        "@types/cypress": "^1.1.3",
-        "bun-plugin-dts": "^0.2.1",
-        "cypress": "^13.7.2",
-        "cypress-ct-html": "^1.1.0",
-        "fs": "^0.0.1-security",
-        "path": "^0.12.7",
-        "typescript": "^5.2.2",
-        "vite": "^5.2.8"
-    },
-    "dependencies": {
-        "fuse.js": "^7.0.0"
-    }
+  "version": "1.4.6",
+  "name": "combobox-framework",
+  "description": "A framework for building comboboxes",
+  "keywords": [
+    "combobox",
+    "Web Component",
+    "ARIA",
+    "accessibility",
+    "autocomplete",
+    "Al11y",
+    "WCAG"
+  ],
+  "homepage": "https://github.com/klovaaxel/combobox-framework",
+  "bugs": {
+    "url": "https://github.com/klovaaxel/combobox-framework/issues",
+    "email": "klovakarlsson@gmail.com"
+  },
+  "license": "SEE LICENSE IN FILE",
+  "author": "klovaaxel",
+  "browser": "dist/combobox-framework.js",
+  "types": "dist/combobox-framework.d.ts",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klovaaxel/combobox-framework.git"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "cypress open --component",
+    "build": "tsc && bun run build.mjs; cypress run --component; bun dev-tools/filesize.ts; echo \"Done! Don't forget to update the version number in package.json\""
+  },
+  "devDependencies": {
+    "@types/cypress": "^1.1.3",
+    "bun-plugin-dts": "^0.2.1",
+    "cypress": "^13.7.2",
+    "cypress-ct-html": "^1.1.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.8"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
 }
