@@ -382,7 +382,7 @@ export default class ComboboxFramework extends HTMLElement {
       return;
     }
 
-    const item = this.list?.querySelector(
+    const item = this.originalList?.querySelector(
       `[data-value="${value}"]`
     ) as HTMLElement;
     if (!item) return;
